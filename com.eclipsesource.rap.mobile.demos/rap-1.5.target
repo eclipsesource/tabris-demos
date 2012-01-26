@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?>
 
-<target name="RAP 1.5 milestones" sequenceNumber="4">
+<target name="RAP 1.5 milestones" sequenceNumber="10">
 <locations>
 <location includeAllPlatforms="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.rap.runtime.requirements.feature.group" version="1.5.0.20111108-1028"/>
-<unit id="org.eclipse.rap.runtime.feature.group" version="1.5.0.20111108-1028"/>
-<repository location="http://download.eclipse.org/rt/rap/1.5/runtime"/>
+<unit id="org.eclipse.rap.runtime.requirements.feature.group" version="1.5.0.20120126-0223"/>
+<unit id="org.eclipse.rap.runtime.feature.group" version="1.5.0.20120126-0223"/>
+<repository location="http://download.eclipse.org/rt/rap/nightly/runtime/"/>
 </location>
 </locations>
 </target>

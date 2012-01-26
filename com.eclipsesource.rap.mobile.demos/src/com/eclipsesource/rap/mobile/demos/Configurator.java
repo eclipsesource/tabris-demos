@@ -20,7 +20,8 @@ import com.eclipsesource.rap.mobile.demos.entrypoints.InputControlsDemp;
 
 public class Configurator implements ApplicationConfigurator {
 
-  private static final String THEME_PATH = "theme/ios.css";
+  private static final String THEME_PATH_IOS = "theme/ios.css";
+  private static final String THEME_PATH_ANDROID = "theme/theme-android-holo.css";
 
   public void configure( ApplicationConfiguration configuration ) {
     addApplication( configuration, "input", InputControlsDemp.class );
@@ -31,8 +32,11 @@ public class Configurator implements ApplicationConfigurator {
                                String id, 
                                Class<? extends IEntryPoint> type ) 
   {
-    configuration.addEntryPoint( id, type );
-    configuration.addStyleSheet( id, THEME_PATH );
-    configuration.addBranding( new Branding( id ) );
+//    configuration.addEntryPoint( id + "-ios", type );
+//    configuration.addStyleSheet( id + "-ios", THEME_PATH_IOS );
+//    configuration.addBranding( new Branding( id + "-ios" ) );
+    configuration.addEntryPoint( id + "-android", type );
+    configuration.addStyleSheet( "org.eclipse.rap.rwt.theme.Default", THEME_PATH_ANDROID );
+    configuration.addBranding( new Branding( id + "-android" ) );
   }
 }

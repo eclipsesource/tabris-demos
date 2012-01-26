@@ -149,6 +149,7 @@ public class InputControlsDemp implements IEntryPoint {
     buttonParent.setLayout( ExampleUtil.createGridLayout( 1, true, 10, 10 ) );
     Button button = new Button( buttonParent, SWT.PUSH );
     button.setBackground( display.getSystemColor( SWT.COLOR_DARK_RED ) );
+    button.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
     button.setText( "Place Reservation" );
     button.setLayoutData( new GridData( SWT.FILL, SWT.BOTTOM, true, true ) );
     
