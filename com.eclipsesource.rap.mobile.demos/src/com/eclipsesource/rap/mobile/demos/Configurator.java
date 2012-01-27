@@ -15,18 +15,22 @@ import org.eclipse.rwt.application.ApplicationConfiguration.OperationMode;
 import org.eclipse.rwt.application.ApplicationConfigurator;
 import org.eclipse.rwt.lifecycle.IEntryPoint;
 
-import com.eclipsesource.rap.mobile.demos.entrypoints.ButtonControlsDemp;
-import com.eclipsesource.rap.mobile.demos.entrypoints.InputControlsDemp;
+import com.eclipsesource.rap.mobile.demos.entrypoints.ButtonControlsDemo;
+import com.eclipsesource.rap.mobile.demos.entrypoints.InputControlsDemo;
+import com.eclipsesource.rap.mobile.demos.entrypoints.VirtualTreeDemo;
 
 
 public class Configurator implements ApplicationConfigurator {
 
+  private static final String DEFAULT_THEME_ID = "org.eclipse.rap.rwt.theme.Default";
+  private static final String IOS_THEME_ID = "org.eclipse.rap.rwt.theme.ios";
   private static final String THEME_PATH_IOS = "theme/ios.css";
   private static final String THEME_PATH_ANDROID = "theme/theme-android-holo.css";
 
   public void configure( ApplicationConfiguration configuration ) {
-    addApplication( configuration, "input", InputControlsDemp.class );
-    addApplication( configuration, "buttons", ButtonControlsDemp.class );
+    addApplication( configuration, "input", InputControlsDemo.class );
+    addApplication( configuration, "buttons", ButtonControlsDemo.class );
+    addApplication( configuration, "tree", VirtualTreeDemo.class );
   }
 
   public void addApplication( ApplicationConfiguration configuration, 
@@ -35,10 +39,10 @@ public class Configurator implements ApplicationConfigurator {
   {
     configuration.setOperationMode( OperationMode.JEE_COMPATIBILITY );
     configuration.addEntryPoint( id, type );
-    configuration.addStyleSheet( "org.eclipse.rap.rwt.theme.Default", THEME_PATH_ANDROID );
-    configuration.addStyleSheet( "org.eclipse.rap.rwt.theme.ios", THEME_PATH_IOS );
+    configuration.addStyleSheet( DEFAULT_THEME_ID, THEME_PATH_ANDROID );
+    configuration.addStyleSheet( IOS_THEME_ID, THEME_PATH_IOS );
     configuration.addBranding( new Branding( id + "-randy" ) );
-    configuration.addBranding( new Branding( id + "-rios", "org.eclipse.rap.rwt.theme.ios" ) );
+    configuration.addBranding( new Branding( id + "-rios", IOS_THEME_ID ) );
   }
 
 }

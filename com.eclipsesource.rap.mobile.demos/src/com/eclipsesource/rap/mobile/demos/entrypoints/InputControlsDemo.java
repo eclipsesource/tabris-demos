@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Text;
 import com.eclipsesource.rap.mobile.demos.ExampleUtil;
 
 
-public class InputControlsDemp implements IEntryPoint {
+public class InputControlsDemo implements IEntryPoint {
 
   private Text firstNameField;
   private Text lastNameField;

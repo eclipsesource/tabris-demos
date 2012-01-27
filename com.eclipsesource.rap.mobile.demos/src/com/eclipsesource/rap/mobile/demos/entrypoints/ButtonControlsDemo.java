@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Shell;
 import com.eclipsesource.rap.mobile.demos.ExampleUtil;
 
 
-public class ButtonControlsDemp implements IEntryPoint {
+public class ButtonControlsDemo implements IEntryPoint {
 
   private Label sideLable;
 

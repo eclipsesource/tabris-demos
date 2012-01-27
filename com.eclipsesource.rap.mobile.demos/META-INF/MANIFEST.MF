@@ -7,4 +7,5 @@ Bundle-Activator: com.eclipsesource.rap.mobile.demos.Activator
 Bundle-Vendor: EclipseSource
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.osgi.framework;version="1.3.0"
-Require-Bundle: org.eclipse.rap.rwt;bundle-version="1.5.0"
+Require-Bundle: org.eclipse.rap.rwt;bundle-version="1.5.0",
+ org.eclipse.rap.jface;bundle-version="1.5.0"
