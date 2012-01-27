@@ -19,7 +19,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
@@ -27,6 +26,8 @@ import com.eclipsesource.rap.mobile.demos.ExampleUtil;
 
 
 public class ButtonControlsDemp implements IEntryPoint {
+
+  private Label sideLable;
 
   public int createUI() {
     Display display = new Display();
@@ -50,15 +51,16 @@ public class ButtonControlsDemp implements IEntryPoint {
     layoutData.heightHint = 35;
 
     createWinterSummerButtons( display, parent, layoutData );
-    
-
     createDirectionButtons( display, parent, layoutData );
-    
+    createCheckButton( display, parent );
+  }
+
+  private void createCheckButton( Display display, Composite parent ) {
     Composite container2 = new Composite( parent, SWT.NONE );
     GridData container2Data = new GridData( SWT.FILL, SWT.FILL, true, false );
     container2Data.horizontalSpan = 2;
     container2.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    container2.setBackground( display.getSystemColor( SWT.COLOR_GREEN ) );
+    container2.setBackground( display.getSystemColor( SWT.COLOR_DARK_GREEN ) );
     container2.setLayoutData( container2Data );
     container2.setLayout( ExampleUtil.createGridLayout( 1, true, 15, 5 ) );
     
@@ -79,8 +81,9 @@ public class ButtonControlsDemp implements IEntryPoint {
   }
 
   private void createDirectionButtons( Display display, Composite parent, GridData layoutData ) {
-    Group container = new Group( parent, SWT.NONE );
+    Composite container = new Composite( parent, SWT.NONE );
     container.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
+    container.setBackground( display.getSystemColor( SWT.COLOR_WHITE ) );
     GridData gridData = new GridData( SWT.FILL, SWT.FILL, true, false );
     gridData.horizontalSpan = 2;
     container.setLayoutData( gridData );
@@ -95,23 +98,25 @@ public class ButtonControlsDemp implements IEntryPoint {
     Button westButton = new Button( container, SWT.RADIO );
     westButton.setText( "West" );
     
-    final Label sideLable = new Label( parent, SWT.NONE );
+    sideLable = new Label( parent, SWT.NONE );
     sideLable.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
     sideLable.setLayoutData( layoutData );
     
+    addSelectionListener( northButton );
+    addSelectionListener( eastButton );
+    addSelectionListener( southButton );
+    addSelectionListener( westButton );
+  }
+
+  private void addSelectionListener( Button button ) {
     SelectionAdapter selectionAdapter = new SelectionAdapter() {
-      
       @Override
       public void widgetSelected( SelectionEvent e ) {
         Button widget = ( Button )e.widget;
         sideLable.setText( "Arrh, a man from the " + widget.getText() );
       }
     };
-    
-    northButton.addSelectionListener( selectionAdapter );
-    eastButton.addSelectionListener( selectionAdapter );
-    southButton.addSelectionListener( selectionAdapter );
-    westButton.addSelectionListener( selectionAdapter );
+    button.addSelectionListener( selectionAdapter );
   }
 
   private void createWinterSummerButtons( Display display, Composite parent, GridData layoutData ) {

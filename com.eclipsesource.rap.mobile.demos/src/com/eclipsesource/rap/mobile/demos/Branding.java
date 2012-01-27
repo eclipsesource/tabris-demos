@@ -16,9 +16,15 @@ import org.eclipse.rwt.branding.AbstractBranding;
 public class Branding extends AbstractBranding {
   
   private final String id;
+  private String themeId;
 
   public Branding( String id ) {
     this.id = id;
+  }
+  
+  public Branding( String id, String themeId ) {
+    this( id );
+    this.themeId = themeId;
   }
   
   @Override
@@ -28,7 +34,11 @@ public class Branding extends AbstractBranding {
   
   @Override
   public String getThemeId() {
-    return id;
+    String result = "org.eclipse.rap.rwt.theme.Default";
+    if( themeId != null ) {
+      result = themeId;
+    }
+    return result;
   }
   
   @Override

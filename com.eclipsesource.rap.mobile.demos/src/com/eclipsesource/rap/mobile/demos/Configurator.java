@@ -11,6 +11,7 @@
 package com.eclipsesource.rap.mobile.demos;
 
 import org.eclipse.rwt.application.ApplicationConfiguration;
+import org.eclipse.rwt.application.ApplicationConfiguration.OperationMode;
 import org.eclipse.rwt.application.ApplicationConfigurator;
 import org.eclipse.rwt.lifecycle.IEntryPoint;
 
@@ -28,15 +29,16 @@ public class Configurator implements ApplicationConfigurator {
     addApplication( configuration, "buttons", ButtonControlsDemp.class );
   }
 
-  private void addApplication( ApplicationConfiguration configuration, 
-                               String id, 
-                               Class<? extends IEntryPoint> type ) 
+  public void addApplication( ApplicationConfiguration configuration, 
+                              String id, 
+                              Class<? extends IEntryPoint> type  ) 
   {
-//    configuration.addEntryPoint( id + "-ios", type );
-//    configuration.addStyleSheet( id + "-ios", THEME_PATH_IOS );
-//    configuration.addBranding( new Branding( id + "-ios" ) );
-    configuration.addEntryPoint( id + "-android", type );
+    configuration.setOperationMode( OperationMode.JEE_COMPATIBILITY );
+    configuration.addEntryPoint( id, type );
     configuration.addStyleSheet( "org.eclipse.rap.rwt.theme.Default", THEME_PATH_ANDROID );
-    configuration.addBranding( new Branding( id + "-android" ) );
+    configuration.addStyleSheet( "org.eclipse.rap.rwt.theme.ios", THEME_PATH_IOS );
+    configuration.addBranding( new Branding( id + "-randy" ) );
+    configuration.addBranding( new Branding( id + "-rios", "org.eclipse.rap.rwt.theme.ios" ) );
   }
+
 }
