@@ -1,5 +1,5 @@
 Label {
-  font: 14px Helvetica, Arial, Verdana, "Lucida Sans", sans-serif;
+  font: 16px Helvetica, Arial, Verdana, "Lucida Sans", sans-serif;
 }
 
 Label[BORDER] {
@@ -12,7 +12,7 @@ Shell {
 }
 
 Button {
-  font: 18px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+  font: 16px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
 }
 
 Button[PUSH],
@@ -27,13 +27,12 @@ Button[TOGGLE] {
 
 Button[CHECK], 
 Button[RADIO] {
-  font: 14px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
   padding: 0px;
   spacing: 7px;
 }
 
 Text {
-  font: 14px Helvetica, Arial, Verdana, "Lucida Sans", sans-serif;
+  font: 16px Helvetica, Arial, Verdana, "Lucida Sans", sans-serif;
   padding: 7px 12px 8px 12px;
 }
 
@@ -42,7 +41,21 @@ Link,Link-Hyperlink {
 }
 
 Combo {
-  font: 25px Helvetica, Arial, Verdana, "Lucida Sans", sans-serif;
+ font: 16px Helvetica, Arial, Verdana, "Lucida Sans", sans-serif;
+ border: 0px;
+}
+
+Combo-Field {
+  padding: 12px 4px 12px 4px;
+}
+
+DateTime {
+  font: 16px Helvetica, Arial, Verdana, "Lucida Sans", sans-serif;
+  border: 0px;
+}
+
+DateTime-Field {
+  padding: 12px 4px 12px 4px;
 }
 
 ScrollBar {

@@ -27,7 +27,6 @@ public class VirtualTreeDemo implements IEntryPoint {
     Shell shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized(true);
     shell.setLayout( new FillLayout() );
-    shell.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
     createContent( display, shell );
     shell.open();
     shell.setVisible(true);    

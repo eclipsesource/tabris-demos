@@ -139,6 +139,7 @@ public class InputControlsDemo implements IEntryPoint {
   private void createVegetarianCheckbox( Composite parent ) {
     new Label( parent, SWT.NONE );
     vegetarianCheckbox = new Button( parent, SWT.CHECK );
+    vegetarianCheckbox.setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
     vegetarianCheckbox.setText( "Vegetarian" );
     vegetarianCheckbox.setSelection( true );
   }
