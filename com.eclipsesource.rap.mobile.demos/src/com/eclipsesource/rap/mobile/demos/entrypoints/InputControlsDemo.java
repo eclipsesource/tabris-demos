@@ -69,6 +69,7 @@ public class InputControlsDemo implements IEntryPoint {
     layoutData.heightHint = 40;
     labelParent.setLayoutData( layoutData );
     labelParent.setBackground( display.getSystemColor( SWT.COLOR_DARK_GREEN ) );
+    label.setBackground( display.getSystemColor( SWT.COLOR_DARK_GREEN ) );
     label.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
     label.setText( "Oceanic Flight 815 Reservation" );
   }
