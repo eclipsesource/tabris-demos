@@ -57,7 +57,6 @@ public final class ExampleUtil {
     result.verticalSpacing = 0;
     result.marginWidth = 0;
     result.marginHeight = 0;
-    result.marginHeight = 0;
     return result;
   }
 

@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ILazyTreeContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -31,22 +32,21 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 
 import com.eclipsesource.rap.mobile.demos.enron.EnronDataset.Folder;
 import com.eclipsesource.rap.mobile.demos.enron.EnronDataset.Node;
 
-
 public class EnronExample {
 
-  private static final String DEFAULT_DATASET_DIR = "/Users/holger/Downloads/enron_mail_20110402/maildir";
+  private static final String DEFAULT_DATASET_DIR = "/Users/jordi/enron_mail_20110402/maildir";
+//  private static final String DEFAULT_DATASET_DIR = "/Users/holger/Downloads/enron_mail_20110402/maildir";
   private static final String DATASET_DIR_PROP = "org.eclipse.rap.demo.enronDatasetDirectory";
-
   private TreeViewer viewer;
   private Composite parent;
 
@@ -58,15 +58,16 @@ public class EnronExample {
   private void createTreeArea( Composite parent ) {
     Composite composite = new Composite( parent, SWT.NONE );
     GridLayout layout = ExampleUtil.createGridLayout();
-    layout.marginRight = 2;
     composite.setLayout( layout );
-    viewer = new TreeViewer( composite, SWT.SINGLE | SWT.VIRTUAL | SWT.BORDER );
+
+    viewer = new TreeViewer( composite, SWT.SINGLE | SWT.VIRTUAL );
+    viewer.getTree().setToolTipText( "Enron Mailbox" );
     viewer.getControl().setLayoutData( ExampleUtil.createFillData() );
     viewer.setLabelProvider( new EnronLabelProvider( parent.getDisplay() ) );
     viewer.setContentProvider( new EnronLazyContentProvider( viewer ) );
     viewer.setInput( getDataSet() );
     viewer.addSelectionChangedListener( new ISelectionChangedListener() {
-      
+
       public void selectionChanged( SelectionChangedEvent event ) {
         IStructuredSelection selection = ( IStructuredSelection )event.getSelection();
         Object firstElement = selection.getFirstElement();
@@ -83,9 +84,9 @@ public class EnronExample {
         try {
           Mail mail = new Mail( selectedNode.readContents() );
           Shell mailShell = new Shell( parent.getDisplay(), SWT.NO_TRIM );
+          mailShell.setMaximized( true );
           mailShell.setLayout( new FillLayout() );
           createContentArea( mailShell, mail );
-          mailShell.setMaximized( true );
           mailShell.open();
         } catch( IOException exception ) {
           throw new RuntimeException( "Failed to read contents from node", exception );
@@ -95,29 +96,29 @@ public class EnronExample {
   }
 
   private void createContentArea( Composite parent, Mail mail ) {
-    final Composite composite = new Composite( parent, SWT.BORDER );
+    final Composite composite = new Composite( parent, SWT.NONE );
     GridLayout layout = ExampleUtil.createGridLayout();
-    createHeader( composite );
-    layout.marginLeft = 2;
     composite.setLayout( layout );
+    createCloseButtonToolbar(composite);
     createMailHeaderArea( composite, mail );
     createMailContentArea( composite, mail );
   }
 
-  private void createHeader( final Composite composite ) {
-    Composite header = new Composite( composite, SWT.NONE );
-    header.setLayout( new RowLayout( SWT.HORIZONTAL ) );
-    Button closeButton = new Button( header, SWT.PUSH );
-    closeButton.setText( "done" );
-    closeButton.setForeground( header.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
-    closeButton.setBackground( header.getDisplay().getSystemColor( SWT.COLOR_RED ) );
-    closeButton.addSelectionListener( new SelectionAdapter() {
-      public void widgetSelected( SelectionEvent e ) {
-        composite.getShell().dispose();
-      }
-    } );
-  }
+  private void createCloseButtonToolbar(final Composite parent) {
+    final ToolBar toolBar = new ToolBar(parent, SWT.NONE);
+    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).grab(true, false).applyTo(toolBar);
+    new ToolItem(toolBar, SWT.SEPARATOR);
+    ToolItem closeToolItem = new ToolItem(toolBar, SWT.PUSH);
+    closeToolItem.setText("Close");
+    closeToolItem.addSelectionListener(new SelectionAdapter() {
 
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        parent.getShell().close();
+      }
+    });
+  }
+  
   private void createMailHeaderArea( Composite parent, Mail mail ) {
     Composite header = new Composite( parent, SWT.NONE );
     header.setLayoutData( ExampleUtil.createHorzFillData() );
@@ -232,13 +233,13 @@ public class EnronExample {
         switch( columnIndex ) {
           case COLUMN_NAME:
             updateName( cell, node );
-            break;
+          break;
           case COLUMN_TIMEZONE:
             updateName( cell, node );
-            break;
+          break;
           case COLUMN_OFFSET:
             updateName( cell, node );
-            break;
+          break;
         }
       }
     }
@@ -255,7 +256,9 @@ public class EnronExample {
 
     private void updateName( ViewerCell cell, Node node ) {
       cell.setText( node.getTitle() );
-      cell.setImage( node instanceof Folder ? folderImage : fileImage );
+      cell.setImage( node instanceof Folder
+                                           ? folderImage
+                                           : fileImage );
     }
 
     private static Image createImage( Device device, String name ) {
@@ -268,7 +271,6 @@ public class EnronExample {
       return result;
     }
   }
-
   private static class EnronLazyContentProvider implements ILazyTreeContentProvider {
 
     private final TreeViewer viewer;
@@ -301,7 +303,7 @@ public class EnronExample {
         Node node = ( Node )element;
         int childCount = node.getChildCount();
         if( childCount != currentChildCount ) {
-            viewer.setChildCount( element, childCount );
+          viewer.setChildCount( element, childCount );
         }
       }
     }

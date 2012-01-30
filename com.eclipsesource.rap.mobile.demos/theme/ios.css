@@ -31,6 +31,10 @@ Shell {
   border: none;
 }
 
+Tree[BORDER] {
+  border: none;
+}
+
 Button[PUSH],Button[FLAT] {
   font: 18px bold Helvetica, Arial, Verdana, "Lucida Sans", sans-serif;
 }
@@ -82,11 +86,11 @@ TabFolder {
 }
 
 TabItem {
-  padding: 17px 0px 14px 0px;
+ padding: 17px 0px 14px 0px;
 }
 
 TabItem:selected {
-  padding: 17px 0px 14px 0px;
+ padding: 17px 0px 14px 0px;
 }
 
 ToolItem {
