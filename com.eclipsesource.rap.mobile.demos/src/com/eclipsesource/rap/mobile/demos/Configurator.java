@@ -29,6 +29,7 @@ public class Configurator implements ApplicationConfigurator {
   private static final String THEME_PATH_ANDROID = "theme/theme-android-holo.css";
 
   public void configure( ApplicationConfiguration configuration ) {
+    setUp( configuration );
     addApplication( configuration, "input", InputControlsDemo.class );
     addApplication( configuration, "buttons", ButtonControlsDemo.class );
     addApplication( configuration, "virtual-tree", VirtualTreeDemo.class );
@@ -41,10 +42,13 @@ public class Configurator implements ApplicationConfigurator {
   {
     configuration.setOperationMode( OperationMode.JEE_COMPATIBILITY );
     configuration.addEntryPoint( id, type );
+  }
+  
+  private void setUp( ApplicationConfiguration configuration ) {
     configuration.addStyleSheet( DEFAULT_THEME_ID, THEME_PATH_ANDROID );
     configuration.addStyleSheet( IOS_THEME_ID, THEME_PATH_IOS );
-    configuration.addBranding( new Branding( id + "-randy" ) );
-    configuration.addBranding( new Branding( id + "-rios", IOS_THEME_ID ) );
+    configuration.addBranding( new Branding( "ios" ) );
+    configuration.addBranding( new Branding( "android", IOS_THEME_ID ) );
   }
 
 }
