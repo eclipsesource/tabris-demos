@@ -6,14 +6,15 @@ This repository contains a single Eclipse project that is used within the [RAP m
 iOS:
 
 * http://SERVER:9090/ios?startup=input
-* http://SERVER:9090/buttons-rios?startup=buttons
-* http://SERVER:9090/simple-tree-rios?startup=simple-tree
+* http://SERVER:9090/ios?startup=buttons
+* http://SERVER:9090/ios?startup=simple-tree
+* http://SERVER:9090/ios?startup=virtual-tree
 
 Android:
 
-* http://SERVER:9090/input-randy?startup=input
-* http://SERVER:9090/buttons-randy?startup=buttons
-* http://SERVER:9090/simple-tree-randy?startup=simple-tree
+* http://SERVER:9090/android?startup=input
+* http://SERVER:9090/android?startup=buttons
+* http://SERVER:9090/android?startup=simple-tree
 
 Please replace SERVER with your ip address.
 
