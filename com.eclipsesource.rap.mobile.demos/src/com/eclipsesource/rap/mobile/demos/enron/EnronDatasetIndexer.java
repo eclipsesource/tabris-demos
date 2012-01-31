@@ -74,9 +74,10 @@ class EnronDatasetIndexer {
           count( child );
           if( child.isDirectory() ) {
             int childCount = index( child );
-            list.add( new FileEntry( child.getName(), child.getName(), 'd', childCount ) );
+            list.add( new FileEntry( child.getName(), child.getName(), child.getName(), 'd', childCount ) );
           } else {
-            list.add( new FileEntry( child.getName(), getDisplayName( child ), 'f', 0 ) );
+            String[] displayTexts = getDisplayTexts( child );
+            list.add( new FileEntry( child.getName(), displayTexts[ 0 ], displayTexts[ 1 ], 'f', 0 ) );
           }
         }
       }
@@ -85,24 +86,38 @@ class EnronDatasetIndexer {
     return count;
   }
 
-  private String getDisplayName( File child ) {
-    String result = "";
+  private String[] getDisplayTexts( File child ) {
+    String[] result = new String[] { "[No Subject]", "[Unknown]" };
     try {
-      
       FileReader reader = new FileReader( child );
       BufferedReader bufferedReader = new BufferedReader( reader );
       String line;
       String subject = "Subject: ";
-      while( ( line = bufferedReader.readLine() ) != null && result.equals( "" ) ) {
+      String from = "From: ";
+      boolean fromFound = false;
+      boolean subjectFound = false;
+      while( ( line = bufferedReader.readLine() ) != null && ( !fromFound || !subjectFound ) ) {
         int indexOfSubject = line.indexOf( subject );
         if( indexOfSubject != -1 ) {
-          result = line.substring( indexOfSubject + subject.length(), line.length() );
+          subjectFound = true;
+          String subjectText = line.substring( indexOfSubject + subject.length(), line.length() );
+          if( !"".equals( subjectText ) ) {
+            result[ 0 ] = subjectText;
+          }
+        }
+        int indexOfFrom = line.indexOf( from );
+        if( indexOfFrom != -1 ) {
+          fromFound = true;
+          String fromText = line.substring( indexOfFrom + from.length(), line.length() );
+          if( !"".equals( fromText ) ) {
+            result[ 1 ] = fromText;
+          }
         }
       }
     } catch ( IOException e ) {
-      result = "[No Subject]"; 
+       // do nothing
     }
-    return result.equals( "" ) ? "[No Subject]" : result;
+    return result;
   }
   
   private void count( File file ) {
@@ -156,7 +171,9 @@ class EnronDatasetIndexer {
       buffer.append( "\t" );
       buffer.append( file.name );
       buffer.append( "\t" );
-      buffer.append( file.displayName );
+      buffer.append( file.subject );
+      buffer.append( "\t" );
+      buffer.append( file.from );
       buffer.append( "\t" );
       buffer.append( file.count );
       buffer.append( "\n" );
@@ -196,11 +213,13 @@ class EnronDatasetIndexer {
     final String name;
     final int count;
     final char type;
-    final String displayName;
+    final String subject;
+    final String from;
     
-    FileEntry( String name, String displayName, char type, int count ) {
+    FileEntry( String name, String subject, String from, char type, int count ) {
       this.name = name;
-      this.displayName = displayName;
+      this.subject = subject;
+      this.from = from;
       this.count = count;
       this.type = type;
     }

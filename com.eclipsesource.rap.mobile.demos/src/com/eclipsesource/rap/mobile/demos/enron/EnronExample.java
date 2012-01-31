@@ -38,14 +38,15 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.TreeColumn;
 
 import com.eclipsesource.rap.mobile.demos.enron.EnronDataset.Folder;
 import com.eclipsesource.rap.mobile.demos.enron.EnronDataset.Node;
 
 public class EnronExample {
 
-  private static final String DEFAULT_DATASET_DIR = "/Users/jordi/enron_mail_20110402/maildir";
-//  private static final String DEFAULT_DATASET_DIR = "/Users/holger/Downloads/enron_mail_20110402/maildir";
+//  private static final String DEFAULT_DATASET_DIR = "/Users/jordi/enron_mail_20110402/maildir";
+  private static final String DEFAULT_DATASET_DIR = "/Users/holger/Downloads/enron_mail_20110402/maildir";
   private static final String DATASET_DIR_PROP = "org.eclipse.rap.demo.enronDatasetDirectory";
   private TreeViewer viewer;
   private Composite parent;
@@ -61,6 +62,10 @@ public class EnronExample {
     composite.setLayout( layout );
 
     viewer = new TreeViewer( composite, SWT.SINGLE | SWT.VIRTUAL );
+    TreeColumn treeColumn = new TreeColumn( viewer.getTree(), SWT.NONE );
+    treeColumn.setWidth( 200 );
+    TreeColumn treeColumn2 = new TreeColumn( viewer.getTree(), SWT.NONE );
+    treeColumn2.setWidth( 200 );
     viewer.getTree().setToolTipText( "Enron Mailbox" );
     viewer.getControl().setLayoutData( ExampleUtil.createFillData() );
     viewer.setLabelProvider( new EnronLabelProvider( parent.getDisplay() ) );
@@ -84,6 +89,7 @@ public class EnronExample {
         try {
           Mail mail = new Mail( selectedNode.readContents() );
           Shell mailShell = new Shell( parent.getDisplay(), SWT.NO_TRIM );
+          mailShell.setBackground( mailShell.getDisplay().getSystemColor( SWT.COLOR_DARK_GRAY ) );
           mailShell.setMaximized( true );
           mailShell.setLayout( new FillLayout() );
           createContentArea( mailShell, mail );
@@ -126,24 +132,24 @@ public class EnronExample {
     headerLayout.horizontalSpacing = 5;
     headerLayout.verticalSpacing = 5;
     header.setLayout( headerLayout );
-    Color black = parent.getDisplay().getSystemColor(SWT.COLOR_BLACK);
+    Color foreground = parent.getDisplay().getSystemColor(SWT.COLOR_WHITE);
     Label senderLabel = new Label( header, SWT.NONE );
-    senderLabel.setForeground(black);
+    senderLabel.setForeground(foreground);
     senderLabel.setText( "From:" );
     senderLabel.setLayoutData( new GridData( SWT.BEGINNING, SWT.CENTER, false, false ) );
     Text senderText = new Text( header, SWT.SINGLE | SWT.READ_ONLY );
     senderText.setText( mail.sender );
-    senderText.setForeground(black);
+    senderText.setForeground(foreground);
     GridData senderTextData = ExampleUtil.createHorzFillData();
     senderTextData.horizontalIndent = 2;
     senderText.setLayoutData( senderTextData );
     Label subjectLabel = new Label( header, SWT.NONE );
-    subjectLabel.setForeground(black);
+    subjectLabel.setForeground(foreground);
     subjectLabel.setText( "Subject:" );
     subjectLabel.setLayoutData( new GridData( SWT.BEGINNING, SWT.CENTER, false, false ) );
     Text subjectText = new Text( header, SWT.SINGLE | SWT.READ_ONLY );
     subjectText.setText( mail.subject );
-    subjectText.setForeground(black);
+    subjectText.setForeground(foreground);
     subjectText.setLayoutData( senderTextData );
   }
   
@@ -209,12 +215,11 @@ public class EnronExample {
 
   private static final class EnronLabelProvider extends CellLabelProvider {
 
-    private static final String ICON_FILE = "images/18-envelope.png";
-    private static final String ICON_FOLDER = "images/40-inbox.png";
+    private static final String ICON_FILE = "/envelope.png";
+    private static final String ICON_FOLDER = "/inbox.png";
 
-    private static final int COLUMN_NAME = 0;
-    private static final int COLUMN_OFFSET = 2;
-    private static final int COLUMN_TIMEZONE = 1;
+    private static final int COLUMN_TITLE = 0;
+    private static final int COLUMN_SUB_TITLE = 1;
 
     private final Image fileImage;
     private final Image folderImage;
@@ -231,14 +236,11 @@ public class EnronExample {
         Node node = ( Node )element;
         int columnIndex = cell.getColumnIndex();
         switch( columnIndex ) {
-          case COLUMN_NAME:
-            updateName( cell, node );
+          case COLUMN_TITLE:
+            updateTitle( cell, node );
           break;
-          case COLUMN_TIMEZONE:
-            updateName( cell, node );
-          break;
-          case COLUMN_OFFSET:
-            updateName( cell, node );
+          case COLUMN_SUB_TITLE:
+            updateSubTitle( cell, node );
           break;
         }
       }
@@ -254,11 +256,20 @@ public class EnronExample {
       return result;
     }
 
-    private void updateName( ViewerCell cell, Node node ) {
-      cell.setText( node.getTitle() );
-      cell.setImage( node instanceof Folder
-                                           ? folderImage
-                                           : fileImage );
+    private void updateTitle( ViewerCell cell, Node node ) {
+      if( node instanceof Folder ) {
+        cell.setText( node.getTitle() );
+        cell.setImage( folderImage );
+      } else {
+        cell.setText( node.getFrom() );
+        cell.setImage( fileImage );
+      }
+    }
+    
+    private void updateSubTitle( ViewerCell cell, Node node ) {
+      if( !( node instanceof Folder ) ) {
+        cell.setText( node.getTitle() );
+      }
     }
 
     private static Image createImage( Device device, String name ) {

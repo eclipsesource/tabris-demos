@@ -32,12 +32,14 @@ final class EnronDataset {
 
     private final Folder parent;
     private final String name;
-    private final String displayName;
+    private final String subject;
+    private final String from;
 
-    private Node( Folder parent, String name, String displayName ) {
+    private Node( Folder parent, String name, String subject, String from ) {
       this.parent = parent;
       this.name = name;
-      this.displayName = displayName;
+      this.subject = subject;
+      this.from = from;
     }
 
     public boolean hasChildren() {
@@ -53,7 +55,11 @@ final class EnronDataset {
     }
 
     public String getTitle() {
-      return displayName;
+      return subject;
+    }
+    
+    public String getFrom() {
+      return from;
     }
 
     public Folder getParent() {
@@ -78,6 +84,57 @@ final class EnronDataset {
       }
       return resultBuffer.toString();
     }
+
+    @Override
+    public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ( ( from == null )
+                                                  ? 0
+                                                  : from.hashCode() );
+      result = prime * result + ( ( name == null )
+                                                  ? 0
+                                                  : name.hashCode() );
+      result = prime * result + ( ( parent == null )
+                                                    ? 0
+                                                    : parent.hashCode() );
+      result = prime * result + ( ( subject == null )
+                                                     ? 0
+                                                     : subject.hashCode() );
+      return result;
+    }
+
+    @Override
+    public boolean equals( Object obj ) {
+      if( this == obj )
+        return true;
+      if( obj == null )
+        return false;
+      if( getClass() != obj.getClass() )
+        return false;
+      Node other = ( Node )obj;
+      if( from == null ) {
+        if( other.from != null )
+          return false;
+      } else if( !from.equals( other.from ) )
+        return false;
+      if( name == null ) {
+        if( other.name != null )
+          return false;
+      } else if( !name.equals( other.name ) )
+        return false;
+      if( parent == null ) {
+        if( other.parent != null )
+          return false;
+      } else if( !parent.equals( other.parent ) )
+        return false;
+      if( subject == null ) {
+        if( other.subject != null )
+          return false;
+      } else if( !subject.equals( other.subject ) )
+        return false;
+      return true;
+    }
   }
 
   static class Folder extends Node {
@@ -87,14 +144,14 @@ final class EnronDataset {
     private Node[] children;
 
     private Folder( File file ) {
-      super( null, null, null );
+      super( null, null, null, null );
       this.file = file;
       readChildrenFromIndex();
       this.childCount = children.length;
     }
 
     private Folder( Folder parent, String name, int count ) {
-      super( parent, name , name );
+      super( parent, name , name, name );
       this.file = new File( parent.file, name );
       this.childCount = count;
     }
@@ -151,11 +208,11 @@ final class EnronDataset {
       for( int i = 0; i < lines.length; i++ ) {
         String line = lines[ i ];
         String[] parts = line.split( "\t" );
-        if( parts.length == 4 ) {
+        if( parts.length == 5 ) {
           if( "d".equals( parts[ 0 ] ) ) {
-            nodes.add( new Folder( this, parts[ 1 ], Integer.parseInt( parts[ 3 ] ) ) );
+            nodes.add( new Folder( this, parts[ 1 ], Integer.parseInt( parts[ 4 ] ) ) );
           } else if( "f".equals( parts[ 0 ] ) ) {
-            nodes.add( new Node( this, parts[ 1 ], parts[ 2 ] ) );
+            nodes.add( new Node( this, parts[ 1 ], parts[ 2 ], parts[ 3 ] ) );
           }
         }
       }
