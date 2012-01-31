@@ -8,7 +8,6 @@ iOS:
 * http://SERVER:9090/ios?startup=input
 * http://SERVER:9090/ios?startup=buttons
 * http://SERVER:9090/ios?startup=simple-tree
-* http://SERVER:9090/ios?startup=virtual-tree
 
 Android:
 
