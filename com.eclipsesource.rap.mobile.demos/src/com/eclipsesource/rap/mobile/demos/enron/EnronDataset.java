@@ -185,15 +185,15 @@ final class EnronDataset {
       if( children == null ) {
         try {
           children = readIndex();
-          if( childCount != 0 && children.length != childCount ) {
-            throw new RuntimeException( "Children count in index ("
-                                        + children.length
-                                        + ") does not match default ("
-                                        + childCount
-                                        + "): "
-                                        + file.getAbsolutePath()
-                                        + " " );
-          }
+//          if( childCount != 0 && children.length != childCount ) {
+//            throw new RuntimeException( "Children count in index ("
+//                                        + children.length
+//                                        + ") does not match default ("
+//                                        + childCount
+//                                        + "): "
+//                                        + file.getAbsolutePath()
+//                                        + " " );
+//          }
         } catch( IOException e ) {
           throw new RuntimeException( "Failed to read index for " + file.getAbsolutePath() );
         }
