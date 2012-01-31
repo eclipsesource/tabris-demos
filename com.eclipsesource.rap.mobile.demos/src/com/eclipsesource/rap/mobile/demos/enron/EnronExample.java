@@ -45,8 +45,7 @@ import com.eclipsesource.rap.mobile.demos.enron.EnronDataset.Node;
 
 public class EnronExample {
 
-//  private static final String DEFAULT_DATASET_DIR = "/Users/jordi/enron_mail_20110402/maildir";
-  private static final String DEFAULT_DATASET_DIR = "/Users/holger/Downloads/enron_mail_20110402/maildir";
+  private static final String DEFAULT_DATASET_DIR = "YOUR_ENRON_DIRECTORY/enron_mail_20110402/maildir";
   private static final String DATASET_DIR_PROP = "org.eclipse.rap.demo.enronDatasetDirectory";
   private TreeViewer viewer;
   private Composite parent;
@@ -62,6 +61,7 @@ public class EnronExample {
     composite.setLayout( layout );
 
     viewer = new TreeViewer( composite, SWT.SINGLE | SWT.VIRTUAL );
+    viewer.setUseHashlookup( true );
     TreeColumn treeColumn = new TreeColumn( viewer.getTree(), SWT.NONE );
     treeColumn.setWidth( 200 );
     TreeColumn treeColumn2 = new TreeColumn( viewer.getTree(), SWT.NONE );

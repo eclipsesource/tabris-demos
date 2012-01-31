@@ -5,17 +5,26 @@ This repository contains a single Eclipse project that is used within the [RAP m
 
 iOS:
 
-* http://SERVER:9090/input-rios?startup=input
-* http://SERVER:9090/buttons-rios?startup=buttons
-* http://SERVER:9090/simple-tree-rios?startup=simple-tree
+* http://SERVER:9090/ios?startup=input
+* http://SERVER:9090/ios?startup=buttons
+* http://SERVER:9090/ios?startup=simple-tree
+* http://SERVER:9090/ios?startup=virtual-tree
 
 Android:
 
-* http://SERVER:9090/input-randy?startup=input
-* http://SERVER:9090/buttons-randy?startup=buttons
-* http://SERVER:9090/simple-tree-randy?startup=simple-tree
+* http://SERVER:9090/android?startup=input
+* http://SERVER:9090/android?startup=buttons
+* http://SERVER:9090/android?startup=simple-tree
 
 Please replace SERVER with your ip address.
+
+IMPORTANT: Virtual Tree
+-----------------------
+To run the virtual tree example you need to download the [Enron Email Dataset](http://www.cs.cmu.edu/~enron/) 
+to your local machine. After this is done you need to change the constant DEFAULT_DATASET_DIR within the 
+com.eclipsesource.rap.mobile.demos.enron.EnronExample class to point to your maildir destination.
+After this please point your web browser to http://SERVER:9090/ios?startup=virtual-tree. It may take som eminutes before
+the ui will be displayed because the example needs to create some .index files. Don't worry, this happens only once.
 
 License
 -------
