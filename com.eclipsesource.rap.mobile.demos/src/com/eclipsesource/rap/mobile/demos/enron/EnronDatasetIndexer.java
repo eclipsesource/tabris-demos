@@ -88,9 +88,10 @@ class EnronDatasetIndexer {
 
   private String[] getDisplayTexts( File child ) {
     String[] result = new String[] { "[No Subject]", "[Unknown]" };
+    BufferedReader bufferedReader = null;
     try {
       FileReader reader = new FileReader( child );
-      BufferedReader bufferedReader = new BufferedReader( reader );
+      bufferedReader = new BufferedReader( reader );
       String line;
       String subject = "Subject: ";
       String from = "From: ";
@@ -116,6 +117,14 @@ class EnronDatasetIndexer {
       }
     } catch ( IOException e ) {
        // do nothing
+    } finally {
+      if( bufferedReader != null ) {
+        try {
+          bufferedReader.close();
+        } catch( IOException e ) {
+          throw new IllegalStateException( e );
+        }
+      }
     }
     return result;
   }
