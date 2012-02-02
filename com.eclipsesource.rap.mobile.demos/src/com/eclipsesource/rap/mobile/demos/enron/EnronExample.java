@@ -45,7 +45,7 @@ import com.eclipsesource.rap.mobile.demos.enron.EnronDataset.Node;
 
 public class EnronExample {
 
-  private static final String DEFAULT_DATASET_DIR = "YOUR_ENRON_DIRECTORY/enron_mail_20110402/maildir";
+  private static final String DEFAULT_DATASET_DIR = "PATH_TO_ENRON/enron_mail_20110402/maildir";
   private static final String DATASET_DIR_PROP = "org.eclipse.rap.demo.enronDatasetDirectory";
   private TreeViewer viewer;
   private Composite parent;
@@ -223,8 +223,10 @@ public class EnronExample {
 
     private final Image fileImage;
     private final Image folderImage;
+    private final Device device;
 
     EnronLabelProvider( final Device device ) {
+      this.device = device;
       fileImage = createImage( device, ICON_FILE );
       folderImage = createImage( device, ICON_FOLDER );
     }
@@ -240,6 +242,7 @@ public class EnronExample {
             updateTitle( cell, node );
           break;
           case COLUMN_SUB_TITLE:
+            cell.setForeground( device.getSystemColor( SWT.COLOR_GREEN ) );
             updateSubTitle( cell, node );
           break;
         }

@@ -1,0 +1,18 @@
+<assembly>
+  <id>com.pe-international.cpm.war</id>
+  <formats>
+    <format>war</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>${basedir}/target/products/${artifactId}/linux/gtk/x86</directory>
+      <outputDirectory>/WEB-INF</outputDirectory>
+      <excludes>
+        <exclude>plugins/javax.servlet*.jar</exclude>
+        <exclude>plugins/org.hamcrest*.jar</exclude>
+        <exclude>plugins/**junit*/</exclude>
+      </excludes>
+    </fileSet>
+  </fileSets>
+</assembly>

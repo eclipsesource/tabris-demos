@@ -47,8 +47,8 @@ public class Configurator implements ApplicationConfigurator {
   private void setUp( ApplicationConfiguration configuration ) {
     configuration.addStyleSheet( DEFAULT_THEME_ID, THEME_PATH_ANDROID );
     configuration.addStyleSheet( IOS_THEME_ID, THEME_PATH_IOS );
-    configuration.addBranding( new Branding( "ios" ) );
-    configuration.addBranding( new Branding( "android", IOS_THEME_ID ) );
+    configuration.addBranding( new Branding( "android" ) );
+    configuration.addBranding( new Branding( "ios", IOS_THEME_ID ) );
   }
 
 }

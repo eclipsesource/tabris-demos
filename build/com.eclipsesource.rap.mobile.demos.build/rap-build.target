@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+
+<target name="RAP 1.5 milestones" sequenceNumber="14">
+<locations>
+<location includeAllPlatforms="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.rap.runtime.requirements.feature.group" version="1.5.0.20120126-0223"/>
+<unit id="org.eclipse.rap.runtime.feature.group" version="1.5.0.20120126-0223"/>
+<repository location="http://cloud.eclipsesource.com/rt/rap/nightly/runtime/20120126-0216/"/>
+</location>
+<location includeAllPlatforms="true" includeMode="slicer" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.equinox.executable.feature.group" version="3.6.0.v20120123-1704-7P7OFvNFLWUl76sUqHOCz0ZV"/>
+<unit id="org.eclipse.equinox.serverside.sdk.feature.group" version="3.8.0.v20111114-2124-9Q7dFb8FRWti6-ZMXXy00Ekoai5G"/>
+<repository location="http://download.eclipse.org/eclipse/updates/3.8milestones/S-3.8M5-201201251800/"/>
+</location>
+</locations>
+</target>
