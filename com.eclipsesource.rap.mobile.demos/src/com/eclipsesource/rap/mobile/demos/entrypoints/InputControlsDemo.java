@@ -36,6 +36,7 @@ public class InputControlsDemo implements IEntryPoint {
   private Combo classCombo;
   private DateTime dateField;
   private Button vegetarianCheckbox;
+  private Label flightLabel;
 
   public int createUI() {
     Display display = new Display();
@@ -57,6 +58,7 @@ public class InputControlsDemo implements IEntryPoint {
     container.setLayout( ExampleUtil.createGridLayout( 2, false, 15, 5 ) );
     createInputForm( container );
     createPlaceReservationButton( display, parent );
+    createFlightLabel( display, parent );
   }
 
   private void createHeader( Display display, Composite parent ) {
@@ -168,7 +170,25 @@ public class InputControlsDemo implements IEntryPoint {
         stringBuilder.append( "Vegetarian: " + String.valueOf( vegetarianCheckbox.getSelection() ) + "\n" );
         stringBuilder.append( "-> want to flight to the Island!!!" );
         System.out.println( stringBuilder.toString() );
+        updateFlightLabel();
       }
     } );
+  }
+
+  protected void updateFlightLabel() {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append( "Flight booked for: " );
+    stringBuilder.append( firstNameField.getText() + " " );
+    stringBuilder.append( lastNameField.getText() + "\n" );
+    stringBuilder.append( "Departure: " + dateField.getYear() + "/" );
+    stringBuilder.append( dateField.getMonth() + "/" );
+    stringBuilder.append( dateField.getDay() + "\n" );
+    flightLabel.setText( stringBuilder.toString() );
+  }
+
+  private void createFlightLabel( Display display, Composite parent ) {
+    flightLabel = new Label( parent, SWT.NONE );
+    GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, true );
+    flightLabel.setLayoutData( layoutData );
   }
 }
