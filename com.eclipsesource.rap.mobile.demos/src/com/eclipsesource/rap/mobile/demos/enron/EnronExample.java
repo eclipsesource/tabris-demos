@@ -242,7 +242,7 @@ public class EnronExample {
             updateTitle( cell, node );
           break;
           case COLUMN_SUB_TITLE:
-            cell.setForeground( device.getSystemColor( SWT.COLOR_GREEN ) );
+            cell.setForeground( device.getSystemColor( SWT.COLOR_GRAY ) );
             updateSubTitle( cell, node );
           break;
         }
