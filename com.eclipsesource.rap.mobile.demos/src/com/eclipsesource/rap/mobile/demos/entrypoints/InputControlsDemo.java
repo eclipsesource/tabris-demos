@@ -165,7 +165,7 @@ public class InputControlsDemo implements IEntryPoint {
         stringBuilder.append( "Country: " + countryCombo.getText() + "\n" );
         stringBuilder.append( "Class: " + classCombo.getText() + "\n" );
         stringBuilder.append( "Date: " + dateField.getYear() + "/" );
-        stringBuilder.append( dateField.getMonth() + "/" );
+        stringBuilder.append( dateField.getMonth() +1 + "/" );
         stringBuilder.append( dateField.getDay() + "\n" );
         stringBuilder.append( "Vegetarian: " + String.valueOf( vegetarianCheckbox.getSelection() ) + "\n" );
         stringBuilder.append( "-> want to flight to the Island!!!" );
@@ -181,7 +181,7 @@ public class InputControlsDemo implements IEntryPoint {
     stringBuilder.append( firstNameField.getText() + " " );
     stringBuilder.append( lastNameField.getText() + "\n" );
     stringBuilder.append( "Departure: " + dateField.getYear() + "/" );
-    stringBuilder.append( dateField.getMonth() + "/" );
+    stringBuilder.append( dateField.getMonth() +1 + "/" );
     stringBuilder.append( dateField.getDay() + "\n" );
     flightLabel.setText( stringBuilder.toString() );
   }
