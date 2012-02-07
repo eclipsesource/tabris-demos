@@ -1,5 +1,5 @@
 <assembly>
-  <id>com.pe-international.cpm.war</id>
+  <id>com.eclipsesource.rap.mobile.demos.war</id>
   <formats>
     <format>war</format>
   </formats>
