@@ -16,13 +16,9 @@ Button {
 }
 
 Button[PUSH],
+Button[TOGGLE],
 Button[FLAT] {
-  padding: 8px 12px 8px 12px;
-  
-}
-
-Button[TOGGLE] {
-  padding: 8px 12px 12px 12px;
+  padding: 12px;
 }
 
 Button[CHECK], 
@@ -46,7 +42,7 @@ Combo {
 }
 
 Combo-Field {
-  padding: 12px 4px 12px 4px;
+  padding: 10px 4px 10px 4px;
 }
 
 DateTime {
@@ -68,11 +64,11 @@ TabFolder {
 }
 
 TabFolder[BORDER] {
-  border: 1px solid #bdbdbd;
+  border: 0px;
 }
 
 TabFolder-ContentContainer {
-  border: 1px solid #bdbdbd;
+  border: 0px;
 }
 
 TabItem {
