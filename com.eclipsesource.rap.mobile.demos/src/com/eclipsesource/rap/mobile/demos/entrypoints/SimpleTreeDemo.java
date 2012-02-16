@@ -32,6 +32,7 @@ public class SimpleTreeDemo implements IEntryPoint {
 
   private void createContent( Display display, Shell shell ) {
     final Tree tree = new Tree( shell, SWT.BORDER );
+    tree.setToolTipText( "Winchester Evangelium" );
     for( int i = 0; i < 4; i++ ) {
       TreeItem iItem = new TreeItem( tree, 0 );
       iItem.setText( getMainCharacterName( i ) );
