@@ -25,6 +25,8 @@ import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -44,6 +46,9 @@ public class GalleryDemo implements IEntryPoint {
   private ScrolledComposite scrolledComposite;
   private Label zoomImageLabel;
   private Composite thumbnailsComposite;
+  private Shell thumbnailsArea;
+  private boolean thumbnailsVisible;
+  private ToolItem overviewItem;
 
   public int createUI() {
     Display display = new Display();
@@ -53,7 +58,18 @@ public class GalleryDemo implements IEntryPoint {
     shell.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
     createContent( shell );
     shell.open();
-    shell.setVisible(true);    
+    thumbnailsArea.open();
+    showThumbnails();
+    shell.addControlListener( new ControlAdapter() {
+      @Override
+      public void controlResized( ControlEvent e ) {
+        if( thumbnailsVisible ) {
+          showThumbnails();
+        } else {
+          hideThumbnails();
+        }
+      }
+    } );
     return 0;
   }
 
@@ -61,25 +77,67 @@ public class GalleryDemo implements IEntryPoint {
     Composite parent = new Composite( shell, SWT.NONE) ;
     GridLayoutFactory.fillDefaults().spacing( 0, 0 ).applyTo( parent );
     createToolbar( parent );
-    createThumbnailsArea( parent );  
     createZoomImageArea( parent );
-    populateWithImages();
+    createThumbnailsArea( shell );  
   }
 
   private void createToolbar(final Composite parent) {
     final ToolBar toolBar = new ToolBar( parent, SWT.NONE );
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).grab(true, false).applyTo(toolBar);
+
+    overviewItem = new ToolItem(toolBar, SWT.PUSH);
+    overviewItem.setText("Fullscreen");
+    overviewItem.addSelectionListener( new SelectionAdapter() {
+      @Override
+      public void widgetSelected( SelectionEvent e ) {
+        toggleThubnails();
+      }
+    } );
+    
     new ToolItem(toolBar, SWT.SEPARATOR);
-    ToolItem toolItem = new ToolItem(toolBar, SWT.NONE);
-    toolItem.setData(WidgetUtil.CUSTOM_VARIANT, "TITLE");
-    toolItem.setText("The Big Bang Theory");
+    
+    ToolItem titleItem = new ToolItem(toolBar, SWT.NONE);
+    titleItem.setData(WidgetUtil.CUSTOM_VARIANT, "TITLE");
+    titleItem.setText("The Big Bang Theory");
+    
     new ToolItem(toolBar, SWT.SEPARATOR);
   }
   
-  private void createThumbnailsArea( Composite parent ) {
-    Composite thumbnailsArea = new Composite(parent, SWT.NONE);
-    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING)
-        .grab(true, false).applyTo(thumbnailsArea);
+  protected void toggleThubnails() {
+    if( thumbnailsVisible ) {
+      hideThumbnails();
+    } else {
+      showThumbnails();
+    }
+  }
+
+  private void hideThumbnails() {
+    int displayHeight = thumbnailsArea.getDisplay().getBounds().height;
+    int y =  displayHeight;
+    int x = 0;
+    int width = thumbnailsArea.getDisplay().getBounds().width;
+    int height = 164;
+    thumbnailsArea.setBounds( x, y, width, height );
+    thumbnailsVisible = false;
+    overviewItem.setText( "Thumbnails" );
+  }
+
+  private void showThumbnails() {
+    int displayHeight = thumbnailsArea.getDisplay().getBounds().height;
+    int shellHeight = thumbnailsArea.getBounds().height;
+    int y = displayHeight - shellHeight;
+    int x = 0;
+    int width = thumbnailsArea.getDisplay().getBounds().width;
+    int height = 164;
+    thumbnailsArea.setBounds( x, y, width, height );
+    thumbnailsVisible = true;
+    overviewItem.setText( "Fullscreen" );
+  }
+
+  private void createThumbnailsArea( Shell parentShell ) {
+    thumbnailsArea = new Shell(parentShell, SWT.NO_TRIM);
+    thumbnailsArea.setData(WidgetUtil.CUSTOM_VARIANT, "ANIMATED");
+    thumbnailsArea.setBounds( 0, thumbnailsArea.getDisplay().getBounds().height, thumbnailsArea.getDisplay().getBounds().width, 164 );
     FillLayout thumbnailsAreaLayout = new FillLayout();
     thumbnailsAreaLayout.marginHeight = 7;
     thumbnailsAreaLayout.marginWidth = 7;
@@ -106,6 +164,7 @@ public class GalleryDemo implements IEntryPoint {
       }
     });
     scrolledComposite.setContent( thumbnailsComposite );
+    populateWithImages();
   }
 
   private void createZoomImageArea( Composite parent ) {
@@ -116,6 +175,12 @@ public class GalleryDemo implements IEntryPoint {
   
     zoomImageLabel = new Label( imageArea, SWT.NONE );
     zoomImageLabel.setData( WidgetUtil.CUSTOM_VARIANT, "ZOOM" );
+    zoomImageLabel.addMouseListener( new MouseAdapter() {
+      @Override
+      public void mouseDown( MouseEvent e ) {
+        hideThumbnails();
+      }
+    } );
   }
   
   private void populateWithImages() {
@@ -149,6 +214,7 @@ public class GalleryDemo implements IEntryPoint {
       thumbLabel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseUp(MouseEvent e) {
+//          hideThumbnails();
           Image fullImage = imageCache.get(imageName);
           if (fullImage == null) {
             fullImage = new Image(thumbLabel.getDisplay(),
