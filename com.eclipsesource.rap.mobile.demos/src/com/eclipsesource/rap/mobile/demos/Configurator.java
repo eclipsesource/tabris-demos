@@ -16,6 +16,7 @@ import org.eclipse.rwt.application.ApplicationConfigurator;
 import org.eclipse.rwt.lifecycle.IEntryPoint;
 
 import com.eclipsesource.rap.mobile.demos.entrypoints.ButtonControlsDemo;
+import com.eclipsesource.rap.mobile.demos.entrypoints.GalleryDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.InputControlsDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.SimpleTreeDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.VirtualTreeDemo;
@@ -34,6 +35,7 @@ public class Configurator implements ApplicationConfigurator {
     addApplication( configuration, "buttons", ButtonControlsDemo.class );
     addApplication( configuration, "virtual-tree", VirtualTreeDemo.class );
     addApplication( configuration, "simple-tree", SimpleTreeDemo.class );
+    addApplication( configuration, "gallery", GalleryDemo.class );
   }
 
   public void addApplication( ApplicationConfiguration configuration, 
