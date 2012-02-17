@@ -14,6 +14,8 @@ import org.eclipse.rwt.lifecycle.IEntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
@@ -126,14 +128,14 @@ public class ButtonControlsDemo implements IEntryPoint {
     label.setLayoutData( layoutData );
     
     final Button winterButton = new Button( parent, SWT.PUSH );
-    winterButton.setBackground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    winterButton.setForeground( display.getSystemColor( SWT.COLOR_DARK_GRAY ) );
+    winterButton.setBackground( new Color(display,new RGB( 215, 215, 215 ) ) );
+    winterButton.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
     winterButton.setText( "Winter" );
     winterButton.setLayoutData( layoutData );
     final Button summerButton = new Button( parent, SWT.PUSH );
     summerButton.setLayoutData( layoutData );
-    summerButton.setBackground( display.getSystemColor( SWT.COLOR_YELLOW ) );
-    summerButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
+    summerButton.setBackground( new Color( display, new RGB( 255, 191, 47 ) ) );
+    summerButton.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
     summerButton.setText( "Summer" );
     winterButton.setEnabled( false );
     winterButton.addSelectionListener( new SelectionAdapter() {
