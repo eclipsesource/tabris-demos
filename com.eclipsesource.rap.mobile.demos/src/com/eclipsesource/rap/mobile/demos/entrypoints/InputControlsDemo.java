@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2012 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.rap.mobile.demos.entrypoints;
 
@@ -27,7 +24,6 @@ import org.eclipse.swt.widgets.Text;
 
 import com.eclipsesource.rap.mobile.demos.ExampleUtil;
 
-
 public class InputControlsDemo implements IEntryPoint {
 
   private Text firstNameField;
@@ -41,12 +37,12 @@ public class InputControlsDemo implements IEntryPoint {
   public int createUI() {
     Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
-    shell.setMaximized(true);
+    shell.setMaximized( true );
     shell.setLayout( new FillLayout() );
     shell.setBackground( display.getSystemColor( SWT.COLOR_WHITE ) );
     createContent( display, shell );
     shell.open();
-    shell.setVisible(true);    
+    shell.setVisible( true );
     return 0;
   }
 
@@ -113,7 +109,9 @@ public class InputControlsDemo implements IEntryPoint {
   private Combo createCountryCombo( Composite formComp ) {
     new Label( formComp, SWT.NONE ).setText( "Country:" );
     final Combo combo = new Combo( formComp, SWT.BORDER );
-    String[] countries = new String[] { "Germany", "Canada", "USA", "Bulgaria" };
+    String[] countries = new String[]{
+      "Germany", "Canada", "USA", "Bulgaria"
+    };
     combo.setItems( countries );
     GridData gridData = ExampleUtil.createHorzFillData();
     combo.setLayoutData( gridData );
@@ -124,7 +122,9 @@ public class InputControlsDemo implements IEntryPoint {
   private Combo createClassCombo( Composite formComp ) {
     new Label( formComp, SWT.NONE ).setText( "Class:" );
     final Combo classCombo = new Combo( formComp, SWT.READ_ONLY | SWT.BORDER );
-    String[] classes = new String[] { "Business", "Economy", "Economy Plus" };
+    String[] classes = new String[]{
+      "Business", "Economy", "Economy Plus"
+    };
     classCombo.setItems( classes );
     GridData gridData = ExampleUtil.createHorzFillData();
     classCombo.setLayoutData( gridData );
@@ -156,8 +156,8 @@ public class InputControlsDemo implements IEntryPoint {
     button.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
     button.setText( "Place Reservation" );
     button.setLayoutData( new GridData( SWT.FILL, SWT.BOTTOM, true, true ) );
-    
     button.addSelectionListener( new SelectionAdapter() {
+
       public void widgetSelected( SelectionEvent e ) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append( "First Name: " + firstNameField.getText() + "\n" );
@@ -165,9 +165,11 @@ public class InputControlsDemo implements IEntryPoint {
         stringBuilder.append( "Country: " + countryCombo.getText() + "\n" );
         stringBuilder.append( "Class: " + classCombo.getText() + "\n" );
         stringBuilder.append( "Date: " + dateField.getYear() + "/" );
-        stringBuilder.append( dateField.getMonth() +1 + "/" );
+        stringBuilder.append( dateField.getMonth() + 1 + "/" );
         stringBuilder.append( dateField.getDay() + "\n" );
-        stringBuilder.append( "Vegetarian: " + String.valueOf( vegetarianCheckbox.getSelection() ) + "\n" );
+        stringBuilder.append( "Vegetarian: "
+                              + String.valueOf( vegetarianCheckbox.getSelection() )
+                              + "\n" );
         stringBuilder.append( "-> want to flight to the Island!!!" );
         System.out.println( stringBuilder.toString() );
         updateFlightLabel();
@@ -181,13 +183,16 @@ public class InputControlsDemo implements IEntryPoint {
     stringBuilder.append( firstNameField.getText() + " " );
     stringBuilder.append( lastNameField.getText() + "\n" );
     stringBuilder.append( "Departure: " + dateField.getYear() + "/" );
-    stringBuilder.append( dateField.getMonth() +1 + "/" );
+    stringBuilder.append( dateField.getMonth() + 1 + "/" );
     stringBuilder.append( dateField.getDay() + "\n" );
     flightLabel.setText( stringBuilder.toString() );
   }
 
   private void createFlightLabel( Display display, Composite parent ) {
-    flightLabel = new Label( parent, SWT.NONE );
+    Composite labelParent = new Composite( parent, SWT.NONE );
+    labelParent.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+    labelParent.setLayout( ExampleUtil.createGridLayout( 1, true, 10, 0 ) );
+    flightLabel = new Label( labelParent, SWT.NONE );
     GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, true );
     flightLabel.setLayoutData( layoutData );
   }
