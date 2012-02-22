@@ -1,18 +1,17 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2011 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2009, 2011 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.rap.mobile.demos.enron;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.CellLabelProvider;
@@ -23,6 +22,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -33,6 +33,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -59,7 +60,6 @@ public class EnronExample {
     Composite composite = new Composite( parent, SWT.NONE );
     GridLayout layout = ExampleUtil.createGridLayout();
     composite.setLayout( layout );
-
     viewer = new TreeViewer( composite, SWT.SINGLE | SWT.VIRTUAL );
     viewer.setUseHashlookup( true );
     TreeColumn treeColumn = new TreeColumn( viewer.getTree(), SWT.NONE );
@@ -105,26 +105,33 @@ public class EnronExample {
     final Composite composite = new Composite( parent, SWT.NONE );
     GridLayout layout = ExampleUtil.createGridLayout();
     composite.setLayout( layout );
-    createCloseButtonToolbar(composite);
+    HttpServletRequest request = RWT.getRequest();
+    String userAgent = request.getHeader( "User-Agent" );
+    if( userAgent != null && !userAgent.contains( "Android" ) ) {
+      createCloseButtonToolbar( composite );
+    }
     createMailHeaderArea( composite, mail );
     createMailContentArea( composite, mail );
   }
 
-  private void createCloseButtonToolbar(final Composite parent) {
-    final ToolBar toolBar = new ToolBar(parent, SWT.NONE);
-    GridDataFactory.fillDefaults().align(SWT.FILL, SWT.BEGINNING).grab(true, false).applyTo(toolBar);
-    new ToolItem(toolBar, SWT.SEPARATOR);
-    ToolItem closeToolItem = new ToolItem(toolBar, SWT.PUSH);
-    closeToolItem.setText("Close");
-    closeToolItem.addSelectionListener(new SelectionAdapter() {
+  private void createCloseButtonToolbar( final Composite parent ) {
+    final ToolBar toolBar = new ToolBar( parent, SWT.NONE );
+    GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.BEGINNING )
+      .grab( true, false )
+      .applyTo( toolBar );
+    new ToolItem( toolBar, SWT.SEPARATOR );
+    ToolItem closeToolItem = new ToolItem( toolBar, SWT.PUSH );
+    closeToolItem.setText( "Close" );
+    closeToolItem.addSelectionListener( new SelectionAdapter() {
 
       @Override
-      public void widgetSelected(SelectionEvent e) {
+      public void widgetSelected( SelectionEvent e ) {
         parent.getShell().close();
       }
-    });
+    } );
   }
-  
+
   private void createMailHeaderArea( Composite parent, Mail mail ) {
     Composite header = new Composite( parent, SWT.NONE );
     header.setLayoutData( ExampleUtil.createHorzFillData() );
@@ -132,29 +139,34 @@ public class EnronExample {
     headerLayout.horizontalSpacing = 5;
     headerLayout.verticalSpacing = 5;
     header.setLayout( headerLayout );
-    Color foreground = parent.getDisplay().getSystemColor(SWT.COLOR_WHITE);
+    Color foreground = parent.getDisplay().getSystemColor( SWT.COLOR_WHITE );
     Label senderLabel = new Label( header, SWT.NONE );
-    senderLabel.setForeground(foreground);
+    senderLabel.setForeground( foreground );
     senderLabel.setText( "From:" );
     senderLabel.setLayoutData( new GridData( SWT.BEGINNING, SWT.CENTER, false, false ) );
-    Text senderText = new Text( header, SWT.SINGLE | SWT.READ_ONLY );
+    Label senderText = new Label( header, SWT.SINGLE | SWT.READ_ONLY );
     senderText.setText( mail.sender );
-    senderText.setForeground(foreground);
+    senderText.setForeground( foreground );
     GridData senderTextData = ExampleUtil.createHorzFillData();
     senderTextData.horizontalIndent = 2;
     senderText.setLayoutData( senderTextData );
     Label subjectLabel = new Label( header, SWT.NONE );
-    subjectLabel.setForeground(foreground);
+    subjectLabel.setForeground( foreground );
     subjectLabel.setText( "Subject:" );
     subjectLabel.setLayoutData( new GridData( SWT.BEGINNING, SWT.CENTER, false, false ) );
-    Text subjectText = new Text( header, SWT.SINGLE | SWT.READ_ONLY );
+    Label subjectText = new Label( header, SWT.SINGLE | SWT.READ_ONLY );
     subjectText.setText( mail.subject );
-    subjectText.setForeground(foreground);
+    subjectText.setForeground( foreground );
     subjectText.setLayoutData( senderTextData );
   }
-  
+
   private void createMailContentArea( Composite parent, Mail mail ) {
-    Text messageText = new Text( parent, SWT.MULTI | SWT.WRAP | SWT.READ_ONLY );
+    Composite bodyComp = new Composite( parent, SWT.NONE );
+    bodyComp.setBackground( Display.getDefault().getSystemColor( SWT.COLOR_WHITE ) );
+    bodyComp.setLayoutData( ExampleUtil.createFillData() );
+    GridLayout bodyLayout = new GridLayout( 1, false );
+    bodyComp.setLayout( bodyLayout );
+    Text messageText = new Text( bodyComp, SWT.MULTI | SWT.WRAP | SWT.READ_ONLY );
     GridData messageTextData = ExampleUtil.createFillData();
     messageText.setLayoutData( messageTextData );
     messageText.setText( mail.content );
@@ -185,9 +197,8 @@ public class EnronExample {
     }
     return path;
   }
-
   private static class Mail {
-    
+
     private String sender;
     private String subject;
     private String content;
@@ -210,17 +221,13 @@ public class EnronExample {
       }
       content = buffer.toString();
     }
-    
   }
-
   private static final class EnronLabelProvider extends CellLabelProvider {
 
     private static final String ICON_FILE = "/envelope.png";
     private static final String ICON_FOLDER = "/inbox.png";
-
     private static final int COLUMN_TITLE = 0;
     private static final int COLUMN_SUB_TITLE = 1;
-
     private final Image fileImage;
     private final Image folderImage;
     private final Device device;
@@ -268,7 +275,7 @@ public class EnronExample {
         cell.setImage( fileImage );
       }
     }
-    
+
     private void updateSubTitle( ViewerCell cell, Node node ) {
       if( !( node instanceof Folder ) ) {
         cell.setText( node.getTitle() );
