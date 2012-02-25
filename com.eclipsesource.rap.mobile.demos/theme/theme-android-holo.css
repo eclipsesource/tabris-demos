@@ -1,3 +1,10 @@
+* {
+  color: #4a4a4a;
+  background-color: #fff;
+  background-image: none;
+  font: 16px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+}
+
 Label {
   font: 16px Helvetica, Arial, Verdana, "Lucida Sans", sans-serif;
 }
@@ -81,7 +88,7 @@ TabItem {
   border-top-color: #5882b5;
   border-bottom-color: #5882b5;
   text-shadow: 0 1px 0 #ffffff;
-  padding : 14px;
+  padding: 14px;
 }
 
 TabItem:selected {
@@ -90,7 +97,23 @@ TabItem:selected {
     from( #d5d5d5 ),
     to( #eaeaea )
   );
-  padding : 14px;
+  padding: 14px;
+}
+
+Tree {
+  background-color: #ffffff;
+  border: none;
+  color: #4a4a4a;
+  padding: 60px 0px 0px 0px;
+}
+
+Tree[BORDER] {
+  border: 0px;
+}
+
+Tree-Cell {
+  spacing: 0;
+  padding: 22px;
 }
 
 ToolItem {
