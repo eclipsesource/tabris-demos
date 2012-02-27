@@ -15,6 +15,7 @@ Android:
 * http://SERVER:9090/android?startup=input
 * http://SERVER:9090/android?startup=buttons
 * http://SERVER:9090/android?startup=simple-tree
+* http://SERVER:9090/ios?startup=virtual-tree
 
 Please replace SERVER with your ip address.
 
