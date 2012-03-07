@@ -166,7 +166,7 @@ public class EnronExample {
     bodyComp.setLayoutData( ExampleUtil.createFillData() );
     GridLayout bodyLayout = new GridLayout( 1, false );
     bodyComp.setLayout( bodyLayout );
-    Text messageText = new Text( bodyComp, SWT.MULTI | SWT.WRAP | SWT.READ_ONLY );
+    Text messageText = new Text( bodyComp, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL | SWT.READ_ONLY );
     GridData messageTextData = ExampleUtil.createFillData();
     messageText.setLayoutData( messageTextData );
     messageText.setText( mail.content );
