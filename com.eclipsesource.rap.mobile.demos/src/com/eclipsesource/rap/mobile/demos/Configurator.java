@@ -1,26 +1,20 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2012 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.rap.mobile.demos;
 
 import org.eclipse.rwt.application.ApplicationConfiguration;
-import org.eclipse.rwt.application.ApplicationConfiguration.OperationMode;
 import org.eclipse.rwt.application.ApplicationConfigurator;
-import org.eclipse.rwt.lifecycle.IEntryPoint;
 
 import com.eclipsesource.rap.mobile.demos.entrypoints.ButtonControlsDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.GalleryDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.InputControlsDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.SimpleTreeDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.VirtualTreeDemo;
-
 
 public class Configurator implements ApplicationConfigurator {
 
@@ -31,26 +25,25 @@ public class Configurator implements ApplicationConfigurator {
 
   public void configure( ApplicationConfiguration configuration ) {
     setUp( configuration );
-    addApplication( configuration, "input", InputControlsDemo.class );
-    addApplication( configuration, "buttons", ButtonControlsDemo.class );
-    addApplication( configuration, "virtual-tree", VirtualTreeDemo.class );
-    addApplication( configuration, "simple-tree", SimpleTreeDemo.class );
-    addApplication( configuration, "gallery", GalleryDemo.class );
+    configuration.addEntryPoint( "/android-input", InputControlsDemo.class );
+    configuration.addEntryPoint( "/android-buttons", ButtonControlsDemo.class );
+    configuration.addEntryPoint( "/android-virtual-tree", VirtualTreeDemo.class );
+    configuration.addEntryPoint( "/android-simple-tree", SimpleTreeDemo.class );
+    configuration.addEntryPoint( "/android-gallery", GalleryDemo.class );
+    configuration.addEntryPoint( "/ios-input", InputControlsDemo.class );
+    configuration.addEntryPoint( "/ios-buttons", ButtonControlsDemo.class );
+    configuration.addEntryPoint( "/ios-virtual-tree", VirtualTreeDemo.class );
+    configuration.addEntryPoint( "/ios-simple-tree", SimpleTreeDemo.class );
+    configuration.addEntryPoint( "/ios-gallery", GalleryDemo.class );
   }
 
-  public void addApplication( ApplicationConfiguration configuration, 
-                              String id, 
-                              Class<? extends IEntryPoint> type  ) 
-  {
-    configuration.setOperationMode( OperationMode.JEE_COMPATIBILITY );
-    configuration.addEntryPoint( id, type );
-  }
-  
   private void setUp( ApplicationConfiguration configuration ) {
     configuration.addStyleSheet( DEFAULT_THEME_ID, THEME_PATH_ANDROID );
     configuration.addStyleSheet( IOS_THEME_ID, THEME_PATH_IOS );
-    configuration.addBranding( new Branding( "android" ) );
-    configuration.addBranding( new Branding( "ios", IOS_THEME_ID ) );
+    configuration.addBranding( new Branding( "ios-input", IOS_THEME_ID ) );
+    configuration.addBranding( new Branding( "ios-buttons", IOS_THEME_ID ) );
+    configuration.addBranding( new Branding( "ios-virtual-tree", IOS_THEME_ID ) );
+    configuration.addBranding( new Branding( "ios-simple-tree", IOS_THEME_ID ) );
+    configuration.addBranding( new Branding( "ios-gallery", IOS_THEME_ID ) );
   }
-
 }
