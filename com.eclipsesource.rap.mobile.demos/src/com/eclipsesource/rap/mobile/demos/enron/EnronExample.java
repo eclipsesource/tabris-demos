@@ -46,7 +46,8 @@ import com.eclipsesource.rap.mobile.demos.enron.EnronDataset.Node;
 
 public class EnronExample {
 
-  private static final String DEFAULT_DATASET_DIR = "PATH_TO_ENRON/enron_mail_20110402/maildir";
+  // Change this path to your Enron maildir
+  private static final String DEFAULT_DATASET_DIR = "/var/lib/tomcat5.5/shared/data/enron_mail_20110402/maildir";
   private static final String DATASET_DIR_PROP = "org.eclipse.rap.demo.enronDatasetDirectory";
   private TreeViewer viewer;
   private Composite parent;
