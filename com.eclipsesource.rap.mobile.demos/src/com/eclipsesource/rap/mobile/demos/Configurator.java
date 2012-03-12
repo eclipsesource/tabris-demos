@@ -12,6 +12,7 @@ import org.eclipse.rwt.application.ApplicationConfigurator;
 
 import com.eclipsesource.rap.mobile.demos.entrypoints.ButtonControlsDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.GalleryDemo;
+import com.eclipsesource.rap.mobile.demos.entrypoints.GeolocationDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.InputControlsDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.SimpleTreeDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.VirtualTreeDemo;
@@ -35,6 +36,7 @@ public class Configurator implements ApplicationConfigurator {
     configuration.addEntryPoint( "/ios-virtual-tree", VirtualTreeDemo.class );
     configuration.addEntryPoint( "/ios-simple-tree", SimpleTreeDemo.class );
     configuration.addEntryPoint( "/ios-gallery", GalleryDemo.class );
+    configuration.addEntryPoint( "/ios-location", GeolocationDemo.class );
   }
 
   private void setUp( ApplicationConfiguration configuration ) {
@@ -45,5 +47,6 @@ public class Configurator implements ApplicationConfigurator {
     configuration.addBranding( new Branding( "ios-virtual-tree", IOS_THEME_ID ) );
     configuration.addBranding( new Branding( "ios-simple-tree", IOS_THEME_ID ) );
     configuration.addBranding( new Branding( "ios-gallery", IOS_THEME_ID ) );
+    configuration.addBranding( new Branding( "ios-location", IOS_THEME_ID ) );
   }
 }
