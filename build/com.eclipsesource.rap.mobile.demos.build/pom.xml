@@ -14,7 +14,7 @@
 
 	<properties>
 		<!-- Tycho properties -->
-		<tycho-version>0.13.0</tycho-version>
+		<tycho-version>0.14.0</tycho-version>
 		<tycho-groupid>org.eclipse.tycho</tycho-groupid>
 		<tycho.showEclipseLog>true</tycho.showEclipseLog>
 		<!-- Maven Plugin Versions -->
@@ -31,7 +31,19 @@
 		<module>../com.eclipsesource.rap.mobile.demos.feature</module>
 		<module>../com.eclipsesource.rap.mobile.demos.product</module>
 	</modules>
-
+	
+  <repositories>
+    <repository>
+      <id>rap-mobile-nightly</id>
+      <layout>p2</layout>
+      <url>http://download.eclipsesource.com/build/rap-mobile/1.0.0</url>
+    </repository>
+    <repository>
+      <id>eclipse-milestones</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/eclipse/updates/3.8milestones</url>
+    </repository>
+  </repositories>	
 
 	<build>
 		<plugins>
@@ -54,30 +66,27 @@
 			</plugin>
 
 			<!-- Configure tycho to use p2 to get the target -->
-			<plugin>
-				<groupId>${tycho-groupid}</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<resolver>p2</resolver>
-					<ignoreTychoRepositories>false</ignoreTychoRepositories>
-					<target>
-						<artifact>
-							<groupId>${project.groupId}</groupId>
-							<artifactId>${project.artifactId}</artifactId>
-							<version>${project.version}</version>
-							<classifier>${parent.relativePath}/rap-build</classifier>
-						</artifact>
-					</target>
-					<environments>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>
-					</environments>
-				</configuration>
-			</plugin>
+      <plugin>
+        <groupId>${tycho-groupid}</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <resolver>p2</resolver>
+          <ignoreTychoRepositories>true</ignoreTychoRepositories>
+          <target>
+            <dependency-resolution>
+              <optionalDependencies>ignore</optionalDependencies>
+            </dependency-resolution>
+          </target>          
+          <environments>
+            <environment>
+              <os>linux</os>
+              <ws>gtk</ws>
+              <arch>x86</arch>
+            </environment>
+          </environments>
+        </configuration>
+      </plugin>
 
 
 			<!-- Configure qualifier replacement -->
