@@ -20,11 +20,11 @@ import com.eclipsesource.rap.mobile.demos.entrypoints.VirtualTreeDemo;
 public class Configurator implements ApplicationConfigurator {
 
   public void configure( ApplicationConfiguration configuration ) {
-    configuration.addEntryPoint( "/input", InputControlsDemo.class );
-    configuration.addEntryPoint( "/buttons", ButtonControlsDemo.class );
-    configuration.addEntryPoint( "/virtual-tree", VirtualTreeDemo.class );
-    configuration.addEntryPoint( "/simple-tree", SimpleTreeDemo.class );
-    configuration.addEntryPoint( "/gallery", GalleryDemo.class );
-    configuration.addEntryPoint( "/location", GeolocationDemo.class );
+    configuration.addEntryPoint( "/input", InputControlsDemo.class, null );
+    configuration.addEntryPoint( "/buttons", ButtonControlsDemo.class, null );
+    configuration.addEntryPoint( "/virtual-tree", VirtualTreeDemo.class, null );
+    configuration.addEntryPoint( "/simple-tree", SimpleTreeDemo.class, null );
+    configuration.addEntryPoint( "/gallery", GalleryDemo.class, null );
+    configuration.addEntryPoint( "/location", GeolocationDemo.class, null );
   }
 }
