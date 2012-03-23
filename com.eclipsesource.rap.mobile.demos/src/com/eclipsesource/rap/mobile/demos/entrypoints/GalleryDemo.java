@@ -94,13 +94,9 @@ public class GalleryDemo implements IEntryPoint {
       }
     } );
     
-    new ToolItem(toolBar, SWT.SEPARATOR);
-    
     ToolItem titleItem = new ToolItem(toolBar, SWT.NONE);
     titleItem.setData(WidgetUtil.CUSTOM_VARIANT, "TITLE");
     titleItem.setText("The Big Bang Theory");
-    
-    new ToolItem(toolBar, SWT.SEPARATOR);
   }
   
   protected void toggleThubnails() {

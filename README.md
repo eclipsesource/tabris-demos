@@ -3,19 +3,11 @@ RAP mobile Demos
 
 This repository contains a single Eclipse project that is used within the [RAP mobile Screencasts](http://rapmobile.eclipsesource.com/demos/). The steps to get this running are described [here](http://rapmobile.eclipsesource.com/developers/getting-started/). After running this project the following Entrypoints are available:
 
-iOS:
+* http://SERVER:9090/input
+* http://SERVER:9090/buttons
+* http://SERVER:9090/simple-tree 
+* http://SERVER:9090/virtual-tree (Read the note below!)
 
-* http://SERVER:9090/ios-input
-* http://SERVER:9090/ios-buttons
-* http://SERVER:9090/ios-simple-tree 
-* http://SERVER:9090/ios-virtual-tree (Read the note below!)
-
-Android:
-
-* http://SERVER:9090/android-input
-* http://SERVER:9090/android-buttons
-* http://SERVER:9090/android-simple-tree
-* http://SERVER:9090/android-virtual-tree (Read the note below!)
 
 Please replace SERVER with your ip address.
 
