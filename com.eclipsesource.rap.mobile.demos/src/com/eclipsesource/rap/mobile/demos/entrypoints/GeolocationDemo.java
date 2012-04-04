@@ -78,7 +78,7 @@ public class GeolocationDemo implements IEntryPoint {
       public void onSuccess( Position position ) {
         StringBuilder builder = new StringBuilder();
         builder.append( "Latitude: " + position.getCoords().getLatitude() + "\n" );
-        builder.append( "Longtitude: " + position.getCoords().getLongtitude() + "\n" );
+        builder.append( "Longitude: " + position.getCoords().getLongitude() + "\n" );
         builder.append( "Altitude: " + position.getCoords().getAltitude() + "\n" );
         builder.append( "Accuracy: " + position.getCoords().getAccuracy() + "\n" );
         builder.append( "Altitude Accuracy: " + position.getCoords().getAltitudeAccuracy() + "\n" );
