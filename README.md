@@ -6,6 +6,7 @@ This repository contains a single Eclipse project that is used within the [RAP m
 * http://SERVER:9090/input
 * http://SERVER:9090/buttons
 * http://SERVER:9090/simple-tree 
+* http://SERVER:9090/location 
 * http://SERVER:9090/virtual-tree (Read the note below!)
 
 
