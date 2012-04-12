@@ -83,7 +83,9 @@ public class InputControlsDemo implements IEntryPoint {
   }
 
   private Text createFirstNameField( Composite formComp ) {
-    new Label( formComp, SWT.NONE ).setText( "First Name:" );
+    Label label = new Label( formComp, SWT.NONE );
+    label.setForeground( label.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
+    label.setText( "First Name:" );
     final Text firstNameText = new Text( formComp, SWT.SINGLE | SWT.BORDER );
     GridData gridData1 = ExampleUtil.createHorzFillData();
     firstNameText.setLayoutData( gridData1 );
@@ -91,7 +93,9 @@ public class InputControlsDemo implements IEntryPoint {
   }
 
   private Text createLastNameField( Composite formComp ) {
-    new Label( formComp, SWT.NONE ).setText( "Last Name:" );
+    Label label = new Label( formComp, SWT.NONE );
+    label.setForeground( label.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
+    label.setText( "Last Name:" );
     final Text lastNameText = new Text( formComp, SWT.SINGLE | SWT.BORDER );
     GridData gridData2 = ExampleUtil.createHorzFillData();
     lastNameText.setLayoutData( gridData2 );
@@ -99,7 +103,9 @@ public class InputControlsDemo implements IEntryPoint {
   }
 
   private Text createPasswordField( Composite formComp ) {
-    new Label( formComp, SWT.NONE ).setText( "Passphrase:" );
+    Label label = new Label( formComp, SWT.NONE );
+    label.setForeground( label.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
+    label.setText( "Passphrase:" );
     final Text passwordText = new Text( formComp, SWT.PASSWORD | SWT.BORDER );
     GridData gridData3 = ExampleUtil.createHorzFillData();
     passwordText.setLayoutData( gridData3 );
@@ -107,7 +113,9 @@ public class InputControlsDemo implements IEntryPoint {
   }
 
   private Combo createCountryCombo( Composite formComp ) {
-    new Label( formComp, SWT.NONE ).setText( "Country:" );
+    Label label = new Label( formComp, SWT.NONE );
+    label.setForeground( label.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
+    label.setText( "Country:" );
     final Combo combo = new Combo( formComp, SWT.BORDER );
     String[] countries = new String[]{
       "Germany", "Canada", "USA", "Bulgaria"
@@ -120,7 +128,9 @@ public class InputControlsDemo implements IEntryPoint {
   }
 
   private Combo createClassCombo( Composite formComp ) {
-    new Label( formComp, SWT.NONE ).setText( "Class:" );
+    Label label = new Label( formComp, SWT.NONE );
+    label.setForeground( label.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
+    label.setText( "Class:" );
     final Combo classCombo = new Combo( formComp, SWT.READ_ONLY | SWT.BORDER );
     String[] classes = new String[]{
       "Business", "Economy", "Economy Plus"
@@ -133,7 +143,9 @@ public class InputControlsDemo implements IEntryPoint {
   }
 
   private DateTime createDateField( Composite formComp ) {
-    new Label( formComp, SWT.NONE ).setText( "Date:" );
+    Label label = new Label( formComp, SWT.NONE );
+    label.setForeground( label.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
+    label.setText( "Date:" );
     int dateTimeStyle = SWT.READ_ONLY | SWT.BORDER;
     final DateTime dateTime = new DateTime( formComp, dateTimeStyle );
     return dateTime;
@@ -142,6 +154,7 @@ public class InputControlsDemo implements IEntryPoint {
   private void createVegetarianCheckbox( Composite parent ) {
     new Label( parent, SWT.NONE );
     vegetarianCheckbox = new Button( parent, SWT.CHECK );
+    vegetarianCheckbox.setForeground( vegetarianCheckbox.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     vegetarianCheckbox.setLayoutData( new GridData( SWT.LEFT, SWT.CENTER, true, false ) );
     vegetarianCheckbox.setText( "Vegetarian" );
     vegetarianCheckbox.setSelection( true );
@@ -193,6 +206,7 @@ public class InputControlsDemo implements IEntryPoint {
     labelParent.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
     labelParent.setLayout( ExampleUtil.createGridLayout( 1, true, 10, 0 ) );
     flightLabel = new Label( labelParent, SWT.NONE );
+    flightLabel.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
     GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, true );
     flightLabel.setLayoutData( layoutData );
   }
