@@ -49,8 +49,8 @@ import com.eclipsesource.rap.mobile.geolocation.PositionError;
 
 public class GeolocationDemo implements IEntryPoint {
 
-  private static final double SPRINGFIELD_LON = -77.184636;
-  private static final double SPRINGFIELD_LAT = 38.779238;
+  private static final double SPRINGFIELD_LAT = 44.050953;
+  private static final double SPRINGFIELD_LON = -123.016663;
   
   private Shell shell;
   private Geolocation geolocation;
