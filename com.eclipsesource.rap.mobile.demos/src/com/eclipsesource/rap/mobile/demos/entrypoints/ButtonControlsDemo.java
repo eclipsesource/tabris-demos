@@ -80,7 +80,6 @@ public class ButtonControlsDemo implements IEntryPoint {
 
   private void createDirectionButtons( Display display, Composite parent, GridData layoutData ) {
     Composite container = new Composite( parent, SWT.NONE );
-    container.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
     container.setBackground( display.getSystemColor( SWT.COLOR_WHITE ) );
     GridData gridData = new GridData( SWT.FILL, SWT.FILL, true, false );
     gridData.horizontalSpan = 2;
@@ -88,12 +87,16 @@ public class ButtonControlsDemo implements IEntryPoint {
     container.setLayoutData( gridData );
     container.setLayout( ExampleUtil.createGridLayout( 2, false, 5, 5 ) );
     Button northButton = new Button( container, SWT.RADIO );
+    northButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
     northButton.setText( "North" );
     Button eastButton = new Button( container, SWT.RADIO );
+    eastButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
     eastButton.setText( "East" );
     Button southButton = new Button( container, SWT.RADIO );
+    southButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
     southButton.setText( "South" );
     Button westButton = new Button( container, SWT.RADIO );
+    westButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
     westButton.setText( "West" );
     sideLable = new Label( container, SWT.NONE );
     sideLable.setLayoutData( layoutData );
