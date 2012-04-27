@@ -11,6 +11,7 @@ import org.eclipse.rwt.application.ApplicationConfiguration;
 import org.eclipse.rwt.application.ApplicationConfigurator;
 
 import com.eclipsesource.rap.mobile.demos.entrypoints.ButtonControlsDemo;
+import com.eclipsesource.rap.mobile.demos.entrypoints.DrawDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.GalleryDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.GeolocationDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.InputControlsDemo;
@@ -26,5 +27,7 @@ public class Configurator implements ApplicationConfigurator {
     configuration.addEntryPoint( "/simple-tree", SimpleTreeDemo.class, null );
     configuration.addEntryPoint( "/gallery", GalleryDemo.class, null );
     configuration.addEntryPoint( "/location", GeolocationDemo.class, null );
+    configuration.addEntryPoint( "/location", GeolocationDemo.class, null );
+    configuration.addEntryPoint( "/draw", DrawDemo.class, null );
   }
 }
