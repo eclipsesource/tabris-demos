@@ -273,6 +273,7 @@ public class DrawDemo implements IEntryPoint {
     createToolbar( mainComp );
     createClientCanvas( display, mainComp );
     shell.open();
+    fitErnieToCanvas();
     return 0;
   }
 
@@ -313,16 +314,6 @@ public class DrawDemo implements IEntryPoint {
     canvas = new ClientCanvas( mainComp, SWT.NONE );
     canvas.setLayoutData( createFill() );
     canvas.setBackgroundImage( bgPatternImage );
-    // canvas.addMouseListener( new MouseAdapter() {
-    //
-    // int count;
-    //
-    // @Override
-    // public void mouseDown( MouseEvent e ) {
-    // System.out.println( "drawDot( gc, " + count++ + ", " + e.x + ", " + e.y +
-    // " );" );
-    // }
-    // } );
     canvas.addPaintListener( new PaintListener() {
 
       public void paintControl( PaintEvent e ) {
@@ -356,12 +347,15 @@ public class DrawDemo implements IEntryPoint {
       }
 
       private void drawErnie( GC gc ) {
+        int oldLineWidth = currentLineWidth;
+        gc.setLineWidth( 8 );
         gc.fillPolygon( transform( getHair( ERNIE ) ) );
         gc.drawPolyline( transform( getNeck( ERNIE ) ) );
         gc.fillPolygon( transform( getRightEye( ERNIE ) ) );
         gc.fillPolygon( transform( getLeftEye( ERNIE ) ) );
         gc.drawPolyline( transform( getMouth( ERNIE ) ) );
         drawDots( gc, ERNIE );
+        gc.setLineWidth( oldLineWidth );
       }
 
       private int[] getLeftEye( List<int[]> dotInfos ) {
@@ -501,6 +495,17 @@ public class DrawDemo implements IEntryPoint {
     } );
   }
 
+  private void fitErnieToCanvas() {
+    Rectangle bounds = canvas.getBounds();
+    if( bounds.width >= bounds.height ) {
+      scaleFactor = ( float )bounds.height / ernieDimensions.y;
+    } else {
+      scaleFactor = ( float )bounds.width / ernieDimensions.x;
+    }
+    System.out.println( "scale factor = " + scaleFactor );
+    canvas.redraw();
+  }
+
   private GridData createFill() {
     return new GridData( SWT.FILL, SWT.FILL, true, true );
   }
@@ -522,7 +527,8 @@ public class DrawDemo implements IEntryPoint {
     ToolBar toolBar = new ToolBar( parent, SWT.HORIZONTAL );
     toolBar.setLayoutData( createFillHori() );
     ToolItem widthThinToolItem = new ToolItem( toolBar, SWT.PUSH );
-    widthThinToolItem.setText( "Thin" );
+    widthThinToolItem.setImage( new Image( parent.getDisplay(),
+                                           DrawDemo.class.getResourceAsStream( "/images/line-width-thin.png" ) ) );
     widthThinToolItem.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
@@ -531,7 +537,8 @@ public class DrawDemo implements IEntryPoint {
       }
     } );
     ToolItem widthMediumToolItem = new ToolItem( toolBar, SWT.PUSH );
-    widthMediumToolItem.setText( "Medium" );
+    widthMediumToolItem.setImage( new Image( parent.getDisplay(),
+                                             DrawDemo.class.getResourceAsStream( "/images/line-width-medium.png" ) ) );
     widthMediumToolItem.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
@@ -540,46 +547,12 @@ public class DrawDemo implements IEntryPoint {
       }
     } );
     ToolItem widthThickToolItem = new ToolItem( toolBar, SWT.PUSH );
-    widthThickToolItem.setText( "Thick" );
+    widthThickToolItem.setImage( new Image( parent.getDisplay(),
+                                            DrawDemo.class.getResourceAsStream( "/images/line-width-thick.png" ) ) );
     widthThickToolItem.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
         currentLineWidth = 16;
-        canvas.redraw();
-      }
-    } );
-    new ToolItem( toolBar, SWT.SEPARATOR );
-    ToolItem zoomInToolItem = new ToolItem( toolBar, SWT.PUSH );
-    zoomInToolItem.setText( "Zoom in" );
-    zoomInToolItem.addListener( SWT.Selection, new Listener() {
-
-      public void handleEvent( Event event ) {
-        scaleFactor += 0.1f;
-        canvas.redraw();
-      }
-    } );
-    ToolItem zoomOutToolItem = new ToolItem( toolBar, SWT.PUSH );
-    zoomOutToolItem.setText( "Zoom out" );
-    zoomOutToolItem.addListener( SWT.Selection, new Listener() {
-
-      public void handleEvent( Event event ) {
-        scaleFactor -= 0.1f;
-        canvas.redraw();
-      }
-    } );
-    ToolItem fitToolItem = new ToolItem( toolBar, SWT.PUSH );
-    fitToolItem.setText( "Fit" );
-    fitToolItem.addListener( SWT.Selection, new Listener() {
-
-      public void handleEvent( Event event ) {
-        Rectangle bounds = canvas.getBounds();
-        System.out.println( bounds );
-        if( bounds.width >= bounds.height ) {
-          scaleFactor = ( float )bounds.height / ernieDimensions.y;
-        } else {
-          scaleFactor = ( float )bounds.width / ernieDimensions.x;
-        }
-        System.out.println( "scale factor = " + scaleFactor );
         canvas.redraw();
       }
     } );
@@ -629,7 +602,8 @@ public class DrawDemo implements IEntryPoint {
     } );
     new ToolItem( toolBar, SWT.SEPARATOR );
     undoToolItem = new ToolItem( toolBar, SWT.PUSH );
-    undoToolItem.setText( "< Undo" );
+    undoToolItem.setImage( new Image( parent.getDisplay(),
+                                      DrawDemo.class.getResourceAsStream( "/images/undo.png" ) ) );
     undoToolItem.setEnabled( false );
     undoToolItem.addListener( SWT.Selection, new Listener() {
 
@@ -640,7 +614,8 @@ public class DrawDemo implements IEntryPoint {
       }
     } );
     redoToolItem = new ToolItem( toolBar, SWT.PUSH );
-    redoToolItem.setText( "Redo >" );
+    redoToolItem.setImage( new Image( parent.getDisplay(),
+                                      DrawDemo.class.getResourceAsStream( "/images/redo.png" ) ) );
     redoToolItem.setEnabled( false );
     redoToolItem.addListener( SWT.Selection, new Listener() {
 

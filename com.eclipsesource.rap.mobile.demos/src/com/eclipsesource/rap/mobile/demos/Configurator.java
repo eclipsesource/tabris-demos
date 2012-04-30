@@ -27,7 +27,6 @@ public class Configurator implements ApplicationConfigurator {
     configuration.addEntryPoint( "/simple-tree", SimpleTreeDemo.class, null );
     configuration.addEntryPoint( "/gallery", GalleryDemo.class, null );
     configuration.addEntryPoint( "/location", GeolocationDemo.class, null );
-    configuration.addEntryPoint( "/location", GeolocationDemo.class, null );
     configuration.addEntryPoint( "/draw", DrawDemo.class, null );
   }
 }
