@@ -250,7 +250,7 @@ public class GeolocationDemo implements IEntryPoint {
 
   private void setBrowserUrl( double lat, double lon ) {
     StringBuilder builder = new StringBuilder();
-    builder.append( "http://open.mapquestapi.com/staticmap/v3/getmap" );
+    builder.append( "http://open.mapquestapi.com/staticmap/v4/getmap" );
     builder.append( "?size=" + shell.getSize().x + "," + shell.getSize().y );
     builder.append( "&zoom=16" );
     lastLat = lat;
