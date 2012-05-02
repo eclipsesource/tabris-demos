@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target name="RAP 1.5 milestones" sequenceNumber="16">
+<target name="RAP 1.5 milestones" sequenceNumber="18">
 <locations>
 <location includeAllPlatforms="false" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="com.eclipsesource.rap.mobile.feature.feature.group" version="1.0.0.v20120410-1503"/>
-<repository location="http://cloud.eclipsesource.com/rap-mobile/20120410-1500"/>
+<unit id="com.eclipsesource.rap.mobile.feature.feature.group" version="1.0.0.v20120502-0314"/>
+<repository location="http://cloud.eclipsesource.com/rap-mobile/20120502-1500/"/>
 </location>
 </locations>
 </target>
