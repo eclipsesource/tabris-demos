@@ -28,7 +28,7 @@ import com.eclipsesource.rap.mobile.demos.ExampleUtil;
 
 public class ButtonControlsDemo implements IEntryPoint {
 
-  private Label sideLable;
+  private Label sideLabel;
 
   public int createUI() {
     Display display = new Display();
@@ -98,8 +98,9 @@ public class ButtonControlsDemo implements IEntryPoint {
     Button westButton = new Button( container, SWT.RADIO );
     westButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
     westButton.setText( "West" );
-    sideLable = new Label( container, SWT.NONE );
-    sideLable.setLayoutData( layoutData );
+    sideLabel = new Label( container, SWT.NONE );
+    sideLabel.setLayoutData( layoutData );
+    sideLabel.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
     addSelectionListener( northButton );
     addSelectionListener( eastButton );
     addSelectionListener( southButton );
@@ -116,7 +117,7 @@ public class ButtonControlsDemo implements IEntryPoint {
       @Override
       public void widgetSelected( SelectionEvent e ) {
         Button widget = ( Button )e.widget;
-        sideLable.setText( "Arrh, a man from the " + widget.getText() );
+        sideLabel.setText( "Arrh, a man from the " + widget.getText() );
       }
     };
     button.addSelectionListener( selectionAdapter );
