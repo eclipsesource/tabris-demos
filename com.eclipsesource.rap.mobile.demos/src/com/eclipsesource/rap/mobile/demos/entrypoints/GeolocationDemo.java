@@ -108,6 +108,7 @@ public class GeolocationDemo implements IEntryPoint {
     getLocationButton.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false ) );
     getLocationButton.setText( "Where am I?" );
     getLocationButton.setBackground( Graphics.getColor( 60, 60, 60 ) );
+    getLocationButton.setForeground( Graphics.getColor( 225, 255, 255 ) );
     getLocationButton.addSelectionListener( new SelectionAdapter() {
       public void widgetSelected( SelectionEvent e ) {
         geolocation.getCurrentPosition( new GeolocationCallback() {
@@ -189,6 +190,7 @@ public class GeolocationDemo implements IEntryPoint {
     button.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false ) );
     button.setText( "Head me to Springfield" );
     button.setBackground( Graphics.getColor( 225, 151, 7 ) );
+    button.setForeground( Graphics.getColor( 225, 255, 255 ) );
     button.addSelectionListener( new SelectionAdapter() {
       public void widgetSelected( SelectionEvent e ) {
         geolocation.getCurrentPosition( new GeolocationCallback() {
