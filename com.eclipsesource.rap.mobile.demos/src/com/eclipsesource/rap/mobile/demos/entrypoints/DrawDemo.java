@@ -70,8 +70,6 @@ public class DrawDemo implements IEntryPoint {
     ALLREADY_DRAWN_SUBSETS.add( RIGHT_EYE );
     ALLREADY_DRAWN_SUBSETS.add( NECK );
     ALLREADY_DRAWN_SUBSETS.add( MOUTH );
-  }
-  static {
     addToErnie( 0, 95, 125 );
     addToErnie( 1, 81, 166 );
     addToErnie( 2, 61, 194 );
@@ -299,9 +297,7 @@ public class DrawDemo implements IEntryPoint {
       }
     }
     ernieDimensions = new Point( maxX - minX, maxY - minY );
-    System.out.println( "Ernie dimensions: " + ernieDimensions.x + ", " + ernieDimensions.y );
     ernieMinima = new Point( minX, minY );
-    System.out.println( "Ernie minima: " + ernieMinima.x + ", " + ernieMinima.y );
   }
 
   private static void addToErnie( int index, int x, int y ) {
@@ -313,7 +309,11 @@ public class DrawDemo implements IEntryPoint {
   private void createClientCanvas( final Display display, Composite mainComp ) {
     canvas = new ClientCanvas( mainComp, SWT.NONE );
     canvas.setLayoutData( createFill() );
-    canvas.setBackgroundImage( bgPatternImage );
+    if( bgPatternImage != null ) {
+      canvas.setBackgroundImage( bgPatternImage );
+    } else {
+      canvas.setBackground( display.getSystemColor( SWT.COLOR_WHITE ) );
+    }
     canvas.addPaintListener( new PaintListener() {
 
       public void paintControl( PaintEvent e ) {
@@ -502,7 +502,6 @@ public class DrawDemo implements IEntryPoint {
     } else {
       scaleFactor = ( float )bounds.width / ernieDimensions.x;
     }
-    System.out.println( "scale factor = " + scaleFactor );
     canvas.redraw();
   }
 
