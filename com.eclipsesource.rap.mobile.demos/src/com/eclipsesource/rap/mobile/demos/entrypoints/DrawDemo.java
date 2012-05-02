@@ -261,7 +261,7 @@ public class DrawDemo implements IEntryPoint {
   public int createUI() {
     final Display display = new Display();
     if( SHOW_BLUE_PRINT ) {
-      bgPatternImage = new Image( display, DrawDemo.class.getResourceAsStream( "/images/ernie.png" ) );
+      bgPatternImage = new Image( display, DrawDemo.class.getResourceAsStream( "/ernie.png" ) );
     }
     final Shell shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized( true );
@@ -527,7 +527,7 @@ public class DrawDemo implements IEntryPoint {
     toolBar.setLayoutData( createFillHori() );
     ToolItem widthThinToolItem = new ToolItem( toolBar, SWT.PUSH );
     widthThinToolItem.setImage( new Image( parent.getDisplay(),
-                                           DrawDemo.class.getResourceAsStream( "/images/line-width-thin.png" ) ) );
+                                           DrawDemo.class.getResourceAsStream( "/line-width-thin.png" ) ) );
     widthThinToolItem.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
@@ -537,7 +537,7 @@ public class DrawDemo implements IEntryPoint {
     } );
     ToolItem widthMediumToolItem = new ToolItem( toolBar, SWT.PUSH );
     widthMediumToolItem.setImage( new Image( parent.getDisplay(),
-                                             DrawDemo.class.getResourceAsStream( "/images/line-width-medium.png" ) ) );
+                                             DrawDemo.class.getResourceAsStream( "/line-width-medium.png" ) ) );
     widthMediumToolItem.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
@@ -547,7 +547,7 @@ public class DrawDemo implements IEntryPoint {
     } );
     ToolItem widthThickToolItem = new ToolItem( toolBar, SWT.PUSH );
     widthThickToolItem.setImage( new Image( parent.getDisplay(),
-                                            DrawDemo.class.getResourceAsStream( "/images/line-width-thick.png" ) ) );
+                                            DrawDemo.class.getResourceAsStream( "/line-width-thick.png" ) ) );
     widthThickToolItem.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
@@ -602,7 +602,7 @@ public class DrawDemo implements IEntryPoint {
     new ToolItem( toolBar, SWT.SEPARATOR );
     undoToolItem = new ToolItem( toolBar, SWT.PUSH );
     undoToolItem.setImage( new Image( parent.getDisplay(),
-                                      DrawDemo.class.getResourceAsStream( "/images/undo.png" ) ) );
+                                      DrawDemo.class.getResourceAsStream( "/undo.png" ) ) );
     undoToolItem.setEnabled( false );
     undoToolItem.addListener( SWT.Selection, new Listener() {
 
@@ -614,7 +614,7 @@ public class DrawDemo implements IEntryPoint {
     } );
     redoToolItem = new ToolItem( toolBar, SWT.PUSH );
     redoToolItem.setImage( new Image( parent.getDisplay(),
-                                      DrawDemo.class.getResourceAsStream( "/images/redo.png" ) ) );
+                                      DrawDemo.class.getResourceAsStream( "/redo.png" ) ) );
     redoToolItem.setEnabled( false );
     redoToolItem.addListener( SWT.Selection, new Listener() {
 
