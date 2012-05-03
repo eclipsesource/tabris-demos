@@ -52,6 +52,8 @@ public class EnronExample {
   private static final String DATASET_DIR_PROP = "org.eclipse.rap.demo.enronDatasetDirectory";
   private TreeViewer viewer;
   private Composite parent;
+  private static final String ID_ANDROID = "com.eclipsesource.rap.mobile.client.android";
+  private static final String ID_IOS = "com.eclipsesource.rap.mobile.client.ios";
 
   public void createMainArea( Composite parent ) {
     this.parent = parent;
@@ -109,7 +111,7 @@ public class EnronExample {
     composite.setLayout( layout );
     HttpServletRequest request = RWT.getRequest();
     String userAgent = request.getHeader( "User-Agent" );
-    if( userAgent != null && !userAgent.contains( "Android" ) ) {
+    if( userAgent != null && !userAgent.contains( ID_ANDROID ) ) {
       createCloseButtonToolbar( composite );
     }
     createMailHeaderArea( composite, mail );
@@ -122,10 +124,11 @@ public class EnronExample {
       .align( SWT.FILL, SWT.BEGINNING )
       .grab( true, false )
       .applyTo( toolBar );
-    new ToolItem( toolBar, SWT.NONE ).setData(WidgetUtil.CUSTOM_VARIANT, "TITLE");
+    new ToolItem( toolBar, SWT.NONE ).setData( WidgetUtil.CUSTOM_VARIANT, "TITLE" );
     ToolItem closeToolItem = new ToolItem( toolBar, SWT.PUSH );
     closeToolItem.setText( "Close" );
     closeToolItem.addSelectionListener( new SelectionAdapter() {
+
       @Override
       public void widgetSelected( SelectionEvent e ) {
         parent.getShell().close();
@@ -202,7 +205,7 @@ public class EnronExample {
 
     private String sender;
     private String subject;
-    private String content;
+    private final String content;
 
     public Mail( String text ) {
       String[] lines = text.split( "\n" );
