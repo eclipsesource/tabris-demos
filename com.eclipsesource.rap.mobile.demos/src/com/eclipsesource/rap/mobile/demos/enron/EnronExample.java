@@ -11,8 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ILazyTreeContentProvider;
@@ -22,7 +20,6 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
-import org.eclipse.rwt.RWT;
 import org.eclipse.rwt.lifecycle.WidgetUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -42,6 +39,8 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.TreeColumn;
 
+import com.eclipsesource.rap.mobile.ClientDevice;
+import com.eclipsesource.rap.mobile.Platform;
 import com.eclipsesource.rap.mobile.demos.enron.EnronDataset.Folder;
 import com.eclipsesource.rap.mobile.demos.enron.EnronDataset.Node;
 
@@ -52,8 +51,6 @@ public class EnronExample {
   private static final String DATASET_DIR_PROP = "org.eclipse.rap.demo.enronDatasetDirectory";
   private TreeViewer viewer;
   private Composite parent;
-  private static final String ID_ANDROID = "com.eclipsesource.rap.mobile.client.android";
-  private static final String ID_IOS = "com.eclipsesource.rap.mobile.client.ios";
 
   public void createMainArea( Composite parent ) {
     this.parent = parent;
@@ -109,9 +106,7 @@ public class EnronExample {
     final Composite composite = new Composite( parent, SWT.NONE );
     GridLayout layout = ExampleUtil.createGridLayout();
     composite.setLayout( layout );
-    HttpServletRequest request = RWT.getRequest();
-    String userAgent = request.getHeader( "User-Agent" );
-    if( userAgent != null && !userAgent.contains( ID_ANDROID ) ) {
+    if( !ClientDevice.getCurrent().isPlatform( Platform.ANDROID ) ) {
       createCloseButtonToolbar( composite );
     }
     createMailHeaderArea( composite, mail );
