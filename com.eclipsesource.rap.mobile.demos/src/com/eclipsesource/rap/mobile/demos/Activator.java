@@ -1,6 +1,6 @@
 package com.eclipsesource.rap.mobile.demos;
 
-import org.eclipse.rwt.application.ApplicationConfigurator;
+import org.eclipse.rwt.application.ApplicationConfiguration;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -10,9 +10,9 @@ public class Activator implements BundleActivator {
   private ServiceRegistration<?> registration;
 
 	public void start(BundleContext bundleContext) throws Exception {
-	  Configurator configurator = new Configurator();
-	  registration = bundleContext.registerService( ApplicationConfigurator.class.getName(), 
-	                                                configurator, 
+	  Configuration configuration = new Configuration();
+	  registration = bundleContext.registerService( ApplicationConfiguration.class.getName(), 
+	                                                configuration, 
 	                                                null );
 	}
 

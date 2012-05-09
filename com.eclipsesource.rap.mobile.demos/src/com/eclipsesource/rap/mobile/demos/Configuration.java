@@ -7,8 +7,8 @@
  ******************************************************************************/
 package com.eclipsesource.rap.mobile.demos;
 
+import org.eclipse.rwt.application.Application;
 import org.eclipse.rwt.application.ApplicationConfiguration;
-import org.eclipse.rwt.application.ApplicationConfigurator;
 
 import com.eclipsesource.rap.mobile.demos.entrypoints.ButtonControlsDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.DrawDemo;
@@ -18,15 +18,15 @@ import com.eclipsesource.rap.mobile.demos.entrypoints.InputControlsDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.SimpleTreeDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.VirtualTreeDemo;
 
-public class Configurator implements ApplicationConfigurator {
+public class Configuration implements ApplicationConfiguration {
 
-  public void configure( ApplicationConfiguration configuration ) {
-    configuration.addEntryPoint( "/input", InputControlsDemo.class, null );
-    configuration.addEntryPoint( "/buttons", ButtonControlsDemo.class, null );
-    configuration.addEntryPoint( "/virtual-tree", VirtualTreeDemo.class, null );
-    configuration.addEntryPoint( "/simple-tree", SimpleTreeDemo.class, null );
-    configuration.addEntryPoint( "/gallery", GalleryDemo.class, null );
-    configuration.addEntryPoint( "/location", GeolocationDemo.class, null );
-    configuration.addEntryPoint( "/draw", DrawDemo.class, null );
+  public void configure( Application application ) {
+    application.addEntryPoint( "/input", InputControlsDemo.class, null );
+    application.addEntryPoint( "/buttons", ButtonControlsDemo.class, null );
+    application.addEntryPoint( "/virtual-tree", VirtualTreeDemo.class, null );
+    application.addEntryPoint( "/simple-tree", SimpleTreeDemo.class, null );
+    application.addEntryPoint( "/gallery", GalleryDemo.class, null );
+    application.addEntryPoint( "/location", GeolocationDemo.class, null );
+    application.addEntryPoint( "/draw", DrawDemo.class, null );
   }
 }
