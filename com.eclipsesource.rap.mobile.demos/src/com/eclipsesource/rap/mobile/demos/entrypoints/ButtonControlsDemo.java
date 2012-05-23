@@ -126,8 +126,7 @@ public class ButtonControlsDemo implements IEntryPoint {
   private void createWinterSummerButtons( Display display, Composite parent, GridData layoutData ) {
     final Label label = new Label( parent, SWT.NONE );
     label.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    label.setBackground( display.getSystemColor( SWT.COLOR_DARK_RED ) );
-    label.setText( "Winter is coming" );
+    label.setText( "Winter is coming!" );
     FontData fontData = new FontData();
     fontData.setStyle( SWT.BOLD );
     fontData.setHeight( 24 );
