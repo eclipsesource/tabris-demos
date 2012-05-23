@@ -126,6 +126,7 @@ public class ButtonControlsDemo implements IEntryPoint {
   private void createWinterSummerButtons( Display display, Composite parent, GridData layoutData ) {
     final Label label = new Label( parent, SWT.NONE );
     label.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
+    label.setBackground( display.getSystemColor( SWT.COLOR_DARK_RED ) );
     label.setText( "Winter is coming" );
     FontData fontData = new FontData();
     fontData.setStyle( SWT.BOLD );
@@ -147,18 +148,22 @@ public class ButtonControlsDemo implements IEntryPoint {
     winterButton.setEnabled( false );
     winterButton.addSelectionListener( new SelectionAdapter() {
 
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         label.setText( "Winter is coming!" );
         winterButton.setEnabled( false );
         summerButton.setEnabled( true );
+        label.getParent().layout( true, true );
       }
     } );
     summerButton.addSelectionListener( new SelectionAdapter() {
 
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         label.setText( "And it's summer again..." );
         winterButton.setEnabled( true );
         summerButton.setEnabled( false );
+        label.getParent().layout( true, true );
       }
     } );
   }
