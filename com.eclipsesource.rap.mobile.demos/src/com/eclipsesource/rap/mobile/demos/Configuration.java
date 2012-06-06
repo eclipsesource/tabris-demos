@@ -17,6 +17,7 @@ import com.eclipsesource.rap.mobile.demos.entrypoints.GeolocationDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.InputControlsDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.SimpleTreeDemo;
 import com.eclipsesource.rap.mobile.demos.entrypoints.VirtualTreeDemo;
+import com.eclipsesource.rap.mobile.demos.entrypoints.VisualGuideDemo;
 
 public class Configuration implements ApplicationConfiguration {
 
@@ -28,5 +29,6 @@ public class Configuration implements ApplicationConfiguration {
     application.addEntryPoint( "/gallery", GalleryDemo.class, null );
     application.addEntryPoint( "/location", GeolocationDemo.class, null );
     application.addEntryPoint( "/draw", DrawDemo.class, null );
+    application.addEntryPoint( "/guide", VisualGuideDemo.class, null );
   }
 }
