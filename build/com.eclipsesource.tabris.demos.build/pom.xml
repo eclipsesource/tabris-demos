@@ -36,7 +36,7 @@
     <repository>
       <id>rap-mobile-nightly</id>
       <layout>p2</layout>
-      <url>http://download.eclipsesource.com/build/tabris/0.6.0</url>
+      <url>http://download.eclipsesource.com/build/tabris/0.6</url>
     </repository>
     <repository>
       <id>eclipse-milestones</id>
