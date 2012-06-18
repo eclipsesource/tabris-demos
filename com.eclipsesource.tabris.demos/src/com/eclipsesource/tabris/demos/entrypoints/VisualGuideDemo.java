@@ -5,7 +5,7 @@
  * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
  * EclipseSource - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.rap.mobile.demos.entrypoints;
+package com.eclipsesource.tabris.demos.entrypoints;
 
 import org.eclipse.rwt.lifecycle.IEntryPoint;
 import org.eclipse.rwt.lifecycle.WidgetUtil;
@@ -44,7 +44,7 @@ public class VisualGuideDemo implements IEntryPoint {
 
   public int createUI() {
     display = new Display();
-    createTable();
+    createShell();
     return 0;
   }
 
@@ -212,7 +212,10 @@ public class VisualGuideDemo implements IEntryPoint {
     background.setMaximized( true );
     background.open();
     background.setBackground( display.getSystemColor( SWT.COLOR_WIDGET_LIGHT_SHADOW ) );
-    final Shell shell = new Shell( display, SWT.BORDER | SWT.TITLE | SWT.CLOSE );
+    final Shell shell = new Shell( display, SWT.BORDER
+                                            | SWT.APPLICATION_MODAL
+                                            | SWT.TITLE
+                                            | SWT.CLOSE );
     shell.setText( "Shell With Title" );
     shell.setSize( 230, 100 );
     shell.setLocation( 30, 30 );

@@ -17,6 +17,7 @@ import com.eclipsesource.tabris.demos.entrypoints.GeolocationDemo;
 import com.eclipsesource.tabris.demos.entrypoints.InputControlsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.SimpleTreeDemo;
 import com.eclipsesource.tabris.demos.entrypoints.VirtualTreeDemo;
+import com.eclipsesource.tabris.demos.entrypoints.VisualGuideDemo;
 
 public class Configuration implements ApplicationConfiguration {
 
