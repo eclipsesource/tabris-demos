@@ -234,7 +234,9 @@ public class GeolocationDemo implements IEntryPoint {
   private void openDialog( String title, String message ) {
     final Shell box = new Shell( shell, SWT.APPLICATION_MODAL | SWT.BORDER | SWT.TITLE );
     box.setText( title );
-    box.setLayout( new GridLayout() );
+    GridLayout layout = new GridLayout();
+    layout.marginWidth = 50;
+    box.setLayout( layout );
     box.setBackground( Graphics.getColor( 0, 0, 0 ) );
     Label label = new Label( box, SWT.NONE );
     label.setText( message );
