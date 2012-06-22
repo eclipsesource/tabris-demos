@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2012 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
@@ -46,12 +43,10 @@ import com.eclipsesource.tabris.geolocation.GeolocationOptions;
 import com.eclipsesource.tabris.geolocation.Position;
 import com.eclipsesource.tabris.geolocation.PositionError;
 
-
 public class GeolocationDemo implements IEntryPoint {
 
   private static final double SPRINGFIELD_LAT = 44.050953;
   private static final double SPRINGFIELD_LON = -123.016663;
-  
   private Shell shell;
   private Geolocation geolocation;
   private Browser browser;
@@ -60,14 +55,17 @@ public class GeolocationDemo implements IEntryPoint {
   private String lastLabel;
 
   public int createUI() {
-    lastLat = 49.00612809217996; 
+    lastLat = 49.00612809217996;
     lastLon = 8.400545271791982;
     createShell();
     createTitle();
     createBrowser();
     geolocation = new Geolocation();
     Composite container = new Composite( shell, SWT.NONE );
-    container.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, false ).create() );
+    container.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.FILL )
+      .grab( true, false )
+      .create() );
     container.setLayout( GridLayoutFactory.fillDefaults().margins( 0, 5 ).create() );
     createGetLocationButton( container );
     createSpringfieldButton( container );
@@ -83,6 +81,7 @@ public class GeolocationDemo implements IEntryPoint {
     shell.setBackground( Graphics.getColor( 0, 0, 0 ) );
     shell.addControlListener( new ControlAdapter() {
 
+      @Override
       public void controlResized( ControlEvent e ) {
         setBrowserUrl( lastLat, lastLon );
       }
@@ -110,14 +109,16 @@ public class GeolocationDemo implements IEntryPoint {
     getLocationButton.setBackground( Graphics.getColor( 60, 60, 60 ) );
     getLocationButton.setForeground( Graphics.getColor( 225, 255, 255 ) );
     getLocationButton.addSelectionListener( new SelectionAdapter() {
+
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         geolocation.getCurrentPosition( new GeolocationCallback() {
-          
+
           public void onSuccess( Position position ) {
-              lastLabel = "green_1";
-              setBrowserUrl( position.getCoords().getLatitude(), position.getCoords().getLongitude() );
-              String message = "You are in: \n" + getCity( position );
-              openDialog( "Geolocation", message );
+            lastLabel = "green_1";
+            setBrowserUrl( position.getCoords().getLatitude(), position.getCoords().getLongitude() );
+            String message = "You are in: \n" + getCity( position );
+            openDialog( "Geolocation", message );
           }
 
           public void onError( PositionError error ) {
@@ -127,7 +128,8 @@ public class GeolocationDemo implements IEntryPoint {
             builder.append( "Message: " + error.getMessage() );
             openDialog( "Error", builder.toString() );
           }
-        }, new GeolocationOptions().enableHighAccuracy() );
+        },
+                                        new GeolocationOptions().enableHighAccuracy() );
       }
     } );
     return getLocationButton;
@@ -140,7 +142,7 @@ public class GeolocationDemo implements IEntryPoint {
     builder.append( "," );
     builder.append( position.getCoords().getLongitude() );
     builder.append( "&sensor=false" );
-    try { 
+    try {
       URL url = new URL( builder.toString() );
       String json = readStream( url.openStream() );
       return processJson( json );
@@ -192,23 +194,26 @@ public class GeolocationDemo implements IEntryPoint {
     button.setBackground( Graphics.getColor( 225, 151, 7 ) );
     button.setForeground( Graphics.getColor( 225, 255, 255 ) );
     button.addSelectionListener( new SelectionAdapter() {
+
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         geolocation.getCurrentPosition( new GeolocationCallback() {
-          
+
           public void onSuccess( Position position ) {
             lastLabel = "yellow_1";
             setBrowserUrl( SPRINGFIELD_LAT, SPRINGFIELD_LON );
-            double distance = distFrom( position.getCoords().getLatitude(), 
-                                       position.getCoords().getLongitude(), 
-                                       SPRINGFIELD_LAT, 
-                                       SPRINGFIELD_LON );
-            DecimalFormat format = new DecimalFormat("#0.00"); 
-            openDialog( "Springfield Locator", "Distance to Moe's: \n" + format.format( distance ) + " km" );
+            double distance = distFrom( position.getCoords().getLatitude(), position.getCoords()
+              .getLongitude(), SPRINGFIELD_LAT, SPRINGFIELD_LON );
+            DecimalFormat format = new DecimalFormat( "#0.00" );
+            openDialog( "Springfield Locator", "Distance to Moe's: \n"
+                                               + format.format( distance )
+                                               + " km" );
           }
-          
+
           public void onError( PositionError error ) {
           }
-        }, new GeolocationOptions().enableHighAccuracy() );
+        },
+                                        new GeolocationOptions().enableHighAccuracy() );
       }
     } );
     return button;
@@ -225,29 +230,50 @@ public class GeolocationDemo implements IEntryPoint {
     double c = 2 * Math.atan2( Math.sqrt( a ), Math.sqrt( 1 - a ) );
     return 6367 * c;
   }
-  
+
   private void openDialog( String title, String message ) {
     final Shell box = new Shell( shell, SWT.APPLICATION_MODAL | SWT.BORDER | SWT.TITLE );
     box.setText( title );
-    box.setLayout( new GridLayout() );
+    GridLayout layout = new GridLayout();
+    layout.marginWidth = 50;
+    box.setLayout( layout );
     box.setBackground( Graphics.getColor( 0, 0, 0 ) );
     Label label = new Label( box, SWT.NONE );
     label.setText( message );
-    label.setLayoutData( GridDataFactory.fillDefaults().align( SWT.CENTER, SWT.CENTER ).grab( true, true ).create() );
+    label.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.CENTER, SWT.CENTER )
+      .grab( true, true )
+      .create() );
     Button close = new Button( box, SWT.PUSH );
     close.setBackground( Graphics.getColor( 225, 151, 7 ) );
     close.setText( "Okily dokily!" );
-    close.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.CENTER ).grab( true, false ).create() );
+    close.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.CENTER )
+      .grab( true, false )
+      .create() );
     close.addSelectionListener( new SelectionAdapter() {
-      public void widgetSelected(SelectionEvent e) {
+
+      @Override
+      public void widgetSelected( SelectionEvent e ) {
         box.close();
       }
     } );
-    box.setSize( 256, 148 );
+    box.pack();
+    box.addControlListener( new ControlAdapter() {
+
+      @Override
+      public void controlResized( ControlEvent e ) {
+        centerDialog( box );
+      }
+    } );
+    centerDialog( box );
+    box.open();
+  }
+
+  private void centerDialog( Shell box ) {
     int newX = ( shell.getSize().x - box.getSize().x ) / 2;
     int newY = ( shell.getSize().y - box.getSize().y ) / 2;
     box.setLocation( newX, newY );
-    box.open();
   }
 
   private void setBrowserUrl( double lat, double lon ) {
@@ -264,5 +290,4 @@ public class GeolocationDemo implements IEntryPoint {
     }
     browser.setUrl( builder.toString() );
   }
-  
 }
