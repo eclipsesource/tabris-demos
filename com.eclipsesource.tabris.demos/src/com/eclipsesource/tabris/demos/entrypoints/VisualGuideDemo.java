@@ -27,6 +27,8 @@ import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.TabFolder;
@@ -44,7 +46,7 @@ public class VisualGuideDemo implements IEntryPoint {
 
   public int createUI() {
     display = new Display();
-    createShell();
+    createProgress();
     return 0;
   }
 
@@ -328,5 +330,30 @@ public class VisualGuideDemo implements IEntryPoint {
   }
 
   private void createTree() {
+  }
+
+  private void createList() {
+    final Shell shell = new Shell( display, SWT.NONE );
+    shell.setLayout( new FillLayout() );
+    shell.setMaximized( true );
+    List list = new List( shell, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL );
+    list.setItems( new String[]{
+      "House", "Mouse", "Tree", "Sun", "Flower"
+    } );
+    shell.open();
+  }
+
+  private void createProgress() {
+    final Shell shell = new Shell( display, SWT.NONE );
+    shell.setMaximized( true );
+    GridLayout layout = new GridLayout();
+    layout.marginHeight = 0;
+    layout.marginWidth = 0;
+    shell.setLayout( layout );
+    ProgressBar progressBar = new ProgressBar( shell, SWT.HORIZONTAL | SWT.INDETERMINATE );
+    progressBar.setMinimum( 50 );
+    progressBar.setMaximum( 150 );
+    progressBar.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, true ) );
+    shell.open();
   }
 }
