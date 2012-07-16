@@ -39,6 +39,8 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 
 public class VisualGuideDemo implements IEntryPoint {
 
@@ -46,7 +48,7 @@ public class VisualGuideDemo implements IEntryPoint {
 
   public int createUI() {
     display = new Display();
-    createProgress();
+    createTree();
     return 0;
   }
 
@@ -330,6 +332,26 @@ public class VisualGuideDemo implements IEntryPoint {
   }
 
   private void createTree() {
+    final Shell shell = new Shell( display, SWT.NONE );
+    shell.setLayout( new FillLayout() );
+    shell.setMaximized( true );
+    final Tree tree = new Tree( shell, SWT.BORDER );
+    tree.setToolTipText( "A Tree" );
+    TreeItem topItem = new TreeItem( tree, 0 );
+    topItem.setText( "a branch" );
+    TreeItem childItem = new TreeItem( topItem, 0 );
+    childItem.setText( "a little branch" );
+    TreeItem subChildItem = new TreeItem( childItem, 0 );
+    subChildItem.setText( "a brown leaf" );
+    childItem = new TreeItem( topItem, 0 );
+    childItem.setText( "a yellow leaf" );
+    topItem = new TreeItem( tree, 0 );
+    topItem.setText( "another branch" );
+    childItem = new TreeItem( topItem, 0 );
+    childItem.setText( "a red leaf" );
+    topItem = new TreeItem( tree, 0 );
+    topItem.setText( "a green leaf" );
+    shell.open();
   }
 
   private void createList() {
