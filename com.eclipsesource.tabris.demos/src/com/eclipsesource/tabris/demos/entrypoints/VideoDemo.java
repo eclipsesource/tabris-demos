@@ -10,8 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import java.io.InputStream;
-
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.layout.RowLayoutFactory;
@@ -49,8 +47,7 @@ public class VideoDemo implements IEntryPoint {
     Composite container = new Composite( shell, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().numColumns( 1 ).create() );
     
-    InputStream resourceAsStream = getClass().getResourceAsStream( "/trapped-in-the-closet.mp4" );
-    Video video = new Video( resourceAsStream, container );
+    Video video = new Video( "http://dl.dropbox.com/u/5808972/Movie.m4v", container );
     video.setLayoutData( GridDataFactory.fillDefaults().grab( true, true ).create() );
     
     Composite controls = new Composite( container, SWT.NONE );
