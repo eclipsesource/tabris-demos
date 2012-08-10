@@ -71,6 +71,8 @@ public class VideoDemo implements IEntryPoint {
       public void presentationChanged( PresentationMode newMode ) {
         if( newMode == PresentationMode.EMBEDDED ) {
           fullscreenButton.setEnabled( true );
+        } else {
+          fullscreenButton.setEnabled( false );
         }
       }
       
