@@ -63,7 +63,7 @@ public class VideoDemo implements IEntryPoint {
     final Button backwardButton = createBackwardButton( video, controls );
     final Button forwardButton = createForwardButton( video, controls );
     final Button fullscreenButton = createFullscreenButton( video, controls );
-
+    final Button showControlsButton = createShowControlsButton( video, controls ); 
     pauseButton.setEnabled( false );
     stopButton.setEnabled( false );
     video.addVideoListener( new VideoListener() {
@@ -168,6 +168,18 @@ public class VideoDemo implements IEntryPoint {
       public void widgetSelected( SelectionEvent e ) {
         video.setFullscreen( true );
         fullscreenButton.setEnabled( false );
+      }
+    } );
+    return fullscreenButton;
+  }
+
+  private Button createShowControlsButton( final Video video, Composite controls ) {
+    final Button fullscreenButton = new Button( controls, SWT.CHECK );
+    fullscreenButton.setText( "Controls Visible" );
+    fullscreenButton.setSelection( true );
+    fullscreenButton.addSelectionListener( new SelectionAdapter() {
+      public void widgetSelected( SelectionEvent e ) {
+        video.setPlayerControlsVisible( fullscreenButton.getSelection() );
       }
     } );
     return fullscreenButton;
