@@ -16,6 +16,7 @@ import com.eclipsesource.tabris.demos.entrypoints.GalleryDemo;
 import com.eclipsesource.tabris.demos.entrypoints.GeolocationDemo;
 import com.eclipsesource.tabris.demos.entrypoints.InputControlsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.SimpleTreeDemo;
+import com.eclipsesource.tabris.demos.entrypoints.VideoDemo;
 import com.eclipsesource.tabris.demos.entrypoints.VirtualTreeDemo;
 
 public class Configuration implements ApplicationConfiguration {
@@ -28,5 +29,6 @@ public class Configuration implements ApplicationConfiguration {
     application.addEntryPoint( "/gallery", GalleryDemo.class, null );
     application.addEntryPoint( "/location", GeolocationDemo.class, null );
     application.addEntryPoint( "/draw", DrawDemo.class, null );
+    application.addEntryPoint( "/video", VideoDemo.class, null );
   }
 }
