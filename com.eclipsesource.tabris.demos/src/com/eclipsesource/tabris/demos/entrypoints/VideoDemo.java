@@ -145,7 +145,7 @@ public class VideoDemo implements IEntryPoint {
     backwardButton.setText( "backward" );
     backwardButton.addSelectionListener( new SelectionAdapter() {
       public void widgetSelected( SelectionEvent e ) {
-        video.fastBackward( 2 );
+        video.fastBackward( -2 );
       }
     } );
     return backwardButton;
