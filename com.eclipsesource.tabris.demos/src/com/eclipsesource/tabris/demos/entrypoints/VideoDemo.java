@@ -47,7 +47,7 @@ public class VideoDemo implements IEntryPoint {
     Composite container = new Composite( shell, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().numColumns( 1 ).create() );
     
-    Video video = new Video( "http://dl.dropbox.com/u/5808972/Movie.m4v", container );
+    Video video = new Video( "https://dl.dropbox.com/s/m6fr5hwaee2bgap/Spherikal.mp4", container );
     video.setLayoutData( GridDataFactory.fillDefaults().grab( true, true ).create() );
     
     Composite controls = new Composite( container, SWT.NONE );
