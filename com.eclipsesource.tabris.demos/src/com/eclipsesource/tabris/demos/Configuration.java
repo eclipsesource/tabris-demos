@@ -11,6 +11,7 @@ import org.eclipse.rwt.application.Application;
 import org.eclipse.rwt.application.ApplicationConfiguration;
 
 import com.eclipsesource.tabris.demos.entrypoints.ButtonControlsDemo;
+import com.eclipsesource.tabris.demos.entrypoints.CameraDemo;
 import com.eclipsesource.tabris.demos.entrypoints.DrawDemo;
 import com.eclipsesource.tabris.demos.entrypoints.GalleryDemo;
 import com.eclipsesource.tabris.demos.entrypoints.GeolocationDemo;
@@ -28,5 +29,6 @@ public class Configuration implements ApplicationConfiguration {
     application.addEntryPoint( "/gallery", GalleryDemo.class, null );
     application.addEntryPoint( "/location", GeolocationDemo.class, null );
     application.addEntryPoint( "/draw", DrawDemo.class, null );
+    application.addEntryPoint( "/camera", CameraDemo.class, null );
   }
 }
