@@ -60,6 +60,7 @@ public class CameraDemo implements IEntryPoint {
           
           public void onSuccess( Image image ) {
             imageLabel.setImage( image );
+            imageLabel.pack();
           }
           
           public void onError() {
