@@ -20,7 +20,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
-import org.eclipse.rwt.lifecycle.WidgetUtil;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -119,7 +119,7 @@ public class EnronExample {
       .align( SWT.FILL, SWT.BEGINNING )
       .grab( true, false )
       .applyTo( toolBar );
-    new ToolItem( toolBar, SWT.NONE ).setData( WidgetUtil.CUSTOM_VARIANT, "TITLE" );
+    new ToolItem( toolBar, SWT.NONE ).setData( RWT.CUSTOM_VARIANT, "TITLE" );
     ToolItem closeToolItem = new ToolItem( toolBar, SWT.PUSH );
     closeToolItem.setText( "Close" );
     closeToolItem.addSelectionListener( new SelectionAdapter() {

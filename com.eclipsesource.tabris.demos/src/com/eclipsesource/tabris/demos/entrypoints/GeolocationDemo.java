@@ -15,9 +15,9 @@ import java.text.DecimalFormat;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.rwt.graphics.Graphics;
-import org.eclipse.rwt.lifecycle.IEntryPoint;
-import org.eclipse.rwt.lifecycle.WidgetUtil;
+import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.graphics.Graphics;
+import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.ControlAdapter;
@@ -92,7 +92,7 @@ public class GeolocationDemo implements IEntryPoint {
     ToolBar toolBar = new ToolBar( shell, SWT.FLAT );
     toolBar.setLayoutData( new GridData( SWT.FILL, SWT.TOP, true, false ) );
     ToolItem title = new ToolItem( toolBar, SWT.NONE );
-    title.setData( WidgetUtil.CUSTOM_VARIANT, "TITLE" );
+    title.setData( RWT.CUSTOM_VARIANT, "TITLE" );
     title.setText( "D'oh! Where am I?" );
   }
 

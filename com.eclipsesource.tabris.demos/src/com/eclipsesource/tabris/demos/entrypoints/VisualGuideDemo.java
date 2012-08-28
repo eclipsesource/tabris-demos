@@ -7,8 +7,8 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import org.eclipse.rwt.lifecycle.IEntryPoint;
-import org.eclipse.rwt.lifecycle.WidgetUtil;
+import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.lifecycle.WidgetUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.ScrolledComposite;

@@ -7,8 +7,8 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos;
 
-import org.eclipse.rwt.application.Application;
-import org.eclipse.rwt.application.ApplicationConfiguration;
+import org.eclipse.rap.rwt.application.Application;
+import org.eclipse.rap.rwt.application.ApplicationConfiguration;
 
 import com.eclipsesource.tabris.demos.entrypoints.ButtonControlsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.DrawDemo;

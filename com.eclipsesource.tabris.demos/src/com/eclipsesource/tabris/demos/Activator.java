@@ -1,6 +1,6 @@
 package com.eclipsesource.tabris.demos;
 
-import org.eclipse.rwt.application.ApplicationConfiguration;
+import org.eclipse.rap.rwt.application.ApplicationConfiguration;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;

@@ -17,8 +17,8 @@ import java.util.Map;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.rwt.lifecycle.IEntryPoint;
-import org.eclipse.rwt.lifecycle.WidgetUtil;
+import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlAdapter;
@@ -95,7 +95,7 @@ public class GalleryDemo implements IEntryPoint {
     } );
     
     ToolItem titleItem = new ToolItem(toolBar, SWT.NONE);
-    titleItem.setData(WidgetUtil.CUSTOM_VARIANT, "TITLE");
+    titleItem.setData(RWT.CUSTOM_VARIANT, "TITLE");
     titleItem.setText("The Big Bang Theory");
   }
   
@@ -132,7 +132,7 @@ public class GalleryDemo implements IEntryPoint {
 
   private void createThumbnailsArea( Shell parentShell ) {
     thumbnailsArea = new Shell(parentShell, SWT.NO_TRIM);
-    thumbnailsArea.setData(WidgetUtil.CUSTOM_VARIANT, "ANIMATED");
+    thumbnailsArea.setData(RWT.CUSTOM_VARIANT, "ANIMATED");
     thumbnailsArea.setBounds( 0, thumbnailsArea.getDisplay().getBounds().height, thumbnailsArea.getDisplay().getBounds().width, 164 );
     FillLayout thumbnailsAreaLayout = new FillLayout();
     thumbnailsAreaLayout.marginHeight = 7;
@@ -143,7 +143,7 @@ public class GalleryDemo implements IEntryPoint {
     thumbnailsArea.setBackground(bgColor );
   
     scrolledComposite = new ScrolledComposite(thumbnailsArea, SWT.H_SCROLL);
-    scrolledComposite.setData(WidgetUtil.CUSTOM_VARIANT, "PAGINGENABLED");
+    scrolledComposite.setData(RWT.CUSTOM_VARIANT, "PAGINGENABLED");
   
     thumbnailsComposite = new Composite(scrolledComposite, SWT.NONE);
     GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.CENTER).grab(true, false).applyTo(thumbnailsComposite);
@@ -170,7 +170,7 @@ public class GalleryDemo implements IEntryPoint {
     imageArea.setLayout( new FillLayout() );
   
     zoomImageLabel = new Label( imageArea, SWT.NONE );
-    zoomImageLabel.setData( WidgetUtil.CUSTOM_VARIANT, "ZOOM" );
+    zoomImageLabel.setData( RWT.CUSTOM_VARIANT, "ZOOM" );
     zoomImageLabel.addMouseListener( new MouseAdapter() {
       @Override
       public void mouseDown( MouseEvent e ) {

@@ -7,7 +7,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import org.eclipse.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;

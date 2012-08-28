@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos;
 
-import org.eclipse.rwt.branding.AbstractBranding;
+import org.eclipse.rap.rwt.branding.AbstractBranding;
 
 
 public class Branding extends AbstractBranding {
