@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2012 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
@@ -28,15 +25,20 @@ import com.eclipsesource.tabris.widgets.Video.PlaybackMode;
 import com.eclipsesource.tabris.widgets.Video.PresentationMode;
 import com.eclipsesource.tabris.widgets.VideoListener;
 
-
 public class VideoDemo implements IEntryPoint {
-  
+
+  private static final String VIDEO_FLIGHT = "http://dl.dropbox.com/u/5808972/Movie.m4v";
+  private static final String VIDEO_BUNNY_WEBM = "http://vimeo.com/1084537/download?t=1344941450&v=24130451&s=6a906cc481e0b857730b7989b6772a42";
+  private static final String VIDEO_BUNNY = "http://vimeo.com/1084537/download?t=1345197692&v=12943877&s=3484f51916bbd81cc3bc4030463038fd";
+  private static final String VIDEO_COMIC = "http://ia700602.us.archive.org/13/items/TheBlackDuck/AFabletoon-TheBlackDuck1922.mp4";
+  private static final String VIDEO_SPHERICAL = "http://download.eclipsesource.com/~jboehme/Spherikal.mp4";
+  private final String videoUrl = VIDEO_FLIGHT;
+
   public int createUI() {
     Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized( true );
     shell.setLayout( new FillLayout() );
-    shell.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
     createContent( display, shell );
     shell.open();
     shell.setVisible( true );
@@ -47,9 +49,9 @@ public class VideoDemo implements IEntryPoint {
     Composite container = new Composite( shell, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().numColumns( 1 ).create() );
     
-    Video video = new Video( "http://download.eclipsesource.com/~jboehme/Spherikal.mp4", container );
+    Video video = new Video( videoUrl, container );
     video.setLayoutData( GridDataFactory.fillDefaults().grab( true, true ).create() );
-    
+
     Composite controls = new Composite( container, SWT.NONE );
     controls.setLayoutData( GridDataFactory.fillDefaults().grab( true, false ).create() );
     hookControlsAndVideo( video, controls );
@@ -68,7 +70,7 @@ public class VideoDemo implements IEntryPoint {
     pauseButton.setEnabled( false );
     stopButton.setEnabled( false );
     video.addVideoListener( new VideoListener() {
-      
+
       public void presentationChanged( PresentationMode newMode ) {
         if( newMode == PresentationMode.EMBEDDED ) {
           fullscreenButton.setEnabled( true );
@@ -76,7 +78,7 @@ public class VideoDemo implements IEntryPoint {
           fullscreenButton.setEnabled( false );
         }
       }
-      
+
       public void playbackChanged( PlaybackMode newMode ) {
         if( newMode == PlaybackMode.PLAY ) {
           playButton.setEnabled( false );
@@ -111,6 +113,8 @@ public class VideoDemo implements IEntryPoint {
     final Button playButton = new Button( controls, SWT.PUSH );
     playButton.setText( "play" );
     playButton.addSelectionListener( new SelectionAdapter() {
+
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         video.play();
       }
@@ -122,6 +126,8 @@ public class VideoDemo implements IEntryPoint {
     final Button pauseButton = new Button( controls, SWT.PUSH );
     pauseButton.setText( "pause" );
     pauseButton.addSelectionListener( new SelectionAdapter() {
+
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         video.pause();
       }
@@ -133,6 +139,8 @@ public class VideoDemo implements IEntryPoint {
     final Button stopButton = new Button( controls, SWT.PUSH );
     stopButton.setText( "stop" );
     stopButton.addSelectionListener( new SelectionAdapter() {
+
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         video.stop();
       }
@@ -144,6 +152,8 @@ public class VideoDemo implements IEntryPoint {
     final Button backwardButton = new Button( controls, SWT.PUSH );
     backwardButton.setText( "backward" );
     backwardButton.addSelectionListener( new SelectionAdapter() {
+
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         video.fastBackward( -2 );
       }
@@ -155,6 +165,8 @@ public class VideoDemo implements IEntryPoint {
     final Button forwardButton = new Button( controls, SWT.PUSH );
     forwardButton.setText( "forward" );
     forwardButton.addSelectionListener( new SelectionAdapter() {
+
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         video.fastForward( 2 );
       }
@@ -166,6 +178,8 @@ public class VideoDemo implements IEntryPoint {
     final Button fullscreenButton = new Button( controls, SWT.PUSH );
     fullscreenButton.setText( "fullscreen" );
     fullscreenButton.addSelectionListener( new SelectionAdapter() {
+
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         video.setFullscreen( true );
         fullscreenButton.setEnabled( false );
@@ -179,6 +193,8 @@ public class VideoDemo implements IEntryPoint {
     fullscreenButton.setText( "Controls" );
     fullscreenButton.setSelection( true );
     fullscreenButton.addSelectionListener( new SelectionAdapter() {
+
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         video.setPlayerControlsVisible( fullscreenButton.getSelection() );
       }
@@ -190,6 +206,8 @@ public class VideoDemo implements IEntryPoint {
     final Button button = new Button( controls, SWT.CHECK );
     button.setText( "Repeat" );
     button.addSelectionListener( new SelectionAdapter() {
+
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         video.setRepeat( button.getSelection() );
       }
