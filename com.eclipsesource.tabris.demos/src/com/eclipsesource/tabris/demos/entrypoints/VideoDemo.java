@@ -48,10 +48,8 @@ public class VideoDemo implements IEntryPoint {
   private void createContent( Display display, Shell shell ) {
     Composite container = new Composite( shell, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().numColumns( 1 ).create() );
-    
     Video video = new Video( videoUrl, container );
     video.setLayoutData( GridDataFactory.fillDefaults().grab( true, true ).create() );
-
     Composite controls = new Composite( container, SWT.NONE );
     controls.setLayoutData( GridDataFactory.fillDefaults().grab( true, false ).create() );
     hookControlsAndVideo( video, controls );
