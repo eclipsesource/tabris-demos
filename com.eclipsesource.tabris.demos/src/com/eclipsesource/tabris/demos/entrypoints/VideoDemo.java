@@ -1,10 +1,12 @@
-/*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others. All rights reserved. This
+/*
+ * "*****************************************************************************
+ * * Copyright (c) 2012 EclipseSource and others. All rights reserved. This
  * program and the accompanying materials are made available under the terms of
  * the Eclipse Public License v1.0 which accompanies this distribution, and is
  * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
  * EclipseSource - initial API and implementation
- ******************************************************************************/
+ * ****************************************************************************
+ */
 package com.eclipsesource.tabris.demos.entrypoints;
 
 import org.eclipse.jface.layout.GridDataFactory;
@@ -32,7 +34,9 @@ public class VideoDemo implements IEntryPoint {
   private static final String VIDEO_BUNNY = "http://vimeo.com/1084537/download?t=1345197692&v=12943877&s=3484f51916bbd81cc3bc4030463038fd";
   private static final String VIDEO_COMIC = "http://ia700602.us.archive.org/13/items/TheBlackDuck/AFabletoon-TheBlackDuck1922.mp4";
   private static final String VIDEO_SPHERICAL = "http://download.eclipsesource.com/~jboehme/Spherikal.mp4";
-  private final String videoUrl = VIDEO_FLIGHT;
+  private static final String VIDEO_SINTEL = "http://ftp.nluug.nl/ftp/graphics/blender/apricot/trailer/sintel_trailer-480p.mp4";
+  private static final String VIDEO_BLENDER = "http://video.blendertestbuilds.de/download.blender.org/peach/trailer_iphone.m4v";
+  private static final String videoUrl = VIDEO_BLENDER;
 
   public int createUI() {
     Display display = new Display();
@@ -50,6 +54,7 @@ public class VideoDemo implements IEntryPoint {
     container.setLayout( GridLayoutFactory.fillDefaults().numColumns( 1 ).create() );
     Video video = new Video( videoUrl, container );
     video.setLayoutData( GridDataFactory.fillDefaults().grab( true, true ).create() );
+    video.setAutoPlay( true );
     Composite controls = new Composite( container, SWT.NONE );
     controls.setLayoutData( GridDataFactory.fillDefaults().grab( true, false ).create() );
     hookControlsAndVideo( video, controls );
