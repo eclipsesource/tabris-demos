@@ -191,18 +191,17 @@ public class VideoDemo implements IEntryPoint {
     return fullscreenButton;
   }
 
-  private Button createShowControlsButton( final Video video, Composite controls ) {
-    final Button fullscreenButton = new Button( controls, SWT.CHECK );
-    fullscreenButton.setText( "Controls" );
-    fullscreenButton.setSelection( true );
-    fullscreenButton.addSelectionListener( new SelectionAdapter() {
+  private void createShowControlsButton( final Video video, Composite controls ) {
+    final Button showControlsButton = new Button( controls, SWT.CHECK );
+    showControlsButton.setText( "Controls" );
+    showControlsButton.setSelection( true );
+    showControlsButton.addSelectionListener( new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        video.setPlayerControlsVisible( fullscreenButton.getSelection() );
+        video.setPlayerControlsVisible( showControlsButton.getSelection() );
       }
     } );
-    return fullscreenButton;
   }
 
   private Button createRepeatButton( final Video video, Composite controls ) {
