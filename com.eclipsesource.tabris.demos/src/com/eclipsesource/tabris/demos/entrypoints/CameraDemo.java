@@ -51,7 +51,7 @@ public class CameraDemo implements IEntryPoint {
     imageLabel.setBackground( shell.getDisplay().getSystemColor( SWT.COLOR_GREEN ) );
     
     CameraOptions options = new CameraOptions();
-    options.setSourceType( SourceType.PHOTOLIBRARY );
+    options.setSourceType( SourceType.PHOTO_LIBRARY );
     options.setResolution( 200, 200 );
     final Camera camera = new Camera( options );
     pictureButton.addSelectionListener( new SelectionAdapter() {
