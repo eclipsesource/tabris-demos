@@ -36,7 +36,7 @@
     <repository>
       <id>tabris-nightly</id>
       <layout>p2</layout>
-      <url>http://developer.eclipsesource.com/technology/tabris/downloads/0.7</url>
+      <url>http://download.eclipsesource.com/technology/tabris/downloads/0.7</url>
     </repository>
     <repository>
       <id>eclipse-milestones</id>
