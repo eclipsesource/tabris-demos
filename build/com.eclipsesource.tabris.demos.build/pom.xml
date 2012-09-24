@@ -43,6 +43,11 @@
       <layout>p2</layout>
       <url>http://download.eclipse.org/eclipse/updates/3.8</url>
     </repository>
+    <repository>
+      <id>eclipse-orbit</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20120526062928/</url>
+    </repository>
   </repositories>	
 
 	<build>
