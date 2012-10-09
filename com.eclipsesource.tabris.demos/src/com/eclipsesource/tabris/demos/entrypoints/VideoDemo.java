@@ -57,6 +57,7 @@ public class VideoDemo implements IEntryPoint {
     Composite controls = new Composite( container, SWT.NONE );
     controls.setLayoutData( GridDataFactory.fillDefaults().grab( true, false ).create() );
     hookControlsAndVideo( video, controls );
+    video.play();
   }
 
   private void hookControlsAndVideo( final Video video, Composite controls ) {
