@@ -57,7 +57,6 @@ public class VideoDemo implements IEntryPoint {
     Composite controls = new Composite( container, SWT.NONE );
     controls.setLayoutData( GridDataFactory.fillDefaults().grab( true, false ).create() );
     hookControlsAndVideo( video, controls );
-    video.play();
   }
 
   private void hookControlsAndVideo( final Video video, Composite controls ) {
@@ -191,17 +190,18 @@ public class VideoDemo implements IEntryPoint {
     return fullscreenButton;
   }
 
-  private void createShowControlsButton( final Video video, Composite controls ) {
-    final Button showControlsButton = new Button( controls, SWT.CHECK );
-    showControlsButton.setText( "Controls" );
-    showControlsButton.setSelection( true );
-    showControlsButton.addSelectionListener( new SelectionAdapter() {
+  private Button createShowControlsButton( final Video video, Composite controls ) {
+    final Button fullscreenButton = new Button( controls, SWT.CHECK );
+    fullscreenButton.setText( "Controls" );
+    fullscreenButton.setSelection( true );
+    fullscreenButton.addSelectionListener( new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        video.setPlayerControlsVisible( showControlsButton.getSelection() );
+        video.setPlayerControlsVisible( fullscreenButton.getSelection() );
       }
     } );
+    return fullscreenButton;
   }
 
   private Button createRepeatButton( final Video video, Composite controls ) {
