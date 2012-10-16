@@ -7,8 +7,8 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos;
 
-import org.eclipse.rwt.application.Application;
-import org.eclipse.rwt.application.ApplicationConfiguration;
+import org.eclipse.rap.rwt.application.Application;
+import org.eclipse.rap.rwt.application.ApplicationConfiguration;
 
 import com.eclipsesource.tabris.demos.entrypoints.ButtonControlsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.CameraDemo;
@@ -17,6 +17,7 @@ import com.eclipsesource.tabris.demos.entrypoints.GalleryDemo;
 import com.eclipsesource.tabris.demos.entrypoints.GeolocationDemo;
 import com.eclipsesource.tabris.demos.entrypoints.InputControlsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.SimpleTreeDemo;
+import com.eclipsesource.tabris.demos.entrypoints.VideoDemo;
 import com.eclipsesource.tabris.demos.entrypoints.VirtualTreeDemo;
 
 public class Configuration implements ApplicationConfiguration {
@@ -30,5 +31,6 @@ public class Configuration implements ApplicationConfiguration {
     application.addEntryPoint( "/location", GeolocationDemo.class, null );
     application.addEntryPoint( "/draw", DrawDemo.class, null );
     application.addEntryPoint( "/camera", CameraDemo.class, null );
+    application.addEntryPoint( "/video", VideoDemo.class, null );
   }
 }

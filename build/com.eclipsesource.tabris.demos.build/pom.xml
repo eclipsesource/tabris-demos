@@ -36,12 +36,17 @@
     <repository>
       <id>tabris-nightly</id>
       <layout>p2</layout>
-      <url>http://developer.eclipsesource.com/technology/tabris/downloads/0.6</url>
+      <url>http://download.eclipsesource.com/technology/tabris/downloads/nightly</url>
     </repository>
     <repository>
       <id>eclipse-milestones</id>
       <layout>p2</layout>
       <url>http://download.eclipse.org/eclipse/updates/3.8</url>
+    </repository>
+    <repository>
+      <id>eclipse-orbit</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20120526062928/repository/</url>
     </repository>
   </repositories>	
 
