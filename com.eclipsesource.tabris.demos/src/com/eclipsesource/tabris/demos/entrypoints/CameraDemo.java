@@ -2,8 +2,6 @@ package com.eclipsesource.tabris.demos.entrypoints;
 
 import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
@@ -25,19 +23,14 @@ import com.eclipsesource.tabris.widgets.Widgets;
 
 public class CameraDemo implements IEntryPoint {
 
-  private CameraOptions photosOptions;
-  private Camera photoCamera;
-  private Camera galleryCamera;
-  private CameraOptions galleryOptions;
+  private Label imageLabel;
 
   public int createUI() {
     Display display = new Display();
     final Shell shell = createShell( display );
     createToolBar( shell );
     Composite comp = createMainComp( shell );
-    createPhotoCamera();
-    createGalleryCamera();
-    final Label imageLabel = createImageLabel( comp );
+    createImageLabel( comp );
     createCameraButton( comp, imageLabel );
     createGalleryButton( comp, imageLabel );
     shell.open();
@@ -71,33 +64,25 @@ public class CameraDemo implements IEntryPoint {
     return comp;
   }
 
-  private void createGalleryCamera() {
-    galleryOptions = new CameraOptions();
+  private Camera createGalleryCamera() {
+    CameraOptions galleryOptions = new CameraOptions();
     galleryOptions.setSourceType( SourceType.PHOTO_LIBRARY );
-    galleryOptions.setResolution( 300, 300 );
-    galleryCamera = new Camera( galleryOptions );
+    Rectangle bounds = imageLabel.getBounds();
+    galleryOptions.setResolution( bounds.width, bounds.height );
+    return new Camera( galleryOptions );
   }
 
-  private void createPhotoCamera() {
-    photosOptions = new CameraOptions();
+  private Camera createPhotoCamera() {
+    CameraOptions photosOptions = new CameraOptions();
     photosOptions.setSourceType( SourceType.CAMERA );
-    photosOptions.setResolution( 300, 300 );
-    photoCamera = new Camera( photosOptions );
+    Rectangle bounds = imageLabel.getBounds();
+    photosOptions.setResolution( bounds.width, bounds.height );
+    return new Camera( photosOptions );
   }
 
-  private Label createImageLabel( Composite comp ) {
-    final Label imageLabel = new Label( comp, SWT.NONE );
+  private void createImageLabel( Composite comp ) {
+    imageLabel = new Label( comp, SWT.NONE );
     imageLabel.setLayoutData( UiUtil.createFill() );
-    imageLabel.addControlListener( new ControlAdapter() {
-
-      @Override
-      public void controlResized( ControlEvent e ) {
-        Rectangle bounds = imageLabel.getBounds();
-        photosOptions.setResolution( bounds.width, bounds.height );
-        galleryOptions.setResolution( bounds.width, bounds.height );
-      }
-    } );
-    return imageLabel;
   }
 
   private void createCameraButton( Composite comp, final Label imageLabel ) {
@@ -107,14 +92,17 @@ public class CameraDemo implements IEntryPoint {
     cameraButton.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
+        final Camera photoCamera = createPhotoCamera();
         photoCamera.takePicture( new CameraCallback() {
 
           public void onSuccess( Image image ) {
             imageLabel.setImage( image );
+            photoCamera.dispose();
           }
 
           public void onError() {
             imageLabel.setText( "Could not provide image from camera" );
+            photoCamera.dispose();
           }
         } );
       }
@@ -128,14 +116,17 @@ public class CameraDemo implements IEntryPoint {
     galleryButton.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
+        final Camera galleryCamera = createGalleryCamera();
         galleryCamera.takePicture( new CameraCallback() {
 
           public void onSuccess( Image image ) {
             imageLabel.setImage( image );
+            galleryCamera.dispose();
           }
 
           public void onError() {
             imageLabel.setText( "Could not provide image from gallery" );
+            galleryCamera.dispose();
           }
         } );
       }
