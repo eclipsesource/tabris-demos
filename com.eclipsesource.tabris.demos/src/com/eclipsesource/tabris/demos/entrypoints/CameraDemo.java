@@ -38,7 +38,7 @@ public class CameraDemo implements IEntryPoint {
   }
 
   private Shell createShell( Display display ) {
-    final Shell shell = new Shell( display, SWT.NONE );
+    final Shell shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized( true );
     GridLayout shellLayout = new GridLayout( 1, false );
     shellLayout.marginHeight = 0;
