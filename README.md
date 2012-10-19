@@ -9,6 +9,7 @@ This repository contains a single Eclipse project that is used within the [Tabri
 * http://SERVER:9090/location
 * http://SERVER:9090/draw
 * http://SERVER:9090/camera
+* http://SERVER:9090/gallery
 * http://SERVER:9090/video
 * http://SERVER:9090/keyboard 
 * http://SERVER:9090/virtual-tree (Read the note below!)
