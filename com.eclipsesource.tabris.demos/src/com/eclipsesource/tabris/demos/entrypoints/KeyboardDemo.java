@@ -3,6 +3,8 @@
  */
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import static com.eclipsesource.tabris.widgets.Widgets.onToolItem;
+
 import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -48,7 +50,7 @@ public class KeyboardDemo implements IEntryPoint {
     toolBar.setLayoutData( UiUtil.createFillHori() );
     ToolItem toolItem = new ToolItem( toolBar, SWT.NONE );
     toolItem.setText( "Keyboard Types" );
-    Widgets.onToolItem( toolItem ).useAsTitle();
+    onToolItem( toolItem ).useAsTitle();
   }
 
   private Composite createParentComposite( final Shell shell ) {
