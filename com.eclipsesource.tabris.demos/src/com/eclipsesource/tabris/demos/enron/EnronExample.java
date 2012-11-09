@@ -40,7 +40,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.TreeColumn;
 
 import com.eclipsesource.tabris.ClientDevice;
-import com.eclipsesource.tabris.Platform;
+import com.eclipsesource.tabris.ClientDevice.Platform;
 import com.eclipsesource.tabris.demos.enron.EnronDataset.Folder;
 import com.eclipsesource.tabris.demos.enron.EnronDataset.Node;
 

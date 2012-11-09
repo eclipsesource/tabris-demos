@@ -9,7 +9,9 @@ package com.eclipsesource.tabris.demos;
 
 import org.eclipse.rap.rwt.application.Application;
 import org.eclipse.rap.rwt.application.ApplicationConfiguration;
+import org.osgi.framework.FrameworkUtil;
 
+import com.eclipsesource.tabris.Bootstrapper;
 import com.eclipsesource.tabris.demos.entrypoints.ButtonControlsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.CameraDemo;
 import com.eclipsesource.tabris.demos.entrypoints.DrawDemo;
@@ -24,6 +26,7 @@ import com.eclipsesource.tabris.demos.entrypoints.VirtualTreeDemo;
 public class Configuration implements ApplicationConfiguration {
 
   public void configure( Application application ) {
+    bootstrapTabris( application );
     application.addEntryPoint( "/input", InputControlsDemo.class, null );
     application.addEntryPoint( "/buttons", ButtonControlsDemo.class, null );
     application.addEntryPoint( "/virtual-tree", VirtualTreeDemo.class, null );
@@ -34,5 +37,11 @@ public class Configuration implements ApplicationConfiguration {
     application.addEntryPoint( "/camera", CameraDemo.class, null );
     application.addEntryPoint( "/keyboard", KeyboardDemo.class, null );
     application.addEntryPoint( "/video", VideoDemo.class, null );
+  }
+
+  private void bootstrapTabris( Application application ) {
+    Bootstrapper bootstrapper = new Bootstrapper( application );
+    bootstrapper.bootstrap();
+    bootstrapper.registerEntryPointLookup( FrameworkUtil.getBundle( Configuration.class ), "/index.json" );
   }
 }
