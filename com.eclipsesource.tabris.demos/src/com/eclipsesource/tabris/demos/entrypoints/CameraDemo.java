@@ -19,7 +19,7 @@ import com.eclipsesource.tabris.camera.Camera;
 import com.eclipsesource.tabris.camera.CameraCallback;
 import com.eclipsesource.tabris.camera.CameraOptions;
 import com.eclipsesource.tabris.camera.CameraOptions.SourceType;
-import com.eclipsesource.tabris.widgets.Widgets;
+import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class CameraDemo implements IEntryPoint {
 

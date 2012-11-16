@@ -3,7 +3,7 @@
  */
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import static com.eclipsesource.tabris.widgets.Widgets.onToolItem;
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onToolItem;
 
 import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
 import org.eclipse.swt.SWT;
@@ -17,8 +17,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-import com.eclipsesource.tabris.widgets.TextDecorator;
-import com.eclipsesource.tabris.widgets.Widgets;
+import com.eclipsesource.tabris.widgets.enhancement.TextDecorator;
+import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class KeyboardDemo implements IEntryPoint {
 
