@@ -29,12 +29,12 @@ import com.eclipsesource.tabris.widgets.VideoListener;
 
 public class VideoDemo implements IEntryPoint {
 
-  private static final String VIDEO_FLIGHT = "http://dl.dropbox.com/u/5808972/Movie.m4v";
-  private static final String VIDEO_BUNNY_WEBM = "http://vimeo.com/1084537/download?t=1344941450&v=24130451&s=6a906cc481e0b857730b7989b6772a42";
-  private static final String VIDEO_BUNNY = "http://vimeo.com/1084537/download?t=1345197692&v=12943877&s=3484f51916bbd81cc3bc4030463038fd";
-  private static final String VIDEO_COMIC = "http://ia700602.us.archive.org/13/items/TheBlackDuck/AFabletoon-TheBlackDuck1922.mp4";
-  private static final String VIDEO_SPHERICAL = "http://download.eclipsesource.com/~jboehme/Spherikal.mp4";
-  private static final String VIDEO_SINTEL = "http://ftp.nluug.nl/ftp/graphics/blender/apricot/trailer/sintel_trailer-480p.mp4";
+//  private static final String VIDEO_FLIGHT = "http://dl.dropbox.com/u/5808972/Movie.m4v";
+//  private static final String VIDEO_BUNNY_WEBM = "http://vimeo.com/1084537/download?t=1344941450&v=24130451&s=6a906cc481e0b857730b7989b6772a42";
+//  private static final String VIDEO_BUNNY = "http://vimeo.com/1084537/download?t=1345197692&v=12943877&s=3484f51916bbd81cc3bc4030463038fd";
+//  private static final String VIDEO_COMIC = "http://ia700602.us.archive.org/13/items/TheBlackDuck/AFabletoon-TheBlackDuck1922.mp4";
+//  private static final String VIDEO_SPHERICAL = "http://download.eclipsesource.com/~jboehme/Spherikal.mp4";
+//  private static final String VIDEO_SINTEL = "http://ftp.nluug.nl/ftp/graphics/blender/apricot/trailer/sintel_trailer-480p.mp4";
   private static final String VIDEO_BLENDER = "http://video.blendertestbuilds.de/download.blender.org/peach/trailer_iphone.m4v";
   private static final String videoUrl = VIDEO_BLENDER;
 

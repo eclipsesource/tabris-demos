@@ -16,7 +16,6 @@ import java.text.DecimalFormat;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.graphics.Graphics;
 import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -24,6 +23,7 @@ import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -43,6 +43,7 @@ import com.eclipsesource.tabris.geolocation.GeolocationOptions;
 import com.eclipsesource.tabris.geolocation.Position;
 import com.eclipsesource.tabris.geolocation.PositionError;
 
+@SuppressWarnings("restriction")
 public class GeolocationDemo implements IEntryPoint {
 
   private static final double SPRINGFIELD_LAT = 44.050953;
@@ -78,7 +79,7 @@ public class GeolocationDemo implements IEntryPoint {
     shell = new Shell( display, SWT.NO_TRIM );
     shell.setLayout( GridLayoutFactory.fillDefaults().margins( 0, 0 ).spacing( 0, 0 ).create() );
     shell.setMaximized( true );
-    shell.setBackground( Graphics.getColor( 0, 0, 0 ) );
+    shell.setBackground( new Color( display, 0, 0, 0 ) );
     shell.addControlListener( new ControlAdapter() {
 
       @Override
@@ -106,8 +107,8 @@ public class GeolocationDemo implements IEntryPoint {
     Button getLocationButton = new Button( container, SWT.PUSH );
     getLocationButton.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false ) );
     getLocationButton.setText( "Where am I?" );
-    getLocationButton.setBackground( Graphics.getColor( 60, 60, 60 ) );
-    getLocationButton.setForeground( Graphics.getColor( 225, 255, 255 ) );
+    getLocationButton.setBackground( new Color( getLocationButton.getDisplay(), 60, 60, 60 ) );
+    getLocationButton.setForeground( new Color( getLocationButton.getDisplay(), 225, 255, 255 ) );
     getLocationButton.addSelectionListener( new SelectionAdapter() {
 
       @Override
@@ -191,8 +192,8 @@ public class GeolocationDemo implements IEntryPoint {
     Button button = new Button( container, SWT.PUSH );
     button.setLayoutData( new GridData( SWT.FILL, SWT.CENTER, true, false ) );
     button.setText( "Head me to Springfield" );
-    button.setBackground( Graphics.getColor( 225, 151, 7 ) );
-    button.setForeground( Graphics.getColor( 225, 255, 255 ) );
+    button.setBackground( new Color( button.getDisplay(), 225, 151, 7 ) );
+    button.setForeground( new Color( button.getDisplay(), 225, 255, 255 ) );
     button.addSelectionListener( new SelectionAdapter() {
 
       @Override
@@ -237,7 +238,7 @@ public class GeolocationDemo implements IEntryPoint {
     GridLayout layout = new GridLayout();
     layout.marginWidth = 50;
     box.setLayout( layout );
-    box.setBackground( Graphics.getColor( 0, 0, 0 ) );
+    box.setBackground( new Color( box.getDisplay(), 0, 0, 0 ) );
     Label label = new Label( box, SWT.NONE );
     label.setText( message );
     label.setLayoutData( GridDataFactory.fillDefaults()
@@ -245,7 +246,7 @@ public class GeolocationDemo implements IEntryPoint {
       .grab( true, true )
       .create() );
     Button close = new Button( box, SWT.PUSH );
-    close.setBackground( Graphics.getColor( 225, 151, 7 ) );
+    close.setBackground( new Color( box.getDisplay(), 225, 151, 7 ) );
     close.setText( "Okily dokily!" );
     close.setLayoutData( GridDataFactory.fillDefaults()
       .align( SWT.FILL, SWT.CENTER )

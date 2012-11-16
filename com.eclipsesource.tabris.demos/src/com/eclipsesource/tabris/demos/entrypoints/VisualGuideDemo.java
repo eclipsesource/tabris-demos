@@ -7,8 +7,8 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
-import org.eclipse.rap.rwt.lifecycle.WidgetUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -42,12 +42,18 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+
+@SuppressWarnings("unused")
 public class VisualGuideDemo implements IEntryPoint {
 
   private Display display;
 
   public int createUI() {
     display = new Display();
+    /**
+     * Call method to create controls like in the guide (http://developer.eclipsesource.com/tabris/docs/ui-controls/).
+     * Only one method can be called.
+     */
     createTree();
     return 0;
   }
@@ -317,7 +323,7 @@ public class VisualGuideDemo implements IEntryPoint {
     item.setText( "Item" );
     item = new ToolItem( toolBar, SWT.PUSH );
     item.setText( "Toolbar" );
-    item.setData( WidgetUtil.CUSTOM_VARIANT, "TITLE" );
+    item.setData( RWT.CUSTOM_VARIANT, "TITLE" );
     new ToolItem( toolBar, SWT.SEPARATOR );
     item = new ToolItem( toolBar, SWT.PUSH );
     item.setImage( new Image( display,
