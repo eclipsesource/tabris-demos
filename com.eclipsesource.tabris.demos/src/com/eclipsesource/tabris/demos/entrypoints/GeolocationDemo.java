@@ -130,7 +130,7 @@ public class GeolocationDemo implements IEntryPoint {
             openDialog( "Error", builder.toString() );
           }
         },
-                                        new GeolocationOptions().enableHighAccuracy() );
+        new GeolocationOptions().enableHighAccuracy() );
       }
     } );
     return getLocationButton;

@@ -523,8 +523,9 @@ public class DrawDemo implements IEntryPoint {
   }
 
   private void createToolbar( Composite parent ) {
-    ToolBar toolBar = new ToolBar( parent, SWT.HORIZONTAL );
+    final ToolBar toolBar = new ToolBar( parent, SWT.HORIZONTAL );
     toolBar.setLayoutData( createFillHori() );
+    toolBar.setBackground( toolBar.getDisplay().getSystemColor( currentColor ) );
     ToolItem widthThinToolItem = new ToolItem( toolBar, SWT.PUSH );
     widthThinToolItem.setImage( new Image( parent.getDisplay(),
                                            DrawDemo.class.getResourceAsStream( "/line-width-thin.png" ) ) );
@@ -578,6 +579,7 @@ public class DrawDemo implements IEntryPoint {
 
       public void handleEvent( Event event ) {
         currentColor = SWT.COLOR_DARK_RED;
+        toolBar.setBackground( toolBar.getDisplay().getSystemColor( currentColor ) );
         canvas.redraw();
       }
     } );
@@ -587,6 +589,7 @@ public class DrawDemo implements IEntryPoint {
 
       public void handleEvent( Event event ) {
         currentColor = SWT.COLOR_DARK_GREEN;
+        toolBar.setBackground( toolBar.getDisplay().getSystemColor( currentColor ) );
         canvas.redraw();
       }
     } );
@@ -596,6 +599,7 @@ public class DrawDemo implements IEntryPoint {
 
       public void handleEvent( Event event ) {
         currentColor = SWT.COLOR_DARK_BLUE;
+        toolBar.setBackground( toolBar.getDisplay().getSystemColor( currentColor ) );
         canvas.redraw();
       }
     } );
