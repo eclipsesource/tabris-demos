@@ -12,6 +12,7 @@ import org.eclipse.rap.rwt.application.ApplicationConfiguration;
 import org.osgi.framework.FrameworkUtil;
 
 import com.eclipsesource.tabris.Bootstrapper;
+import com.eclipsesource.tabris.demos.entrypoints.AppLauncherDemo;
 import com.eclipsesource.tabris.demos.entrypoints.ButtonControlsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.CameraDemo;
 import com.eclipsesource.tabris.demos.entrypoints.DrawDemo;
@@ -37,6 +38,7 @@ public class Configuration implements ApplicationConfiguration {
     application.addEntryPoint( "/camera", CameraDemo.class, null );
     application.addEntryPoint( "/keyboard", KeyboardDemo.class, null );
     application.addEntryPoint( "/video", VideoDemo.class, null );
+    application.addEntryPoint( "/launcher", AppLauncherDemo.class, null );
   }
 
   private void bootstrapTabris( Application application ) {
