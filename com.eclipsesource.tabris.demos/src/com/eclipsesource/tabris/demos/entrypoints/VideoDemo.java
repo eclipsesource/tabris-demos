@@ -12,7 +12,7 @@ package com.eclipsesource.tabris.demos.entrypoints;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.layout.RowLayoutFactory;
-import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -27,7 +27,7 @@ import com.eclipsesource.tabris.widgets.Video.PlaybackMode;
 import com.eclipsesource.tabris.widgets.Video.PresentationMode;
 import com.eclipsesource.tabris.widgets.VideoListener;
 
-public class VideoDemo implements IEntryPoint {
+public class VideoDemo implements EntryPoint {
 
 //  private static final String VIDEO_FLIGHT = "http://dl.dropbox.com/u/5808972/Movie.m4v";
 //  private static final String VIDEO_BUNNY_WEBM = "http://vimeo.com/1084537/download?t=1344941450&v=24130451&s=6a906cc481e0b857730b7989b6772a42";

@@ -13,7 +13,7 @@ package com.eclipsesource.tabris.demos.entrypoints;
 import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onToolItem;
 
 import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -36,7 +36,7 @@ import com.eclipsesource.tabris.interaction.PhoneOptions;
 import com.eclipsesource.tabris.interaction.SMSOptions;
 
 
-public class AppLauncherDemo implements IEntryPoint {
+public class AppLauncherDemo implements EntryPoint {
 
   private Display display;
 

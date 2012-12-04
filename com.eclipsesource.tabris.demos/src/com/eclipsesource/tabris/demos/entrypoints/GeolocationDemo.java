@@ -16,7 +16,7 @@ import java.text.DecimalFormat;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.ControlAdapter;
@@ -44,7 +44,7 @@ import com.eclipsesource.tabris.geolocation.Position;
 import com.eclipsesource.tabris.geolocation.PositionError;
 
 @SuppressWarnings("restriction")
-public class GeolocationDemo implements IEntryPoint {
+public class GeolocationDemo implements EntryPoint {
 
   private static final double SPRINGFIELD_LAT = 44.050953;
   private static final double SPRINGFIELD_LON = -123.016663;

@@ -10,7 +10,7 @@ package com.eclipsesource.tabris.demos.entrypoints;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.ToolItem;
 import com.eclipsesource.tabris.widgets.ClientCanvas;
 import com.eclipsesource.tabris.widgets.ClientDrawListener;
 
-public class DrawDemo implements IEntryPoint {
+public class DrawDemo implements EntryPoint {
 
   private static final List<int[]> ERNIE = new ArrayList<int[]>();
   /**

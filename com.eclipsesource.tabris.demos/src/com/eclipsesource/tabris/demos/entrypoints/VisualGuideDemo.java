@@ -8,7 +8,7 @@
 package com.eclipsesource.tabris.demos.entrypoints;
 
 import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.TreeItem;
 
 
 @SuppressWarnings("unused")
-public class VisualGuideDemo implements IEntryPoint {
+public class VisualGuideDemo implements EntryPoint {
 
   private Display display;
 

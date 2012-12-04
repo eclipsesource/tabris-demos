@@ -7,7 +7,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Text;
 
 import com.eclipsesource.tabris.demos.ExampleUtil;
 
-public class InputControlsDemo implements IEntryPoint {
+public class InputControlsDemo implements EntryPoint {
 
   private Text firstNameField;
   private Text lastNameField;
@@ -171,6 +171,7 @@ public class InputControlsDemo implements IEntryPoint {
     button.setLayoutData( new GridData( SWT.FILL, SWT.BOTTOM, true, true ) );
     button.addSelectionListener( new SelectionAdapter() {
 
+      @Override
       public void widgetSelected( SelectionEvent e ) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append( "First Name: " + firstNameField.getText() + "\n" );

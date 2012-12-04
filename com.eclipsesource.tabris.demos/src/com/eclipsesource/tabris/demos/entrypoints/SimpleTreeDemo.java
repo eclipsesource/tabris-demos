@@ -7,7 +7,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
-public class SimpleTreeDemo implements IEntryPoint {
+public class SimpleTreeDemo implements EntryPoint {
 
   public int createUI() {
     Display display = new Display();

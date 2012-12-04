@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 import com.eclipsesource.tabris.demos.enron.EnronExample;
 
 
-public class VirtualTreeDemo implements IEntryPoint {
+public class VirtualTreeDemo implements EntryPoint {
 
   public int createUI() {
     Display display = new Display();

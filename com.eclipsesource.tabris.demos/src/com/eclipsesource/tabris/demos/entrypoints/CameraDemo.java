@@ -1,6 +1,6 @@
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
+import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
@@ -21,7 +21,7 @@ import com.eclipsesource.tabris.camera.CameraOptions;
 import com.eclipsesource.tabris.camera.CameraOptions.SourceType;
 import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
-public class CameraDemo implements IEntryPoint {
+public class CameraDemo implements EntryPoint {
 
   private Label imageLabel;
 
