@@ -12,6 +12,7 @@ package com.eclipsesource.tabris.demos.entrypoints;
 
 import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onToolItem;
 
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.widgets.DialogUtil;
@@ -30,10 +31,12 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import com.eclipsesource.tabris.interaction.AppLauncher;
 import com.eclipsesource.tabris.interaction.BrowserOptions;
+import com.eclipsesource.tabris.interaction.FacebookOptions;
 import com.eclipsesource.tabris.interaction.MailOptions;
 import com.eclipsesource.tabris.interaction.MapsOptions;
 import com.eclipsesource.tabris.interaction.PhoneOptions;
 import com.eclipsesource.tabris.interaction.SMSOptions;
+import com.eclipsesource.tabris.interaction.TwitterOptions;
 
 
 public class AppLauncherDemo implements EntryPoint {
@@ -52,6 +55,8 @@ public class AppLauncherDemo implements EntryPoint {
       createPhoneLauncher( container, appLauncher );
       createMapsLauncher( container, appLauncher );
       createTextLauncher( container, appLauncher );
+      createURLLauncher( container, appLauncher );
+      createSocialLaunchers( container, appLauncher );
       shell.open();
     } else {
       createWebClientContent( shell );
@@ -108,7 +113,9 @@ public class AppLauncherDemo implements EntryPoint {
     button.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        appLauncher.open( new MailOptions( "mike@lospollos.com", "We need to talk!" ) );
+        MailOptions launchOptions = new MailOptions( "mike@lospollos.com", "We need to talk!" );
+        launchOptions.setUseHtml( true );
+        appLauncher.open( launchOptions );
       }
     } );
   }
@@ -153,6 +160,57 @@ public class AppLauncherDemo implements EntryPoint {
     } );
   }
 
+  private void createURLLauncher( Composite parent, final AppLauncher appLauncher ) {
+    Button button = new Button( parent, SWT.PUSH );
+    button.setText( "My Diary" );
+    button.setLayoutData( UiUtil.createFillHori() );
+    button.setBackground( new Color( display, 191, 37, 39 ) );
+    button.addSelectionListener( new SelectionAdapter() {
+      @Override
+      public void widgetSelected( SelectionEvent e ) {
+        appLauncher.openUrl( "http://www.tv-calling.com/scripts/TV_Dramas/Breaking_Bad_1x01.pdf" );
+      }
+    } );
+  }
+  
+  private void createSocialLaunchers( Composite parent, final AppLauncher appLauncher ) {
+    Composite composite = new Composite( parent, SWT.NONE);
+    GridLayoutFactory.fillDefaults().numColumns( 2 ).applyTo( composite );
+    composite.setLayoutData( UiUtil.createFill() );
+    createTwitterLauncher( composite, appLauncher );
+    createFacebookLauncher( composite, appLauncher );
+  }
+  
+  private void createTwitterLauncher( Composite parent, final AppLauncher appLauncher ) {
+    Button button = new Button( parent, SWT.PUSH );
+    button.setText( "Twitter" );
+    button.setLayoutData( UiUtil.createFillHori() );
+    button.setBackground( new Color( display, 0, 121, 184 ) );
+    button.addSelectionListener( new SelectionAdapter() {
+      @Override
+      public void widgetSelected( SelectionEvent e ) {
+        TwitterOptions twitterOptions = new TwitterOptions( "Mobile App development with Tabris rocks!" );
+        twitterOptions.setUrl( "http://developer.eclipsesource.com/tabris/" );
+        appLauncher.open( twitterOptions );
+      }
+    } );
+  }
+
+  private void createFacebookLauncher( Composite parent, final AppLauncher appLauncher ) {
+    Button button = new Button( parent, SWT.PUSH );
+    button.setText( "Facebook" );
+    button.setLayoutData( UiUtil.createFillHori() );
+    button.setBackground( new Color( display, 59, 89, 152 ) );
+    button.addSelectionListener( new SelectionAdapter() {
+      @Override
+      public void widgetSelected( SelectionEvent e ) {
+        FacebookOptions facebookOptions = new FacebookOptions( "Mobile App development with Tabris rocks!" );
+        facebookOptions.setUrl( "http://developer.eclipsesource.com/tabris/" );
+        appLauncher.open( facebookOptions );
+      }
+    } );
+  }
+  
   private void createWebClientContent( final Shell shell ) {
     MessageBox messageBox = new MessageBox( shell, SWT.ICON_WARNING );
     messageBox.setMessage( "This demo is availaible on mobile devices only." );
