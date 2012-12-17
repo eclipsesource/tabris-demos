@@ -182,7 +182,7 @@ public class AppLauncherDemo implements EntryPoint {
   
   private void createSocialLaunchers( Composite parent, final AppLauncher appLauncher ) {
     Composite composite = new Composite( parent, SWT.NONE);
-    GridLayoutFactory.fillDefaults().numColumns( 2 ).applyTo( composite );
+    GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( true ).applyTo( composite );
     composite.setLayoutData( UiUtil.createFill() );
     createTwitterLauncher( composite, appLauncher );
     createFacebookLauncher( composite, appLauncher );
