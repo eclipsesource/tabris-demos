@@ -20,6 +20,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -95,6 +96,7 @@ public class AppLauncherDemo implements EntryPoint {
   private void createBrowserLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "Open Los Pollos Site" );
+    applyImage( "/browser.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
     button.setBackground( new Color( display, 70, 124, 30 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -108,6 +110,7 @@ public class AppLauncherDemo implements EntryPoint {
   private void createMailLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "New Mail to Mike" );
+    applyImage( "/mail.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
     button.setBackground( new Color( display, 191, 37, 39 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -123,6 +126,7 @@ public class AppLauncherDemo implements EntryPoint {
   private void createPhoneLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "Call Jesse" );
+    applyImage( "/phone.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
     button.setBackground( new Color( display, 70, 124, 30 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -136,6 +140,7 @@ public class AppLauncherDemo implements EntryPoint {
   private void createMapsLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "View White Residence" );
+    applyImage( "/maps.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
     button.setBackground( new Color( display, 191, 37, 39 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -149,6 +154,7 @@ public class AppLauncherDemo implements EntryPoint {
   private void createTextLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "Text Hank Schrader" );
+    applyImage( "/sms.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
     button.setBackground( new Color( display, 70, 124, 30 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -163,6 +169,7 @@ public class AppLauncherDemo implements EntryPoint {
   private void createURLLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "My Diary" );
+    applyImage( "/openurl.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
     button.setBackground( new Color( display, 191, 37, 39 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -217,5 +224,11 @@ public class AppLauncherDemo implements EntryPoint {
     messageBox.setText( "Tabris Demo" );
     shell.open();
     DialogUtil.open( messageBox, null );
+  }
+
+  private void applyImage( String file, Button button ) {
+    button.setImage( new Image( button.getDisplay(),
+                                AppLauncherDemo.class.getResourceAsStream( file ) ) );
+
   }
 }
