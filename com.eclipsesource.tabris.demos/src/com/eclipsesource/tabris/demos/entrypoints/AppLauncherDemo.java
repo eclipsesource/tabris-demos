@@ -98,6 +98,7 @@ public class AppLauncherDemo implements EntryPoint {
     button.setText( "Open Los Pollos Site" );
     applyImage( "/browser.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
+    button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 70, 124, 30 ) );
     button.addSelectionListener( new SelectionAdapter() {
       @Override
@@ -112,6 +113,7 @@ public class AppLauncherDemo implements EntryPoint {
     button.setText( "New Mail to Mike" );
     applyImage( "/mail.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
+    button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 191, 37, 39 ) );
     button.addSelectionListener( new SelectionAdapter() {
       @Override
@@ -128,6 +130,7 @@ public class AppLauncherDemo implements EntryPoint {
     button.setText( "Call Jesse" );
     applyImage( "/phone.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
+    button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 70, 124, 30 ) );
     button.addSelectionListener( new SelectionAdapter() {
       @Override
@@ -142,6 +145,7 @@ public class AppLauncherDemo implements EntryPoint {
     button.setText( "View White Residence" );
     applyImage( "/maps.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
+    button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 191, 37, 39 ) );
     button.addSelectionListener( new SelectionAdapter() {
       @Override
@@ -156,6 +160,7 @@ public class AppLauncherDemo implements EntryPoint {
     button.setText( "Text Hank Schrader" );
     applyImage( "/sms.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
+    button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 70, 124, 30 ) );
     button.addSelectionListener( new SelectionAdapter() {
       @Override
@@ -171,6 +176,7 @@ public class AppLauncherDemo implements EntryPoint {
     button.setText( "My Diary" );
     applyImage( "/openurl.png", button );
     button.setLayoutData( UiUtil.createFillHori() );
+    button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 191, 37, 39 ) );
     button.addSelectionListener( new SelectionAdapter() {
       @Override
@@ -192,6 +198,7 @@ public class AppLauncherDemo implements EntryPoint {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "Twitter" );
     button.setLayoutData( UiUtil.createFillHori() );
+    button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 0, 121, 184 ) );
     button.addSelectionListener( new SelectionAdapter() {
       @Override
@@ -207,6 +214,7 @@ public class AppLauncherDemo implements EntryPoint {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "Facebook" );
     button.setLayoutData( UiUtil.createFillHori() );
+    button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 59, 89, 152 ) );
     button.addSelectionListener( new SelectionAdapter() {
       @Override
