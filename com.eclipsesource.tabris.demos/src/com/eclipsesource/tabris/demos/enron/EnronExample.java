@@ -7,6 +7,8 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.enron;
 
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onTree;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,6 +65,7 @@ public class EnronExample {
     composite.setLayout( layout );
     viewer = new TreeViewer( composite, SWT.SINGLE | SWT.VIRTUAL );
     viewer.setUseHashlookup( true );
+    onTree( viewer.getTree() ).setBackButtonFocus();
     TreeColumn treeColumn = new TreeColumn( viewer.getTree(), SWT.NONE );
     treeColumn.setWidth( 200 );
     TreeColumn treeColumn2 = new TreeColumn( viewer.getTree(), SWT.NONE );
