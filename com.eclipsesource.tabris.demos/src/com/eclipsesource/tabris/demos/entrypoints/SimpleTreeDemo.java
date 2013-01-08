@@ -35,7 +35,7 @@ public class SimpleTreeDemo implements EntryPoint {
   private void createContent( Display display, Shell shell ) {
     final Tree tree = new Tree( shell, SWT.BORDER );
     tree.setToolTipText( "Winchester Evangelium" );
-    onTree( tree ).setBackButtonFocus();
+    onTree( tree ).enableBackButtonNavigation();
     for( int i = 0; i < 4; i++ ) {
       TreeItem iItem = new TreeItem( tree, 0 );
       iItem.setText( getMainCharacterName( i ) );

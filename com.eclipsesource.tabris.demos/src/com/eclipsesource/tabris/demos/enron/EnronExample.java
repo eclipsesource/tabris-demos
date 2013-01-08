@@ -65,7 +65,7 @@ public class EnronExample {
     composite.setLayout( layout );
     viewer = new TreeViewer( composite, SWT.SINGLE | SWT.VIRTUAL );
     viewer.setUseHashlookup( true );
-    onTree( viewer.getTree() ).setBackButtonFocus();
+    onTree( viewer.getTree() ).enableBackButtonNavigation();
     TreeColumn treeColumn = new TreeColumn( viewer.getTree(), SWT.NONE );
     treeColumn.setWidth( 200 );
     TreeColumn treeColumn2 = new TreeColumn( viewer.getTree(), SWT.NONE );
