@@ -7,6 +7,8 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onTree;
+
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -33,6 +35,7 @@ public class SimpleTreeDemo implements EntryPoint {
   private void createContent( Display display, Shell shell ) {
     final Tree tree = new Tree( shell, SWT.BORDER );
     tree.setToolTipText( "Winchester Evangelium" );
+    onTree( tree ).enableBackButtonNavigation();
     for( int i = 0; i < 4; i++ ) {
       TreeItem iItem = new TreeItem( tree, 0 );
       iItem.setText( getMainCharacterName( i ) );
