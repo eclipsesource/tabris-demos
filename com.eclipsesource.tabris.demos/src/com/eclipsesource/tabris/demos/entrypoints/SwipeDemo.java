@@ -60,7 +60,7 @@ public class SwipeDemo implements EntryPoint {
     ToolBar toolBar = new ToolBar( parent, SWT.NONE );
     toolBar.setLayoutData( UiUtil.createFillHori() );
     ToolItem toolItem = new ToolItem( toolBar, SWT.NONE );
-    toolItem.setText( "Klingon Small Talk" );
+    toolItem.setText( "Klingon Dictionary" );
     onToolItem( toolItem ).useAsTitle();
   }
 
