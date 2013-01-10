@@ -15,7 +15,6 @@ import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
@@ -45,10 +44,7 @@ public class SwipeDemo implements EntryPoint {
 
   private Composite createParentComposite( final Shell shell ) {
     Composite comp = new Composite( shell, SWT.NONE );
-    GridLayout compLayout = new GridLayout( 1, false );
-    compLayout.marginWidth = 16;
-    compLayout.horizontalSpacing = 16;
-    comp.setLayout( compLayout );
+    GridLayoutFactory.fillDefaults().applyTo( comp );
     comp.setLayoutData( UiUtil.createFill() );
     return comp;
   }
