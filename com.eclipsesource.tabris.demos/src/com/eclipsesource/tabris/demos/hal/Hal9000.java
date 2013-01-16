@@ -109,7 +109,8 @@ public class Hal9000 {
   private void createTypePlate( Display display, Composite typePlate ) {
     Composite container = new Composite( typePlate, SWT.NONE );
     container.setBackground( borderColor );
-    GridData gridData = new GridData( SWT.FILL, SWT.FILL, true, false );
+    GridData gridData = new GridData( SWT.CENTER, SWT.FILL, true, false );
+    gridData.widthHint = 200;
     container.setLayoutData( gridData );
     container.setLayout( ExampleUtil.createGridLayout( 2, true, PLATE_BORDER, 0 ) );
     Color blue = new Color( display, 1, 116, 255 );
@@ -174,7 +175,6 @@ public class Hal9000 {
 
   private void createGrille( Display display, Composite parent ) {
     Composite textContainer = new Composite( parent, SWT.NONE );
-    textContainer.setBackground( new Color( parent.getDisplay(), 0, 0, 0 ) );
     GridData grilleData = new GridData( SWT.FILL, SWT.FILL, true, true );
     textContainer.setLayoutData( grilleData );
     textContainer.setLayout( ExampleUtil.createGridLayout( 1, true, 0, 0 ) );
