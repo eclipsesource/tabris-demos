@@ -1,9 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others. All rights reserved. This
- * program and the accompanying materials are made available under the terms of
- * the Eclipse Public License v1.0 which accompanies this distribution, and is
- * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
- * EclipseSource - initial API and implementation
+ * Copyright (c) 2013 EclipseSource and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
@@ -12,8 +15,8 @@ import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 
 import com.eclipsesource.tabris.demos.hal.Hal9000;
 import com.eclipsesource.tabris.event.App;
@@ -32,7 +35,6 @@ public class AppEventsDemo implements EntryPoint {
     shell.setMaximized( true );
     shell.setLayout( new FillLayout() );
     shell.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
-    System.out.println( display.getMonitors()[ 0 ].getBounds() );
     hal = new Hal9000( display, shell );
     registerAppStateListener();
     shell.open();
@@ -47,7 +49,7 @@ public class AppEventsDemo implements EntryPoint {
 
         public void handleEvent( AppEvent event ) {
           if( event.getType() == EventType.PAUSE ) {
-            Text output = hal.getText();
+            Label output = hal.getText();
             output.setText( "I am going to sleep now.\n" );
             output.getParent().layout( true, true );
             sleepMillis = System.currentTimeMillis();
@@ -59,7 +61,7 @@ public class AppEventsDemo implements EntryPoint {
         public void handleEvent( AppEvent event ) {
           if( event.getType() == EventType.RESUME ) {
             long slept = ( System.currentTimeMillis() - sleepMillis ) / 1000;
-            Text output = hal.getText();
+            Label output = hal.getText();
             output.setText( "Good morning Dave!\n\nThank for waking me up again. I was sleeping for "
                             + slept
                             + " seconds.\n" );

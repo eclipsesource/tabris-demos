@@ -1,9 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others. All rights reserved. This
- * program and the accompanying materials are made available under the terms of
- * the Eclipse Public License v1.0 which accompanies this distribution, and is
- * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
- * EclipseSource - initial API and implementation
+ * Copyright (c) 2013 EclipseSource and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.hal;
 
@@ -23,7 +26,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 
 import com.eclipsesource.tabris.demos.ExampleUtil;
 
@@ -34,7 +36,7 @@ public class Hal9000 {
   private static final int BORDER = 6;
   private static final int TOP_HEIGHT_PERCENTAGE = 65;
   private Color borderColor;
-  private Text output;
+  private Label output;
   private Image halEye;
   private int fontSize;
 
@@ -43,7 +45,7 @@ public class Hal9000 {
     createContent( display, shell );
   }
 
-  public Text getText() {
+  public Label getText() {
     return output;
   }
 
@@ -172,10 +174,11 @@ public class Hal9000 {
 
   private void createGrille( Display display, Composite parent ) {
     Composite textContainer = new Composite( parent, SWT.NONE );
+    textContainer.setBackground( new Color( parent.getDisplay(), 0, 0, 0 ) );
     GridData grilleData = new GridData( SWT.FILL, SWT.FILL, true, true );
     textContainer.setLayoutData( grilleData );
     textContainer.setLayout( ExampleUtil.createGridLayout( 1, true, 0, 0 ) );
-    output = new Text( textContainer, SWT.MULTI | SWT.READ_ONLY );
+    output = new Label( textContainer, SWT.WRAP );
     output.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
     output.setForeground( display.getSystemColor( SWT.COLOR_GREEN ) );
     output.setFont( createBold( display, fontSize ) );
