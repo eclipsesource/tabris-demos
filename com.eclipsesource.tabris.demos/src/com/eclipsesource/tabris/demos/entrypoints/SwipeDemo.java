@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.rap.rwt.application.EntryPoint;
-import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -31,7 +30,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
@@ -141,7 +139,7 @@ public class SwipeDemo implements EntryPoint {
 
   public int createUI() {
     final Display display = new Display();
-    numberFont = new Font( display, new FontData( "Arial", 48, SWT.BOLD ) );
+    numberFont = new Font( display, new FontData( "Arial", 25, SWT.BOLD ) );
     shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized( true );
     shell.setLayout( new FillLayout() );
@@ -151,14 +149,15 @@ public class SwipeDemo implements EntryPoint {
     itemProvider = new DynamicSwipeItemProvider();
     totalItems = itemProvider.getItemCount();
     updateTitle();
-    Composite parent = createContentComposite( mainComp );
+    Composite parent = createParent( mainComp );
     Composite groupConfiguration = createGroup( parent );
     createAddRemoveButtons( groupConfiguration );
     createCacheSize( groupConfiguration );
     createLocks( groupConfiguration );
     Composite groupControl = createGroup( parent );
     createScale( groupControl );
-    createSwipe( parent );
+    Composite swipeParent = createSwipeParent( mainComp );
+    createSwipe( swipeParent );
     shell.open();
     return 0;
   }
@@ -184,12 +183,21 @@ public class SwipeDemo implements EntryPoint {
     } );
   }
 
-  private Composite createContentComposite( Composite parent ) {
+  private Composite createParent( Composite parent ) {
+    Composite contentComp = new Composite( parent, SWT.NONE );
+    contentComp.setLayoutData( UiUtil.createFillHori() );
+    GridLayout layout = UiUtil.createGridLayout( 1, true );
+    layout.marginLeft = 16;
+    layout.marginTop = 16;
+    layout.marginRight = 16;
+    contentComp.setLayout( layout );
+    return contentComp;
+  }
+
+  private Composite createSwipeParent( Composite parent ) {
     Composite contentComp = new Composite( parent, SWT.NONE );
     contentComp.setLayoutData( UiUtil.createFill() );
     GridLayout layout = UiUtil.createGridLayout( 1, true );
-    layout.marginLeft = 16;
-    layout.marginRight = 16;
     contentComp.setLayout( layout );
     return contentComp;
   }
@@ -224,8 +232,14 @@ public class SwipeDemo implements EntryPoint {
 
       @Override
       public void widgetSelected( org.eclipse.swt.events.SelectionEvent e ) {
-        itemProvider.removeItem();
-        notifyItemProviderChanged();
+        if( selectionIndex == ( totalItems - 2 ) ) {
+          itemProvider.removeItem();
+          notifyItemProviderChanged();
+          removeItem.setEnabled( false );
+        } else {
+          itemProvider.removeItem();
+          notifyItemProviderChanged();
+        }
       }
 
     } );
@@ -330,17 +344,11 @@ public class SwipeDemo implements EntryPoint {
   }
 
   private void notifyItemProviderChanged() {
-    try {
-      swipe.refresh();
-      scale.setMaximum( itemProvider.getItemCount() - 1 );
-      totalItems = itemProvider.getItemCount();
-      updateTitle();
-      shell.layout( true, true );
-    } catch( IllegalStateException e ) {
-      MessageBox messageBox = new MessageBox( shell, SWT.ICON_WARNING );
-      messageBox.setMessage( "Can not remove last item" );
-      DialogUtil.open( messageBox, null );
-    }
+    swipe.refresh();
+    scale.setMaximum( itemProvider.getItemCount() - 1 );
+    totalItems = itemProvider.getItemCount();
+    updateTitle();
+    shell.layout( true, true );
   }
 
   private void updateTitle() {
