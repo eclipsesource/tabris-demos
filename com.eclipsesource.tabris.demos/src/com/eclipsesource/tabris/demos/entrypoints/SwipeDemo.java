@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.rap.rwt.application.EntryPoint;
+import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -30,6 +31,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
@@ -53,6 +55,7 @@ public class SwipeDemo implements EntryPoint {
   private ToolItem titleToolItem;
   private int selectionIndex;
   private final KlingonDictionary dictionary = new KlingonDictionary();
+  private Button removeItem;
 
   private final class DynamicSwipeItemProvider implements SwipeItemProvider {
 
@@ -151,7 +154,7 @@ public class SwipeDemo implements EntryPoint {
     Composite parent = createContentComposite( mainComp );
     Composite groupConfiguration = createGroup( parent );
     createAddRemoveButtons( groupConfiguration );
-    createCashSize( groupConfiguration );
+    createCacheSize( groupConfiguration );
     createLocks( groupConfiguration );
     Composite groupControl = createGroup( parent );
     createScale( groupControl );
@@ -160,23 +163,23 @@ public class SwipeDemo implements EntryPoint {
     return 0;
   }
 
-  private void createCashSize( Composite parent ) {
+  private void createCacheSize( Composite parent ) {
     label = new Label( parent, SWT.NONE );
     label.setText( "Cache size:" );
     GridData layoutData = new GridData( SWT.BEGINNING, SWT.CENTER, true, false );
     layoutData.horizontalIndent = 8;
     label.setLayoutData( layoutData );
-    final Combo cashSizeCombo = new Combo( parent, SWT.NONE );
-    cashSizeCombo.setLayoutData( UiUtil.createFillHori() );
+    final Combo cacheSizeCombo = new Combo( parent, SWT.NONE );
+    cacheSizeCombo.setLayoutData( UiUtil.createFillHori() );
     for( int i = 1; i < 10; i++ ) {
-      cashSizeCombo.add( String.valueOf( i ) );
+      cacheSizeCombo.add( String.valueOf( i ) );
     }
-    cashSizeCombo.select( 0 );
-    cashSizeCombo.addSelectionListener( new SelectionAdapter() {
+    cacheSizeCombo.select( 0 );
+    cacheSizeCombo.addSelectionListener( new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        swipe.setCacheSize( cashSizeCombo.getSelectionIndex() );
+        swipe.setCacheSize( cacheSizeCombo.getSelectionIndex() );
       }
     } );
   }
@@ -184,7 +187,10 @@ public class SwipeDemo implements EntryPoint {
   private Composite createContentComposite( Composite parent ) {
     Composite contentComp = new Composite( parent, SWT.NONE );
     contentComp.setLayoutData( UiUtil.createFill() );
-    contentComp.setLayout( UiUtil.createGridLayout( 1, true ) );
+    GridLayout layout = UiUtil.createGridLayout( 1, true );
+    layout.marginLeft = 16;
+    layout.marginRight = 16;
+    contentComp.setLayout( layout );
     return contentComp;
   }
 
@@ -211,7 +217,7 @@ public class SwipeDemo implements EntryPoint {
       }
 
     } );
-    Button removeItem = new Button( parent, SWT.PUSH );
+    removeItem = new Button( parent, SWT.PUSH );
     removeItem.setLayoutData( UiUtil.createFillHori() );
     removeItem.setText( "Remove Lesson" );
     removeItem.addSelectionListener( new SelectionAdapter() {
@@ -282,12 +288,18 @@ public class SwipeDemo implements EntryPoint {
         scale.setSelection( index );
         selectionIndex = index;
         updateTitle();
+        if( index == ( totalItems -1 ) ) {
+          removeItem.setEnabled( false );
+        } else {
+          removeItem.setEnabled( true );
+        }
       }
 
       public void disposed( SwipeContext context ) {
         // do nothing
       }
     } );
+
   }
 
   private void createScale( Composite parent ) {
@@ -318,11 +330,17 @@ public class SwipeDemo implements EntryPoint {
   }
 
   private void notifyItemProviderChanged() {
-    swipe.refresh();
-    scale.setMaximum( itemProvider.getItemCount() - 1 );
-    totalItems = itemProvider.getItemCount();
-    updateTitle();
-    shell.layout( true, true );
+    try {
+      swipe.refresh();
+      scale.setMaximum( itemProvider.getItemCount() - 1 );
+      totalItems = itemProvider.getItemCount();
+      updateTitle();
+      shell.layout( true, true );
+    } catch( IllegalStateException e ) {
+      MessageBox messageBox = new MessageBox( shell, SWT.ICON_WARNING );
+      messageBox.setMessage( "Can not remove last item" );
+      DialogUtil.open( messageBox, null );
+    }
   }
 
   private void updateTitle() {
