@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.rap.rwt.application.EntryPoint;
+import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -30,6 +31,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Scale;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
@@ -206,7 +208,6 @@ public class SwipeDemo implements EntryPoint {
     Composite contentComp = new Composite( parent, SWT.NONE );
     contentComp.setLayoutData( UiUtil.createFillHori() );
     GridLayout layout = UiUtil.createGridLayout( 2, true );
-    layout.horizontalSpacing = 16;
     layout.verticalSpacing = 8;
     contentComp.setLayout( layout );
     return contentComp;
@@ -215,18 +216,11 @@ public class SwipeDemo implements EntryPoint {
   private void createAddRemoveButtons( Composite parent ) {
     Button addItem = new Button( parent, SWT.PUSH );
     addItem.setText( "Add Lesson" );
-    addItem.setLayoutData( UiUtil.createFillHori() );
-    addItem.addSelectionListener( new SelectionAdapter() {
-
-      @Override
-      public void widgetSelected( org.eclipse.swt.events.SelectionEvent e ) {
-        itemProvider.addItem();
-        notifyItemProviderChanged();
-      }
-
-    } );
+    GridData layoutData = UiUtil.createFillHori();
+    layoutData.horizontalSpan = 2;
+    addItem.setLayoutData( layoutData );
     removeItem = new Button( parent, SWT.PUSH );
-    removeItem.setLayoutData( UiUtil.createFillHori() );
+    removeItem.setLayoutData( layoutData );
     removeItem.setText( "Remove Lesson" );
     removeItem.addSelectionListener( new SelectionAdapter() {
 
@@ -243,17 +237,28 @@ public class SwipeDemo implements EntryPoint {
       }
 
     } );
+    addItem.addSelectionListener( new SelectionAdapter() {
+
+      @Override
+      public void widgetSelected( org.eclipse.swt.events.SelectionEvent e ) {
+        itemProvider.addItem();
+        notifyItemProviderChanged();
+        removeItem.setEnabled( true );
+      }
+
+    } );
   }
 
   private void createLocks( final Composite parent ) {
     final Button buttonLockLeft = new Button( parent, SWT.CHECK );
-    buttonLockLeft.setText( "Lock Item left" );
+    buttonLockLeft.setLayoutData( UiUtil.createFillHori() );
+    buttonLockLeft.setText( "Lock left" );
     buttonLockLeft.addSelectionListener( new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
         if( buttonLockLeft.getSelection() ) {
-          buttonLockLeft.setText( "Lock left (" + selectionIndex + ")" );
+          buttonLockLeft.setText( "Lock left " + selectionIndex );
           parent.layout( true, true );
           swipe.lock( SWT.LEFT );
         } else {
@@ -265,13 +270,14 @@ public class SwipeDemo implements EntryPoint {
     } );
 
     final Button buttonLockRight = new Button( parent, SWT.CHECK );
-    buttonLockRight.setText( "Lock Item right" );
+    buttonLockRight.setText( "Lock right" );
+    buttonLockRight.setLayoutData( UiUtil.createFillHori() );
     buttonLockRight.addSelectionListener( new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
         if( buttonLockRight.getSelection() ) {
-          buttonLockRight.setText( "Lock right (" + selectionIndex + ")" );
+          buttonLockRight.setText( "Lock right " + selectionIndex );
           parent.layout( true, true );
           swipe.lock( SWT.RIGHT );
         } else {
@@ -329,7 +335,15 @@ public class SwipeDemo implements EntryPoint {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        swipe.show( scale.getSelection() );
+        try {
+          swipe.show( scale.getSelection() );
+        } catch( IllegalStateException ise ) {
+          scale.setSelection( selectionIndex );
+          MessageBox box = new MessageBox( shell, SWT.ICON_WARNING );
+          box.setText( "Swipe Error" );
+          box.setMessage( "Can not swipe because it's locked" );
+          DialogUtil.open( box, null );
+        }
       }
     } );
   }
