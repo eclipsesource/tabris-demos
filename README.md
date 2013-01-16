@@ -13,7 +13,9 @@ This repository contains a single Eclipse project that is used within the [Tabri
 * http://SERVER:9090/gallery
 * http://SERVER:9090/video
 * http://SERVER:9090/keyboard 
-* http://SERVER:9090/virtual-tree (Read the note below!)
+* http://SERVER:9090/virtual-tree (Read the note below!) 
+* http://SERVER:9090/swipe 
+* http://SERVER:9090/appevents 
 
 To list all available Entrypoints: http://SERVER:9090/index.json
 
