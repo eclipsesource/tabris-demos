@@ -48,6 +48,7 @@ public class Configuration implements ApplicationConfiguration {
   private void bootstrapTabris( Application application ) {
     Bootstrapper bootstrapper = new Bootstrapper( application );
     bootstrapper.bootstrap();
-    bootstrapper.registerEntryPointLookup( FrameworkUtil.getBundle( Configuration.class ), "/index.json" );
+    bootstrapper.registerEntryPointLookup( FrameworkUtil.getBundle( Configuration.class ),
+                                           "/index.json" );
   }
 }
