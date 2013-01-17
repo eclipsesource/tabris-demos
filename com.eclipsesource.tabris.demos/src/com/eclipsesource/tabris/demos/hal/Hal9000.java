@@ -60,7 +60,7 @@ public class Hal9000 {
     top.setLayoutData( formDataTop );
     Composite bottom = createBlackComposite( display, parent );
     bottom.setLayout( createGridLayout( 1, true, 10, 10, 0 ) );
-    bottom.setBackgroundImage( loadImage( display, "/images/rubber_grip.png" ) );
+    bottom.setBackgroundImage( loadImage( display, "/rubber_grip.png" ) );
     FormData formDataBottom = createBottomLayoutData( top, formDataTop );
     bottom.setLayoutData( formDataBottom );
     createTypePlate( display, top );
@@ -150,10 +150,10 @@ public class Hal9000 {
     Rectangle bounds = display.getMonitors()[ 0 ].getBounds();
     int width = Math.min( bounds.width, bounds.height );
     if( width < 400 ) {
-      halEye = loadImage( display, "/images/hal_160.png" );
+      halEye = loadImage( display, "/hal_160.png" );
       fontSize = 18;
     } else {
-      halEye = loadImage( display, "/images/hal_240.png" );
+      halEye = loadImage( display, "/hal_240.png" );
       fontSize = 24;
     }
   }

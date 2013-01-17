@@ -1,30 +1,28 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2013 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
-package com.eclipsesource.tabris.demos.entrypoints;
+package com.eclipsesource.tabris.demos.swipe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
-import java.util.Set;
 
+import com.eclipsesource.tabris.widgets.swipe.SwipeItem;
+import com.eclipsesource.tabris.widgets.swipe.SwipeItemProvider;
 
-public class KlingonDictionary {
+public class DictionarySwipeItemProvider implements SwipeItemProvider {
 
-  private final Map<String, String> dictionary;
-  private final Random random;
+  private final List<DictionarySwipeItem> items;
 
-  public KlingonDictionary() {
-    random = new Random();
-    dictionary = new HashMap<String, String>();
+  public DictionarySwipeItemProvider() {
+    items = new ArrayList<DictionarySwipeItem>();
+    Map<String, String> dictionary = new HashMap<String, String>();
     dictionary.put( "yes", "HISlaH" );
     dictionary.put( "no", "ghobe’" );
     dictionary.put( "No problem.", "qay’be’" );
@@ -47,18 +45,18 @@ public class KlingonDictionary {
     dictionary.put( "I have a headache.", "jIwuQ" );
     dictionary.put( "Hurry up!", "tugh" );
     dictionary.put( "Is this seat taken?", "quSDaQ ba’lu’’a’" );
+    int index = 0;
+    for( Entry<String, String> entry : dictionary.entrySet() ) {
+      items.add( new DictionarySwipeItem( entry.getKey(), entry.getValue(), index ) );
+      index++;
+    }
   }
 
-  public String[] getRandomEntry() {
-    Set<Entry<String, String>> set = dictionary.entrySet();
-    int itemIndex = random.nextInt( dictionary.size() - 1 );
-    int i = 0;
-    for( Entry<String, String> entry : set ) {
-      if( i == itemIndex ) {
-        return new String[] { entry.getKey(), entry.getValue() };
-      }
-      i++;
-    }
-    return null;
+  public SwipeItem getItem( int index ) {
+    return items.get( index );
+  }
+
+  public int getItemCount() {
+    return items.size();
   }
 }
