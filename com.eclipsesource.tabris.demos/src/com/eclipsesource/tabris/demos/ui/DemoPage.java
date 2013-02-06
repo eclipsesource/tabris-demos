@@ -17,8 +17,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 
+import com.eclipsesource.tabris.Store;
 import com.eclipsesource.tabris.ui.Page;
-import com.eclipsesource.tabris.ui.Transition;
 import com.eclipsesource.tabris.ui.UIContext;
 
 
@@ -39,7 +39,7 @@ public class DemoPage implements Page {
     return container;
   }
 
-  public void activate( UIContext context, Transition transition ) {
+  public void activate( UIContext context, Store store ) {
     context.setTitle( label + " activated" );
   }
 
