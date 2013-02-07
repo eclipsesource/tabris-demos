@@ -43,14 +43,6 @@ public class BookDetailsPage implements Page {
     authorLabel.setText( book.getAuthor() );
     imageLabel.setImage( book.getImage() );
     relatedTreeViewer.setInput( book.getRelated() );
-    onComposite( bookDetailsComposite ).addGroupedListener( SWT.MouseUp, new Listener() {
-
-      public void handleEvent( Event event ) {
-        Store readStore = new Store();
-        readStore.add( ReadBookPage.BOOK_ITEM, book );
-        context.showPage( ReadBookPage.class.getName(), readStore );
-      }
-    } );
   }
 
   private void createBookDetailsComposite( Composite parent ) {
@@ -99,7 +91,14 @@ public class BookDetailsPage implements Page {
   }
 
   public void activate( final UIContext context ) {
-    // nothing to do here
+    onComposite( bookDetailsComposite ).addGroupedListener( SWT.MouseUp, new Listener() {
+
+      public void handleEvent( Event event ) {
+        Store readStore = new Store();
+        readStore.add( ReadBookPage.BOOK_ITEM, context.getPageStore().get( BOOK_ITEM, Book.class ) );
+        context.showPage( ReadBookPage.class.getName(), readStore );
+      }
+    } );
   }
 
   public void deactivate( UIContext context ) {

@@ -5,11 +5,11 @@
  * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
  * EclipseSource - initial API and implementation
  ******************************************************************************/
-
 package com.eclipsesource.tabris.demos.ui;
 
+import static com.eclipsesource.tabris.ui.PageStyle.FULLSCREEN;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.JFaceResources;
@@ -17,7 +17,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 
-import com.eclipsesource.tabris.ui.PageStyle;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 import com.eclipsesource.tabris.ui.UIContext;
@@ -35,82 +34,44 @@ public class BookStoreConfiguration implements UIConfiguration {
   private static final String IMAGE_ACTION_SEARCH = "/images/action_search.png";
   private static final String IMAGE_ACTION_SHARE = "/images/action_share.png";
   private static final String IMAGE_ACTION_THEME = "/images/action_theme.png";
-
-  private List<Book> books;
-
-  IBookFilter allBookFilter = new IBookFilter() {
-
-    public List<Book> filter( List<Book> books ) {
-      return books;
-    }
-  };
-
-  IBookFilter favouriteBookFilter = new IBookFilter() {
-
-    public List<Book> filter( List<Book> books ) {
-      List<Book> result = new ArrayList<Book>();
-      for( Book book : books ) {
-        if( book.isFavourite() ) {
-          result.add( book );
-        }
-      }
-      return result;
-    }
-  };
-
-  IBookFilter popularBookFilter = new IBookFilter() {
-
-    public List<Book> filter( List<Book> books ) {
-      List<Book> result = new ArrayList<Book>();
-      for( Book book : books ) {
-        if( book.isPopular() ) {
-          result.add( book );
-        }
-      }
-      return result;
-    }
-  };
+  public static final String BOOKS = "booksList";
 
   public void configure( UI ui, UIContext context ) {
     registerResources();
     createBooks( context );
-    ui.addPage( "allBooksPage", new BooksListPage( books, allBookFilter ), "All Books", true )
+    ui.addPage( AllBooksPage.class.getName(), AllBooksPage.class, "All Books", true )
       .addAction( SearchAction.class.getName(),
                   "Search",
                   createImage( context, IMAGE_ACTION_SEARCH ),
-                  new SearchAction() );
-    ui.addPage( "popularBooksPage", new BooksListPage( books, popularBookFilter ), "Popular", true );
-    ui.addPage( "favouriteBooksPage",
-                new BooksListPage( books, favouriteBookFilter ),
-                "Favourite",
-                true );
-    ui.addPage( BookDetailsPage.class.getName(), new BookDetailsPage(), "Book", false )
+                  SearchAction.class );
+    ui.addPage( PopularBooksPage.class.getName(), PopularBooksPage.class, "Popular", true );
+    ui.addPage( FavouriteBooksPage.class.getName(), FavouriteBooksPage.class, "Favourite", true );
+    ui.addPage( BookDetailsPage.class.getName(), BookDetailsPage.class, "Book", false )
       .addAction( ShareAction.class.getName(),
                   "Share",
                   createImage( context, IMAGE_ACTION_SHARE ),
-                  new ShareAction() );
-    ui.addPage( ReadBookPage.class.getName(),
-                new ReadBookPage(),
-                "Book",
-                false,
-                PageStyle.FULLSCREEN ).addAction( SelectThemeAction.class.getName(),
-                                                  "Change Theme",
-                                                  createImage( context, IMAGE_ACTION_THEME ),
-                                                  new SelectThemeAction() );
+                  ShareAction.class );
+    ui.addPage( ReadBookPage.class.getName(), ReadBookPage.class, "Book", false, FULLSCREEN )
+      .addAction( SelectThemeAction.class.getName(),
+                  "Change Theme",
+                  createImage( context, IMAGE_ACTION_THEME ),
+                  SelectThemeAction.class );
+    ui.addPage( TempPage.class.getName(), TempPage.class, "Temp", false );
     ui.addAction( SettingsAction.class.getName(),
                   "Settings",
                   createImage( context, IMAGE_ACTION_SETTINGS ),
-                  new SettingsAction() );
+                  SettingsAction.class );
   }
 
   private void registerResources() {
     FontRegistry fontRegistry = JFaceResources.getFontRegistry();
-    fontRegistry.put( SharedFont.ITEM_TITLE,
-                      new FontData[]{ new FontData( "Verdana", 16, SWT.BOLD ) } );
+    fontRegistry.put( SharedFont.ITEM_TITLE, new FontData[]{
+      new FontData( "Verdana", 16, SWT.BOLD )
+    } );
   }
 
   private void createBooks( UIContext context ) {
-    books = new ArrayList<Book>();
+    ArrayList<Book> books = new ArrayList<Book>();
     Book bookSchroder = new Book( "Schroder: A Novel", "Amity Gaige", createImage( context,
                                                                                    IMAGE_SCHRODER ) );
     Book bookAfterVisiting = new Book( "After Visiting Friends: A Son's Story",
@@ -132,14 +93,12 @@ public class BookStoreConfiguration implements UIConfiguration {
     Book bookDinner = new Book( "The Dinner",
                                 "Herman Koch",
                                 createImage( context, IMAGE_THE_DINNER ) ).setPopular( true );
-
     relate( bookVampires, bookAfterVisiting );
     relate( bookVampires, bookAutobiography );
     relate( bookSchroder, bookAfterVisiting );
     relate( bookHistory, bookLiteratur );
     relate( bookHistory, bookAutobiography );
     relate( bookHistory, bookAfterVisiting );
-
     books.add( bookSchroder );
     books.add( bookAfterVisiting );
     books.add( bookVampires );
@@ -147,6 +106,7 @@ public class BookStoreConfiguration implements UIConfiguration {
     books.add( bookAutobiography );
     books.add( bookLiteratur );
     books.add( bookDinner );
+    context.getGlobalStore().add( BOOKS, books );
   }
 
   private void relate( Book book1, Book book2 ) {
@@ -157,5 +117,4 @@ public class BookStoreConfiguration implements UIConfiguration {
   private Image createImage( UIContext context, String path ) {
     return new Image( context.getDisplay(), BookStoreConfiguration.class.getResourceAsStream( path ) );
   }
-
 }

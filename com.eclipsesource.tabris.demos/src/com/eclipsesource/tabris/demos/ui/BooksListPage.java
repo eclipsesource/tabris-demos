@@ -25,19 +25,19 @@ import com.eclipsesource.tabris.ui.UIContext;
 
 public class BooksListPage implements Page {
 
-  private final List<Book> books;
   private final IBookFilter bookFilter;
 
-  public BooksListPage( List<Book> books, IBookFilter bookFilter ) {
-    this.books = books;
+  public BooksListPage( IBookFilter bookFilter ) {
     this.bookFilter = bookFilter;
   }
 
+  @SuppressWarnings("unchecked")
   public void create( Composite parent, final UIContext context ) {
     Composite container = new Composite( parent, SWT.NONE );
     container.setLayout( UiUtil.createGridLayout( 1, false ) );
     TreeViewer viewer = createTreeViewer( context, container );
-    List<Book> filteredBooks = bookFilter.filter( books );
+    List<Book> filteredBooks = bookFilter.filter( context.getGlobalStore()
+      .get( BookStoreConfiguration.BOOKS, List.class ) );
     viewer.setInput( filteredBooks );
   }
 
