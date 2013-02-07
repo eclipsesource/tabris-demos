@@ -44,6 +44,6 @@ public class ReadBookPage implements Page {
   }
 
   private void setSettingsActionVisibility( UIContext context, boolean visible ) {
-    context.getActionManager().setActionVisible( SettingsAction.class.getName(), true );
+    context.getActionManager().setActionVisible( SettingsAction.class.getName(), visible );
   }
 }

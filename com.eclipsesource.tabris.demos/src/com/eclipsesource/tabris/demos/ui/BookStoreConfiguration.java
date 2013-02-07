@@ -7,8 +7,6 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import static com.eclipsesource.tabris.ui.PageStyle.FULLSCREEN;
-
 import java.util.ArrayList;
 
 import org.eclipse.jface.resource.FontRegistry;
@@ -17,6 +15,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 
+import com.eclipsesource.tabris.ui.Prominence;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 import com.eclipsesource.tabris.ui.UIContext;
@@ -65,16 +64,17 @@ public class BookStoreConfiguration implements UIConfiguration {
                   "Share",
                   createImage( context, IMAGE_ACTION_SHARE ),
                   ShareAction.class );
-    ui.addPage( ReadBookPage.class.getName(), ReadBookPage.class, "Book", false, FULLSCREEN )
+    ui.addPage( ReadBookPage.class.getName(), ReadBookPage.class, "Book", false )
       .addAction( SelectThemeAction.class.getName(),
                   "Change Theme",
                   createImage( context, IMAGE_ACTION_THEME ),
                   SelectThemeAction.class );
-    ui.addPage( TempPage.class.getName(), TempPage.class, "Temp", false );
+    ui.addPage( SettingsPage.class.getName(), SettingsPage.class, "Settings", false );
     ui.addAction( SettingsAction.class.getName(),
                   "Settings",
                   createImage( context, IMAGE_ACTION_SETTINGS ),
-                  SettingsAction.class );
+                  SettingsAction.class,
+                  Prominence.EDIT );
   }
 
   private void registerResources() {

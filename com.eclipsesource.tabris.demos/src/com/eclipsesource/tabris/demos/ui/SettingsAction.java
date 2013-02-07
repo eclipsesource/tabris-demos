@@ -7,7 +7,7 @@ public class SettingsAction implements Action {
 
   public void execute( UIContext context ) {
     context.showPreviousPage();
-    context.showPage( TempPage.class.getName() );
+    context.showPage( SettingsPage.class.getName() );
     // Shell shell = new Shell( context.getDisplay() );
     // MessageBox dialog = new MessageBox( shell );
     // dialog.setText( "Settings" );
