@@ -23,6 +23,7 @@ import com.eclipsesource.tabris.ui.UIContext;
 
 public class BookStoreConfiguration implements UIConfiguration {
 
+  public static final String BOOKS = "booksList";
   private static final String IMAGE_SCHRODER = "/images/book_schroder.jpg";
   private static final String IMAGE_HISTORY = "/images/book_a_history.jpg";
   private static final String IMAGE_AFTER_VISITING = "/images/book_after_visiting.jpg";
@@ -34,18 +35,31 @@ public class BookStoreConfiguration implements UIConfiguration {
   private static final String IMAGE_ACTION_SEARCH = "/images/action_search.png";
   private static final String IMAGE_ACTION_SHARE = "/images/action_share.png";
   private static final String IMAGE_ACTION_THEME = "/images/action_theme.png";
-  public static final String BOOKS = "booksList";
+  private static final String IMAGE_PAGE_FAVOURITE_BOOKS = "/images/page_favourite_books.png";
+  private static final String IMAGE_PAGE_POPULAR_BOOKS = "/images/page_popular_books.png";
+  private static final String IMAGE_PAGE_ALL_BOOKS = "/images/page_all_books.png";
 
   public void configure( UI ui, UIContext context ) {
     registerResources();
     createBooks( context );
-    ui.addPage( AllBooksPage.class.getName(), AllBooksPage.class, "All Books", true )
-      .addAction( SearchAction.class.getName(),
-                  "Search",
-                  createImage( context, IMAGE_ACTION_SEARCH ),
-                  SearchAction.class );
-    ui.addPage( PopularBooksPage.class.getName(), PopularBooksPage.class, "Popular", true );
-    ui.addPage( FavouriteBooksPage.class.getName(), FavouriteBooksPage.class, "Favourite", true );
+    ui.addPage( AllBooksPage.class.getName(),
+                AllBooksPage.class,
+                "All Books",
+                createImage( context, IMAGE_PAGE_ALL_BOOKS ),
+                true ).addAction( SearchAction.class.getName(),
+                                  "Search",
+                                  createImage( context, IMAGE_ACTION_SEARCH ),
+                                  SearchAction.class );
+    ui.addPage( PopularBooksPage.class.getName(),
+                PopularBooksPage.class,
+                "Popular",
+                createImage( context, IMAGE_PAGE_POPULAR_BOOKS ),
+                true );
+    ui.addPage( FavouriteBooksPage.class.getName(),
+                FavouriteBooksPage.class,
+                "Favourite",
+                createImage( context, IMAGE_PAGE_FAVOURITE_BOOKS ),
+                true );
     ui.addPage( BookDetailsPage.class.getName(), BookDetailsPage.class, "Book", false )
       .addAction( ShareAction.class.getName(),
                   "Share",
