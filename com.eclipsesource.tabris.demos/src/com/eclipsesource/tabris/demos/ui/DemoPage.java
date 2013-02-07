@@ -14,10 +14,8 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 
-import com.eclipsesource.tabris.Store;
 import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.UIContext;
 
@@ -30,16 +28,15 @@ public class DemoPage implements Page {
     this.label = label;
   }
 
-  public Control create( Composite parent, UIContext context ) {
+  public void create( Composite parent, UIContext context ) {
     Composite container = new Composite( parent, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().create() );
     Label labelControl = new Label( container, SWT.NONE );
     labelControl.setText( label );
     labelControl.setLayoutData( GridDataFactory.fillDefaults().grab( true, true ).align( SWT.CENTER, SWT.CENTER ).create() );
-    return container;
   }
 
-  public void activate( UIContext context, Store store ) {
+  public void activate( UIContext context ) {
     context.setTitle( label + " activated" );
   }
 
