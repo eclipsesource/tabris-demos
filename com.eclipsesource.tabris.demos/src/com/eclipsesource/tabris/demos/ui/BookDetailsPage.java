@@ -1,6 +1,5 @@
 package com.eclipsesource.tabris.demos.ui;
 
-import static com.eclipsesource.tabris.demos.ui.SharedFont.ITEM_TITLE;
 import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onComposite;
 import static org.eclipse.jface.resource.JFaceResources.getFontRegistry;
 
@@ -22,7 +21,6 @@ import com.eclipsesource.tabris.ui.UIContext;
 @SuppressWarnings("serial")
 public class BookDetailsPage implements Page {
 
-  public static final String ID = BookDetailsPage.class.getName();
   protected static final String BOOK_ITEM = "bookItem";
   private Label titleLabel;
   private Label authorLabel;
@@ -50,7 +48,7 @@ public class BookDetailsPage implements Page {
       public void handleEvent( Event event ) {
         Store readStore = new Store();
         readStore.add( ReadBookPage.BOOK_ITEM, book );
-        context.showPage( ReadBookPage.ID, readStore );
+        context.showPage( ReadBookPage.class.getName(), readStore );
       }
     } );
   }
@@ -83,7 +81,7 @@ public class BookDetailsPage implements Page {
 
   private void createBookTitle() {
     titleLabel = new Label( bookDetailsComposite, SWT.WRAP );
-    titleLabel.setFont( getFontRegistry().get( ITEM_TITLE ) );
+    titleLabel.setFont( getFontRegistry().get( SharedFont.ITEM_TITLE ) );
     titleLabel.setLayoutData( UiUtil.createFillHori() );
   }
 

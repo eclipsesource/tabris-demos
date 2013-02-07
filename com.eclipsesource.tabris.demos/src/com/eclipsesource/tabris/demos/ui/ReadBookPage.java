@@ -12,13 +12,11 @@ import com.eclipsesource.tabris.ui.UIContext;
 
 public class ReadBookPage implements Page {
 
-  public static final String ID = ReadBookPage.class.getName();
   public static final String BOOK_ITEM = "bookItem";
   private Label textLabel;
   private Composite container;
 
   public void create( Composite parent, UIContext context ) {
-    context.getActionManager().setActionVisible( SearchAction.class.getName(), false );
     container = new Composite( parent, SWT.NONE );
     GridLayout layout = UiUtil.createGridLayout( 1, false );
     layout.marginWidth = 16;
@@ -38,10 +36,14 @@ public class ReadBookPage implements Page {
   }
 
   public void activate( UIContext context ) {
-    // nothing to do here
+    setSettingsActionVisibility( context, false );
   }
 
   public void deactivate( UIContext context ) {
-    // nothing to do here
+    setSettingsActionVisibility( context, true );
+  }
+
+  private void setSettingsActionVisibility( UIContext context, boolean visible ) {
+    context.getActionManager().setActionVisible( SettingsAction.class.getName(), true );
   }
 }

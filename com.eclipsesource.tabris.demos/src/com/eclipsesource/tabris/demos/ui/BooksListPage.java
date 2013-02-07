@@ -52,7 +52,7 @@ public class BooksListPage implements Page {
         if( book != null ) {
           Store store = new Store();
           store.add( BookDetailsPage.BOOK_ITEM, book );
-          context.showPage( BookDetailsPage.ID, store );
+          context.showPage( BookDetailsPage.class.getName(), store );
         }
       }
     } );

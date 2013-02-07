@@ -74,26 +74,29 @@ public class BookStoreConfiguration implements UIConfiguration {
   public void configure( UI ui, UIContext context ) {
     registerResources();
     createBooks( context );
-    ui.addPage( "allBooksPage", new BooksListPage( books, allBookFilter ), "All Books", true );
+    ui.addPage( "allBooksPage", new BooksListPage( books, allBookFilter ), "All Books", true )
+      .addAction( SearchAction.class.getName(),
+                  "Search",
+                  createImage( context, IMAGE_ACTION_SEARCH ),
+                  new SearchAction() );
     ui.addPage( "popularBooksPage", new BooksListPage( books, popularBookFilter ), "Popular", true );
     ui.addPage( "favouriteBooksPage",
                 new BooksListPage( books, favouriteBookFilter ),
                 "Favourite",
                 true );
-    ui.addPage( BookDetailsPage.ID, new BookDetailsPage(), "Book", false )
+    ui.addPage( BookDetailsPage.class.getName(), new BookDetailsPage(), "Book", false )
       .addAction( ShareAction.class.getName(),
                   "Share",
                   createImage( context, IMAGE_ACTION_SHARE ),
                   new ShareAction() );
-    ui.addPage( ReadBookPage.ID, new ReadBookPage(), "Book", false, PageStyle.FULLSCREEN )
-      .addAction( SelectThemeAction.class.getName(),
-                  "Change Theme",
-                  createImage( context, IMAGE_ACTION_THEME ),
-                  new SelectThemeAction() );
-    ui.addAction( SearchAction.class.getName(),
-                  "Search",
-                  createImage( context, IMAGE_ACTION_SEARCH ),
-                  new SearchAction() );
+    ui.addPage( ReadBookPage.class.getName(),
+                new ReadBookPage(),
+                "Book",
+                false,
+                PageStyle.FULLSCREEN ).addAction( SelectThemeAction.class.getName(),
+                                                  "Change Theme",
+                                                  createImage( context, IMAGE_ACTION_THEME ),
+                                                  new SelectThemeAction() );
     ui.addAction( SettingsAction.class.getName(),
                   "Settings",
                   createImage( context, IMAGE_ACTION_SETTINGS ),
