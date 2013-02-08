@@ -1,5 +1,6 @@
-
 package com.eclipsesource.tabris.demos.ui;
+
+import static java.text.MessageFormat.format;
 
 import org.eclipse.rap.rwt.RWT;
 
@@ -14,13 +15,9 @@ public class ShareAction implements Action {
     AppLauncher appLauncher = RWT.getClient().getService( AppLauncher.class );
     if( appLauncher != null ) {
       Book book = context.getPageStore().get( BookDetailsPage.BOOK_ITEM, Book.class );
-      MailOptions launchOptions = new MailOptions( "user@mail.com", "Check out the book '"
-                                                                    + book.getTitle()
-                                                                    + "' from "
-                                                                    + book.getAuthor()
-                                                                    + ". It is really great." );
+      String body = format( "Check out the book \"{0}\".", book.getTitle() );
+      MailOptions launchOptions = new MailOptions( "user@mail.com", body );
       appLauncher.open( launchOptions );
     }
   }
-
 }
