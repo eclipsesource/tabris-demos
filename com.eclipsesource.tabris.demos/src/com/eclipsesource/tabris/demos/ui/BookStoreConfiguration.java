@@ -57,61 +57,61 @@ public class BookStoreConfiguration implements UIConfiguration {
 
   private void createAllBooksPage( UI ui, UIContext context ) {
     PageConfiguration page = newPage( AllBooksPage.class.getName(), AllBooksPage.class );
-    page.title( "All Books" );
-    page.image( createImage( context, IMAGE_PAGE_ALL_BOOKS ) );
-    page.topLevel( true );
+    page.setTitle( "All Books" );
+    page.setImage( createImage( context, IMAGE_PAGE_ALL_BOOKS ) );
+    page.setTopLevel( true );
     ActionConfiguration action = newAction( SearchAction.class.getName(), SearchAction.class );
-    action.image( createImage( context, IMAGE_ACTION_SEARCH ) );
-    action.title( "Search" );
+    action.setImage( createImage( context, IMAGE_ACTION_SEARCH ) );
+    action.setTitle( "Search" );
     ui.addPage( page ).addAction( action );
   }
 
   private void createPopularBooksPage( UI ui, UIContext context ) {
     PageConfiguration page = newPage( PopularBooksPage.class.getName(), PopularBooksPage.class );
-    page.title( "Popular" );
-    page.image( createImage( context, IMAGE_PAGE_POPULAR_BOOKS ) );
-    page.topLevel( true );
+    page.setTitle( "Popular" );
+    page.setImage( createImage( context, IMAGE_PAGE_POPULAR_BOOKS ) );
+    page.setTopLevel( true );
     ui.addPage( page );
   }
 
   private void createFavouriteBooksPage( UI ui, UIContext context ) {
     PageConfiguration page = newPage( FavouriteBooksPage.class.getName(), FavouriteBooksPage.class );
-    page.title( "Favourite" );
-    page.image( createImage( context, IMAGE_PAGE_FAVOURITE_BOOKS ) );
-    page.topLevel( true );
+    page.setTitle( "Favourite" );
+    page.setImage( createImage( context, IMAGE_PAGE_FAVOURITE_BOOKS ) );
+    page.setTopLevel( true );
     ui.addPage( page );
   }
 
   private void createBookDetailsPage( UI ui, UIContext context ) {
     PageConfiguration page = newPage( BookDetailsPage.class.getName(), BookDetailsPage.class );
-    page.title( "Book" );
+    page.setTitle( "Book" );
     ActionConfiguration action = newAction( ShareAction.class.getName(), ShareAction.class );
-    action.image( createImage( context, IMAGE_ACTION_SHARE ) );
-    action.title( "Share" );
+    action.setImage( createImage( context, IMAGE_ACTION_SHARE ) );
+    action.setTitle( "Share" );
     ui.addPage( page ).addAction( action );
   }
 
   private void createReadBookPage( UI ui, UIContext context ) {
     PageConfiguration page = newPage( ReadBookPage.class.getName(), ReadBookPage.class );
-    page.title( "Book" );
+    page.setTitle( "Book" );
     ActionConfiguration action = newAction( ChangeThemeAction.class.getName(),
                                             ChangeThemeAction.class );
-    action.image( createImage( context, IMAGE_ACTION_THEME ) );
-    action.title( "Change Theme" );
+    action.setImage( createImage( context, IMAGE_ACTION_THEME ) );
+    action.setTitle( "Change Theme" );
     ui.addPage( page ).addAction( action );
   }
 
   private void createPageSettings( UI ui ) {
     PageConfiguration page = newPage( SettingsPage.class.getName(), SettingsPage.class );
-    page.title( "Settings" );
+    page.setTitle( "Settings" );
     ui.addPage( page );
   }
 
   private void createGlobalActions( UI ui, UIContext context ) {
     ActionConfiguration action = newAction( SettingsAction.class.getName(), SettingsAction.class );
-    action.image( createImage( context, IMAGE_ACTION_SETTINGS ) );
-    action.title( "Settings" );
-    action.prominence( Prominence.EDIT );
+    action.setImage( createImage( context, IMAGE_ACTION_SETTINGS ) );
+    action.setTitle( "Settings" );
+    action.setProminence( Prominence.EDIT );
     ui.addAction( action );
   }
 
