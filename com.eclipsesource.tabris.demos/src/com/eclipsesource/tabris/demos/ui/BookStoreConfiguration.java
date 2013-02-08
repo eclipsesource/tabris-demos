@@ -7,6 +7,9 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
+import static com.eclipsesource.tabris.ui.ActionConfiguration.newAction;
+import static com.eclipsesource.tabris.ui.PageConfiguration.newPage;
+
 import java.util.ArrayList;
 
 import org.eclipse.jface.resource.FontRegistry;
@@ -15,6 +18,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 
+import com.eclipsesource.tabris.ui.ActionConfiguration;
+import com.eclipsesource.tabris.ui.PageConfiguration;
 import com.eclipsesource.tabris.ui.Prominence;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
@@ -41,40 +46,73 @@ public class BookStoreConfiguration implements UIConfiguration {
   public void configure( UI ui, UIContext context ) {
     registerResources();
     createBooks( context );
-    ui.addPage( AllBooksPage.class.getName(),
-                AllBooksPage.class,
-                "All Books",
-                createImage( context, IMAGE_PAGE_ALL_BOOKS ),
-                true ).addAction( SearchAction.class.getName(),
-                                  "Search",
-                                  createImage( context, IMAGE_ACTION_SEARCH ),
-                                  SearchAction.class );
-    ui.addPage( PopularBooksPage.class.getName(),
-                PopularBooksPage.class,
-                "Popular",
-                createImage( context, IMAGE_PAGE_POPULAR_BOOKS ),
-                true );
-    ui.addPage( FavouriteBooksPage.class.getName(),
-                FavouriteBooksPage.class,
-                "Favourite",
-                createImage( context, IMAGE_PAGE_FAVOURITE_BOOKS ),
-                true );
-    ui.addPage( BookDetailsPage.class.getName(), BookDetailsPage.class, "Book", false )
-      .addAction( ShareAction.class.getName(),
-                  "Share",
-                  createImage( context, IMAGE_ACTION_SHARE ),
-                  ShareAction.class );
-    ui.addPage( ReadBookPage.class.getName(), ReadBookPage.class, "Book", false )
-      .addAction( SelectThemeAction.class.getName(),
-                  "Change Theme",
-                  createImage( context, IMAGE_ACTION_THEME ),
-                  SelectThemeAction.class );
-    ui.addPage( SettingsPage.class.getName(), SettingsPage.class, "Settings", false );
-    ui.addAction( SettingsAction.class.getName(),
-                  "Settings",
-                  createImage( context, IMAGE_ACTION_SETTINGS ),
-                  SettingsAction.class,
-                  Prominence.EDIT );
+    createAllBooksPage( ui, context );
+    createPopularBooksPage( ui, context );
+    createFavouriteBooksPage( ui, context );
+    createBookDetailsPage( ui, context );
+    createReadBookPage( ui, context );
+    createPageSettings( ui );
+    createGlobalActions( ui, context );
+  }
+
+  private void createAllBooksPage( UI ui, UIContext context ) {
+    PageConfiguration page = newPage( AllBooksPage.class.getName(), AllBooksPage.class );
+    page.title( "All Books" );
+    page.image( createImage( context, IMAGE_PAGE_ALL_BOOKS ) );
+    page.topLevel( true );
+    ActionConfiguration action = newAction( SearchAction.class.getName(), SearchAction.class );
+    action.image( createImage( context, IMAGE_ACTION_SEARCH ) );
+    action.title( "Search" );
+    ui.addPage( page ).addAction( action );
+  }
+
+  private void createPopularBooksPage( UI ui, UIContext context ) {
+    PageConfiguration page = newPage( PopularBooksPage.class.getName(), PopularBooksPage.class );
+    page.title( "Popular" );
+    page.image( createImage( context, IMAGE_PAGE_POPULAR_BOOKS ) );
+    page.topLevel( true );
+    ui.addPage( page );
+  }
+
+  private void createFavouriteBooksPage( UI ui, UIContext context ) {
+    PageConfiguration page = newPage( FavouriteBooksPage.class.getName(), FavouriteBooksPage.class );
+    page.title( "Favourite" );
+    page.image( createImage( context, IMAGE_PAGE_FAVOURITE_BOOKS ) );
+    page.topLevel( true );
+    ui.addPage( page );
+  }
+
+  private void createBookDetailsPage( UI ui, UIContext context ) {
+    PageConfiguration page = newPage( BookDetailsPage.class.getName(), BookDetailsPage.class );
+    page.title( "Book" );
+    ActionConfiguration action = newAction( ShareAction.class.getName(), ShareAction.class );
+    action.image( createImage( context, IMAGE_ACTION_SHARE ) );
+    action.title( "Share" );
+    ui.addPage( page ).addAction( action );
+  }
+
+  private void createReadBookPage( UI ui, UIContext context ) {
+    PageConfiguration page = newPage( ReadBookPage.class.getName(), ReadBookPage.class );
+    page.title( "Book" );
+    ActionConfiguration action = newAction( ChangeThemeAction.class.getName(),
+                                            ChangeThemeAction.class );
+    action.image( createImage( context, IMAGE_ACTION_THEME ) );
+    action.title( "Change Theme" );
+    ui.addPage( page ).addAction( action );
+  }
+
+  private void createPageSettings( UI ui ) {
+    PageConfiguration page = newPage( SettingsPage.class.getName(), SettingsPage.class );
+    page.title( "Settings" );
+    ui.addPage( page );
+  }
+
+  private void createGlobalActions( UI ui, UIContext context ) {
+    ActionConfiguration action = newAction( SettingsAction.class.getName(), SettingsAction.class );
+    action.image( createImage( context, IMAGE_ACTION_SETTINGS ) );
+    action.title( "Settings" );
+    action.prominence( Prominence.EDIT );
+    ui.addAction( action );
   }
 
   private void registerResources() {
