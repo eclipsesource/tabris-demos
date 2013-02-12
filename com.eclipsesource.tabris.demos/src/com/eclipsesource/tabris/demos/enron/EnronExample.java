@@ -109,7 +109,8 @@ public class EnronExample {
     final Composite composite = new Composite( parent, SWT.NONE );
     GridLayout layout = ExampleUtil.createGridLayout();
     composite.setLayout( layout );
-    if( !ClientDevice.getCurrent().isPlatform( Platform.ANDROID ) ) {
+    ClientDevice clientDevice = RWT.getClient().getService( ClientDevice.class );
+    if( clientDevice.getPlatform() != Platform.ANDROID ) {
       createCloseButtonToolbar( composite );
     }
     createMailHeaderArea( composite, mail );
