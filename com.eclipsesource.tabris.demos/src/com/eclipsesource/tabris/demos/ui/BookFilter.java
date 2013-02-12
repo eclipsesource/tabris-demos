@@ -10,25 +10,9 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class PopularBooksPage extends BooksListPage {
+public interface BookFilter {
 
-  private static class PopularBookFilter implements BookFilter {
-
-    public List<Book> filter( List<Book> books ) {
-      List<Book> result = new ArrayList<Book>();
-      for( Book book : books ) {
-        if( book.isFavourite() ) {
-          result.add( book );
-        }
-      }
-      return result;
-    }
-  }
-
-  public PopularBooksPage() {
-    super( new PopularBookFilter() );
-  }
+  List<Book> filter( List<Book> books );
 }

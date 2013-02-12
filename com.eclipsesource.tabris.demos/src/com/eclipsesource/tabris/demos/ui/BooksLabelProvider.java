@@ -1,13 +1,20 @@
-/*
- * Copyright(c) 2012 EclipseSource. All Rights Reserved.
- */
+/*******************************************************************************
+ * Copyright (c) 2013 EclipseSource and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    EclipseSource - initial API and implementation
+ ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-@SuppressWarnings("serial")
+
 public class BooksLabelProvider implements ITableLabelProvider {
 
   public Image getColumnImage( Object element, int columnIndex ) {
@@ -24,16 +31,17 @@ public class BooksLabelProvider implements ITableLabelProvider {
   }
 
   public String getColumnText( Object element, int columnIndex ) {
+    String result = null;
     if( columnIndex == 0 ) {
       if( element instanceof Book ) {
-        return ( ( Book )element ).getTitle();
+        result = ( ( Book )element ).getTitle();
       }
     } else if( columnIndex == 1 ) {
       if( element instanceof Book ) {
-        return ( ( Book )element ).getAuthor();
+        result = ( ( Book )element ).getAuthor();
       }
     }
-    return null;
+    return result;
   }
 
   public void addListener( ILabelProviderListener listener ) {
@@ -45,7 +53,6 @@ public class BooksLabelProvider implements ITableLabelProvider {
   }
 
   public boolean isLabelProperty( Object element, String property ) {
-    // nothing to do here
     return false;
   }
 

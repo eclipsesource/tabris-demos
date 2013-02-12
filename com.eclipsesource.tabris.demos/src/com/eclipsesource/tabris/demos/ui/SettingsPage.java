@@ -1,10 +1,22 @@
+/*******************************************************************************
+ * Copyright (c) 2013 EclipseSource and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    EclipseSource - initial API and implementation
+ ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import com.eclipsesource.tabris.demos.entrypoints.UiUtil;
 import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.UIContext;
 
@@ -12,9 +24,10 @@ public class SettingsPage implements Page {
 
   public void create( Composite parent, UIContext context ) {
     Composite container = new Composite( parent, SWT.NONE );
-    container.setLayout( UiUtil.createGridLayout( 1, false ) );
+    container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
     Label textLabel = new Label( container, SWT.CENTER );
-    textLabel.setLayoutData( UiUtil.createCenteredGrab() );
+    GridData layoutData = GridDataFactory.fillDefaults().align( SWT.CENTER, SWT.CENTER ).grab( true, true ).create();
+    textLabel.setLayoutData( layoutData );
     textLabel.setText( "Settings" );
   }
 

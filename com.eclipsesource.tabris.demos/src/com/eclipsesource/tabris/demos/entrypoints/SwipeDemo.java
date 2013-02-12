@@ -52,7 +52,7 @@ public class SwipeDemo implements EntryPoint {
     compLayout.marginWidth = 16;
     compLayout.horizontalSpacing = 16;
     comp.setLayout( compLayout );
-    comp.setLayoutData( UiUtil.createFill() );
+    comp.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
     return comp;
   }
 
@@ -65,7 +65,7 @@ public class SwipeDemo implements EntryPoint {
 
   private void createToolBar( final Composite parent ) {
     ToolBar toolBar = new ToolBar( parent, SWT.NONE );
-    toolBar.setLayoutData( UiUtil.createFillHori() );
+    toolBar.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     ToolItem toolItem = new ToolItem( toolBar, SWT.NONE );
     toolItem.setText( "Klingon Lessons" );
     onToolItem( toolItem ).useAsTitle();

@@ -1,5 +1,6 @@
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -49,7 +50,7 @@ public class CameraDemo implements EntryPoint {
 
   private void createToolBar( final Composite parent ) {
     ToolBar toolBar = new ToolBar( parent, SWT.NONE );
-    toolBar.setLayoutData( UiUtil.createFillHori() );
+    toolBar.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     ToolItem toolItem = new ToolItem( toolBar, SWT.NONE );
     toolItem.setText( "Camera Demo" );
     Widgets.onToolItem( toolItem ).useAsTitle();
@@ -60,7 +61,7 @@ public class CameraDemo implements EntryPoint {
     GridLayout compLayout = new GridLayout( 1, false );
     compLayout.horizontalSpacing = 16;
     comp.setLayout( compLayout );
-    comp.setLayoutData( UiUtil.createFill() );
+    comp.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
     return comp;
   }
 
@@ -82,13 +83,13 @@ public class CameraDemo implements EntryPoint {
 
   private void createImageLabel( Composite comp ) {
     imageLabel = new Label( comp, SWT.NONE );
-    imageLabel.setLayoutData( UiUtil.createFill() );
+    imageLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
   }
 
   private void createCameraButton( Composite comp, final Label imageLabel ) {
     Button cameraButton = new Button( comp, SWT.PUSH );
     cameraButton.setText( "Take photo with camera" );
-    cameraButton.setLayoutData( UiUtil.createFillHori() );
+    cameraButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     cameraButton.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
@@ -112,7 +113,7 @@ public class CameraDemo implements EntryPoint {
   private void createGalleryButton( Composite comp, final Label imageLabel ) {
     Button galleryButton = new Button( comp, SWT.PUSH );
     galleryButton.setText( "Select image from gallery" );
-    galleryButton.setLayoutData( UiUtil.createFillHori() );
+    galleryButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     galleryButton.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {

@@ -12,6 +12,7 @@ package com.eclipsesource.tabris.demos.entrypoints;
 
 import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onToolItem;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
@@ -77,7 +78,7 @@ public class AppLauncherDemo implements EntryPoint {
 
   private void createToolBar( final Composite parent ) {
     ToolBar toolBar = new ToolBar( parent, SWT.NONE );
-    toolBar.setLayoutData( UiUtil.createFillHori() );
+    toolBar.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     ToolItem toolItem = new ToolItem( toolBar, SWT.NONE );
     toolItem.setText( "Heisenberg's App" );
     onToolItem( toolItem ).useAsTitle();
@@ -89,7 +90,7 @@ public class AppLauncherDemo implements EntryPoint {
     compLayout.marginWidth = 16;
     compLayout.horizontalSpacing = 16;
     comp.setLayout( compLayout );
-    comp.setLayoutData( UiUtil.createFill() );
+    comp.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
     return comp;
   }
 
@@ -97,7 +98,7 @@ public class AppLauncherDemo implements EntryPoint {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "Open Los Pollos Site" );
     applyImage( "/browser.png", button );
-    button.setLayoutData( UiUtil.createFillHori() );
+    button.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 70, 124, 30 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -107,12 +108,12 @@ public class AppLauncherDemo implements EntryPoint {
       }
     } );
   }
-  
+
   private void createMailLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "New Mail to Mike" );
     applyImage( "/mail.png", button );
-    button.setLayoutData( UiUtil.createFillHori() );
+    button.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 191, 37, 39 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -124,12 +125,12 @@ public class AppLauncherDemo implements EntryPoint {
       }
     } );
   }
-  
+
   private void createPhoneLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "Call Jesse" );
     applyImage( "/phone.png", button );
-    button.setLayoutData( UiUtil.createFillHori() );
+    button.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 70, 124, 30 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -139,12 +140,12 @@ public class AppLauncherDemo implements EntryPoint {
       }
     } );
   }
-  
+
   private void createMapsLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "View White Residence" );
     applyImage( "/maps.png", button );
-    button.setLayoutData( UiUtil.createFillHori() );
+    button.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 191, 37, 39 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -154,18 +155,18 @@ public class AppLauncherDemo implements EntryPoint {
       }
     } );
   }
-  
+
   private void createTextLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "Text Hank Schrader" );
     applyImage( "/sms.png", button );
-    button.setLayoutData( UiUtil.createFillHori() );
+    button.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 70, 124, 30 ) );
     button.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        appLauncher.open( new SMSOptions( "555 232 111 23", 
+        appLauncher.open( new SMSOptions( "555 232 111 23",
                                           "Hank, congratulations to your promotion. Cheers Walter" ) );
       }
     } );
@@ -175,7 +176,7 @@ public class AppLauncherDemo implements EntryPoint {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "My Diary" );
     applyImage( "/openurl.png", button );
-    button.setLayoutData( UiUtil.createFillHori() );
+    button.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 191, 37, 39 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -185,19 +186,19 @@ public class AppLauncherDemo implements EntryPoint {
       }
     } );
   }
-  
+
   private void createSocialLaunchers( Composite parent, final AppLauncher appLauncher ) {
     Composite composite = new Composite( parent, SWT.NONE);
     GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( true ).applyTo( composite );
-    composite.setLayoutData( UiUtil.createFill() );
+    composite.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
     createTwitterLauncher( composite, appLauncher );
     createFacebookLauncher( composite, appLauncher );
   }
-  
+
   private void createTwitterLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "Twitter" );
-    button.setLayoutData( UiUtil.createFillHori() );
+    button.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 0, 121, 184 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -213,7 +214,7 @@ public class AppLauncherDemo implements EntryPoint {
   private void createFacebookLauncher( Composite parent, final AppLauncher appLauncher ) {
     Button button = new Button( parent, SWT.PUSH );
     button.setText( "Facebook" );
-    button.setLayoutData( UiUtil.createFillHori() );
+    button.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     button.setForeground( new Color( display, 255, 255, 255 ) );
     button.setBackground( new Color( display, 59, 89, 152 ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -225,7 +226,7 @@ public class AppLauncherDemo implements EntryPoint {
       }
     } );
   }
-  
+
   private void createWebClientContent( final Shell shell ) {
     MessageBox messageBox = new MessageBox( shell, SWT.ICON_WARNING );
     messageBox.setMessage( "This demo is availaible on mobile devices only." );

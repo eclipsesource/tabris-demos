@@ -12,6 +12,7 @@ package com.eclipsesource.tabris.demos.entrypoints;
 
 import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onToolItem;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -54,7 +55,7 @@ public class KeyboardDemo implements EntryPoint {
 
   private void createToolBar( final Composite parent ) {
     ToolBar toolBar = new ToolBar( parent, SWT.NONE );
-    toolBar.setLayoutData( UiUtil.createFillHori() );
+    toolBar.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     ToolItem toolItem = new ToolItem( toolBar, SWT.NONE );
     toolItem.setText( "Keyboard Types" );
     onToolItem( toolItem ).useAsTitle();
@@ -66,7 +67,7 @@ public class KeyboardDemo implements EntryPoint {
     compLayout.marginWidth = 16;
     compLayout.horizontalSpacing = 16;
     comp.setLayout( compLayout );
-    comp.setLayoutData( UiUtil.createFill() );
+    comp.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
     return comp;
   }
 
@@ -84,7 +85,7 @@ public class KeyboardDemo implements EntryPoint {
     Label titleLabel = new Label( parent, SWT.NONE );
     titleLabel.setText( titel );
     Text text = new Text( parent, SWT.BORDER );
-    text.setLayoutData( UiUtil.createFillHori() );
+    text.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     return Widgets.onText( text );
   }
 
