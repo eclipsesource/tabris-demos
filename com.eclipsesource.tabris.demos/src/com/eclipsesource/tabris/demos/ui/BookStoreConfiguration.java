@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2013 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
@@ -75,7 +72,8 @@ public class BookStoreConfiguration implements UIConfiguration {
     ActionConfiguration action = newAction( SearchAction.class.getName(), SearchAction.class );
     action.setImage( createImage( context, IMAGE_ACTION_SEARCH ) );
     action.setTitle( "Search" );
-    ui.addPage( page ).addAction( action );
+    page.addAction( action );
+    ui.addPage( page );
   }
 
   private void createPopularBooksPage( UI ui, UIContext context ) {
@@ -100,16 +98,19 @@ public class BookStoreConfiguration implements UIConfiguration {
     ActionConfiguration action = newAction( ShareAction.class.getName(), ShareAction.class );
     action.setImage( createImage( context, IMAGE_ACTION_SHARE ) );
     action.setTitle( "Share" );
-    ui.addPage( page ).addAction( action );
+    page.addAction( action );
+    ui.addPage( page );
   }
 
   private void createReadBookPage( UI ui, UIContext context ) {
     PageConfiguration page = newPage( ReadBookPage.class.getName(), ReadBookPage.class );
     page.setTitle( "Book" );
-    ActionConfiguration action = newAction( ChangeThemeAction.class.getName(), ChangeThemeAction.class );
+    ActionConfiguration action = newAction( ChangeThemeAction.class.getName(),
+                                            ChangeThemeAction.class );
     action.setImage( createImage( context, IMAGE_ACTION_THEME ) );
     action.setTitle( "Change Theme" );
-    ui.addPage( page ).addAction( action );
+    page.addAction( action );
+    ui.addPage( page );
   }
 
   private void createPageSettings( UI ui ) {
