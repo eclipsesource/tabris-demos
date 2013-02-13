@@ -122,7 +122,7 @@ public class BookStoreConfiguration implements UIConfiguration {
     ActionConfiguration action = newAction( SettingsAction.class.getName(), SettingsAction.class );
     action.setImage( createImage( context, IMAGE_ACTION_SETTINGS ) );
     action.setTitle( "Settings" );
-    action.setProminence( Prominence.EDIT );
+    action.setProminence( Prominence.DEFAULT );
     ui.addAction( action );
   }
 
