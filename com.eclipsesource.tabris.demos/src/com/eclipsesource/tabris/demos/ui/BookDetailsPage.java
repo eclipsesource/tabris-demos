@@ -10,8 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import static com.eclipsesource.tabris.demos.ui.Constants.BOOK_ITEM;
-import static com.eclipsesource.tabris.demos.ui.Constants.TITLE_FONT;
+import static com.eclipsesource.tabris.demos.ui.Constants.*;
 import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onComposite;
 import static org.eclipse.jface.resource.JFaceResources.getFontRegistry;
 
@@ -23,7 +22,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
@@ -44,7 +42,8 @@ public class BookDetailsPage implements Page {
     Composite container = new Composite( parent, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
     createBookDetailsComposite( container );
-    createRelatedComposite( container, context );
+    createRelatedBooks( container, context );
+    createRelatedList( container, context );
     populatePage( context );
   }
 
@@ -84,8 +83,8 @@ public class BookDetailsPage implements Page {
     GridLayout layout = GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 2 ).equalWidth( false ).create();
     layout.verticalSpacing = 12;
     layout.horizontalSpacing = 12;
-    layout.marginWidth = 16;
-    layout.marginHeight = 16;
+    layout.marginWidth = 12;
+    layout.marginHeight = 12;
     bookDetailsComposite.setLayout( layout );
   }
 
@@ -107,12 +106,43 @@ public class BookDetailsPage implements Page {
     authorLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
   }
 
-  private void createRelatedComposite( Composite parent, UIContext context ) {
-    Group group = new Group( parent, SWT.NONE );
-    group.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
-    group.setText( "Related Books" );
-    group.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
-    relatedTreeViewer = BooksListPage.createTreeViewer( context, group );
+  private void createRelatedBooks( Composite parent, UIContext context ) {
+    Composite relatedBooksComposite = createRelatedTitleComposite( parent );
+    createRelatedBooksTitle( context, relatedBooksComposite );
+    createLine( context, relatedBooksComposite );
+  }
+
+  private Composite createRelatedTitleComposite( Composite parent ) {
+    Composite composite = new Composite( parent, SWT.NONE );
+    composite.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false).create() );
+    GridLayout layout = GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create();
+    layout.marginWidth = 6;
+    layout.marginTop = 12;
+    layout.marginBottom = 6;
+    composite.setLayout( layout );
+    return composite;
+  }
+
+  private void createRelatedBooksTitle( UIContext context, Composite composite ) {
+    Label relatedBooksLabel = new Label( composite, SWT.NONE );
+    relatedBooksLabel.setText( "Related Books" );
+    relatedBooksLabel.setFont( getFontRegistry().get( RELATED_BOOKS_FONT ) );
+    relatedBooksLabel.setForeground( context.getDisplay().getSystemColor( SWT.COLOR_DARK_GRAY ) );
+    GridData layoutData = new GridData( SWT.FILL, SWT.TOP, true, false );
+    layoutData.horizontalIndent = 6;
+    relatedBooksLabel.setLayoutData( layoutData );
+  }
+
+  private void createLine( UIContext context, Composite composite ) {
+    Label line = new Label( composite, SWT.NONE );
+    line.setBackground( context.getDisplay().getSystemColor( SWT.COLOR_GRAY ) );
+    GridData layoutData = new GridData( SWT.FILL, SWT.TOP, true, false );
+    layoutData.heightHint = 1;
+    line.setLayoutData( layoutData );
+  }
+  
+  private void createRelatedList( Composite parent, UIContext context ) {
+    relatedTreeViewer = BooksListPage.createTreeViewer( context, parent );
   }
 
   public void activate( final UIContext context ) {

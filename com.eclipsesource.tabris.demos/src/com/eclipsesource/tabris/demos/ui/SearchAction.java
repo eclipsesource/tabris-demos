@@ -10,12 +10,20 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
+import org.eclipse.rap.rwt.widgets.DialogUtil;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
+
 import com.eclipsesource.tabris.ui.Action;
 import com.eclipsesource.tabris.ui.UIContext;
 
 public class SearchAction implements Action {
 
   public void execute( UIContext context ) {
-    // perform search
+    BooksListPage page = ( BooksListPage )context.getPageManager().getPage();
+    MessageBox messageBox = new MessageBox( page.getContainer().getShell(), SWT.ICON_WARNING );
+    messageBox.setText( "Search" );
+    messageBox.setMessage( "Search for books." );
+    DialogUtil.open( messageBox, null );
   }
 }

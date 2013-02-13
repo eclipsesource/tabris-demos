@@ -33,16 +33,21 @@ import com.eclipsesource.tabris.ui.UIContext;
 public class BooksListPage implements Page {
 
   private final BookFilter bookFilter;
+  private Composite container;
 
   public BooksListPage( BookFilter bookFilter ) {
     this.bookFilter = bookFilter;
   }
 
   public void create( Composite parent, final UIContext context ) {
-    Composite container = new Composite( parent, SWT.NONE );
+    container = new Composite( parent, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
     TreeViewer viewer = createTreeViewer( context, container );
     createViewerInput( context, viewer );
+  }
+  
+  public Composite getContainer() {
+    return container;
   }
 
   public static TreeViewer createTreeViewer( final UIContext context, Composite container ) {

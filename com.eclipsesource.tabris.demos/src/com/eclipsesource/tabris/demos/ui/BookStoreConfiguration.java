@@ -7,15 +7,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import static com.eclipsesource.tabris.demos.ui.Constants.BOOKS;
-import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SEARCH;
-import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SETTINGS;
-import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SHARE;
-import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_THEME;
-import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_ALL_BOOKS;
-import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_FAVOURITE_BOOKS;
-import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_POPULAR_BOOKS;
-import static com.eclipsesource.tabris.demos.ui.Constants.TITLE_FONT;
+import static com.eclipsesource.tabris.demos.ui.Constants.*;
 import static com.eclipsesource.tabris.ui.ActionConfiguration.newAction;
 import static com.eclipsesource.tabris.ui.PageConfiguration.newPage;
 
@@ -46,9 +38,12 @@ public class BookStoreConfiguration implements UIConfiguration {
 
   private void registerResources() {
     FontRegistry fontRegistry = JFaceResources.getFontRegistry();
-    fontRegistry.put( TITLE_FONT, new FontData[]{
-      new FontData( "Verdana", 16, SWT.BOLD )
-    } );
+    fontRegistry.put( TITLE_FONT, createFontData( 16, SWT.BOLD ) );
+    fontRegistry.put( RELATED_BOOKS_FONT, createFontData( 16, SWT.BOLD ) );
+  }
+
+  private FontData[] createFontData( int height, int style ) {
+    return new FontData[]{ new FontData( "Verdana", height, style ) };
   }
 
   private void createBooks( UIContext context ) {
