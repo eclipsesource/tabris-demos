@@ -49,7 +49,7 @@ public class BookDetailsPage implements Page {
   }
 
   private void populatePage( final UIContext context ) {
-    Book book = context.getPageStore().get( BOOK_ITEM, Book.class );
+    Book book = context.getPageManager().getPageStore().get( BOOK_ITEM, Book.class );
     context.setTitle( book.getTitle() );
     titleLabel.setText( book.getTitle() );
     authorLabel.setText( book.getAuthor() );
@@ -64,7 +64,7 @@ public class BookDetailsPage implements Page {
       public void handleEvent( Event event ) {
         Store readStore = new Store();
         readStore.add( ReadBookPage.BOOK_ITEM, book );
-        context.showPage( ReadBookPage.class.getName(), readStore );
+        context.getPageManager().showPage( ReadBookPage.class.getName(), readStore );
       }
     } );
   }

@@ -71,7 +71,7 @@ public class BooksListPage implements Page {
         if( book != null ) {
           Store store = new Store();
           store.add( BOOK_ITEM, book );
-          context.showPage( BookDetailsPage.class.getName(), store );
+          context.getPageManager().showPage( BookDetailsPage.class.getName(), store );
         }
       }
     } );

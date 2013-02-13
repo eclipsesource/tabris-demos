@@ -21,7 +21,7 @@ public class ChangeThemeAction implements Action {
   public void execute( UIContext context ) {
     Color foreground = context.getDisplay().getSystemColor( SWT.COLOR_WHITE );
     Color background = context.getDisplay().getSystemColor( SWT.COLOR_BLACK );
-    ReadBookPage page = ( ReadBookPage )context.getPage();
+    ReadBookPage page = ( ReadBookPage )context.getPageManager().getPage();
     page.setTheme( foreground, background );
   }
 

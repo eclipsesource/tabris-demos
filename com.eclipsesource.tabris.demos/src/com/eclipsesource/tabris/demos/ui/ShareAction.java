@@ -25,7 +25,7 @@ public class ShareAction implements Action {
   public void execute( UIContext context ) {
     AppLauncher appLauncher = RWT.getClient().getService( AppLauncher.class );
     if( appLauncher != null ) {
-      Book book = context.getPageStore().get( BOOK_ITEM, Book.class );
+      Book book = context.getPageManager().getPageStore().get( BOOK_ITEM, Book.class );
       String body = format( "Check out the book \"{0}\".", book.getTitle() );
       MailOptions launchOptions = new MailOptions( "user@mail.com", body );
       appLauncher.open( launchOptions );

@@ -16,7 +16,7 @@ import com.eclipsesource.tabris.ui.UIContext;
 public class SettingsAction implements Action {
 
   public void execute( UIContext context ) {
-    context.showPreviousPage();
-    context.showPage( SettingsPage.class.getName() );
+    context.getPageManager().showPreviousPage();
+    context.getPageManager().showPage( SettingsPage.class.getName() );
   }
 }
