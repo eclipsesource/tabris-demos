@@ -20,24 +20,24 @@ public class Constants {
   public static final String BOOK_RUSSEL = "russel";
   public static final String BOOK_GAIGE = "gaige";
   public static final String BOOK_HAINY = "hainy";
-  public static final String IMAGE_SCHRODER = "/images/book_schroder.jpg";
-  public static final String IMAGE_HISTORY = "/images/book_a_history.jpg";
-  public static final String IMAGE_AFTER_VISITING = "/images/book_after_visiting.jpg";
-  public static final String IMAGE_AUTOBIOGRAFY = "/images/book_autobiografy.jpg";
-  public static final String IMAGE_HOW_LITERATUR = "/images/book_how_literature.jpg";
-  public static final String IMAGE_THE_DINNER = "/images/book_the_dinner.jpg";
-  public static final String IMAGE_VAMPIRES = "/images/book_vampires.jpg";
+  public static final String IMAGE_SCHRODER = "/book_schroder.jpg";
+  public static final String IMAGE_HISTORY = "/book_a_history.jpg";
+  public static final String IMAGE_AFTER_VISITING = "/book_after_visiting.jpg";
+  public static final String IMAGE_AUTOBIOGRAFY = "/book_autobiografy.jpg";
+  public static final String IMAGE_HOW_LITERATUR = "/book_how_literature.jpg";
+  public static final String IMAGE_THE_DINNER = "/book_the_dinner.jpg";
+  public static final String IMAGE_VAMPIRES = "/book_vampires.jpg";
 
   public static final String BOOKS = "booksList";
   public static final String TITLE_FONT = "ITEM_TITLE";
   public static final String RELATED_BOOKS_FONT = "RELATED_BOOKS_FONT";
-  public static final String IMAGE_ACTION_SETTINGS = "/images/action_settings.png";
-  public static final String IMAGE_ACTION_SEARCH = "/images/action_search.png";
-  public static final String IMAGE_ACTION_SHARE = "/images/action_share.png";
-  public static final String IMAGE_ACTION_THEME = "/images/action_theme.png";
-  public static final String IMAGE_PAGE_FAVOURITE_BOOKS = "/images/page_favourite_books.png";
-  public static final String IMAGE_PAGE_POPULAR_BOOKS = "/images/page_popular_books.png";
-  public static final String IMAGE_PAGE_ALL_BOOKS = "/images/page_all_books.png";
+  public static final String IMAGE_ACTION_SETTINGS = "/action_settings.png";
+  public static final String IMAGE_ACTION_SEARCH = "/action_search.png";
+  public static final String IMAGE_ACTION_SHARE = "/action_share.png";
+  public static final String IMAGE_ACTION_THEME = "/action_theme.png";
+  public static final String IMAGE_PAGE_FAVOURITE_BOOKS = "/page_favourite_books.png";
+  public static final String IMAGE_PAGE_POPULAR_BOOKS = "/page_popular_books.png";
+  public static final String IMAGE_PAGE_ALL_BOOKS = "/page_all_books.png";
 
   public static final String BOOK_ITEM = "bookItem";
 
