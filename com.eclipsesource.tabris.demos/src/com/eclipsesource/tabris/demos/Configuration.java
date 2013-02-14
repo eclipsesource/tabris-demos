@@ -16,6 +16,7 @@ import com.eclipsesource.tabris.demos.entrypoints.AppEventsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.AppLauncherDemo;
 import com.eclipsesource.tabris.demos.entrypoints.ButtonControlsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.CameraDemo;
+import com.eclipsesource.tabris.demos.entrypoints.ClientDeviceDemo;
 import com.eclipsesource.tabris.demos.entrypoints.DrawDemo;
 import com.eclipsesource.tabris.demos.entrypoints.GalleryDemo;
 import com.eclipsesource.tabris.demos.entrypoints.GeolocationDemo;
@@ -45,6 +46,7 @@ public class Configuration implements ApplicationConfiguration {
     application.addEntryPoint( "/appevents", AppEventsDemo.class, null );
     application.addEntryPoint( "/swipe", SwipeDemo.class, null );
     application.addEntryPoint( "/ui", new UiDemo(), null );
+    application.addEntryPoint( "/device", ClientDeviceDemo.class, null );
   }
 
   private void bootstrapTabris( Application application ) {
