@@ -7,12 +7,15 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
@@ -21,8 +24,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-
-import com.eclipsesource.tabris.demos.ExampleUtil;
 
 public class InputControlsDemo implements EntryPoint {
 
@@ -48,10 +49,14 @@ public class InputControlsDemo implements EntryPoint {
 
   private void createContent( Display display, Shell shell ) {
     Composite parent = new Composite( shell, SWT.NONE );
-    parent.setLayout( ExampleUtil.createGridLayout( 1, true, 0, 0 ) );
+    GridLayout layout
+      = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 0, 0 ).spacing( 0, 0 ).create();
+    parent.setLayout( layout );
     createHeader( display, parent );
     Composite container = new Composite( parent, SWT.NONE );
-    container.setLayout( ExampleUtil.createGridLayout( 2, false, 15, 5 ) );
+    GridLayout containerLayout
+      = GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( true ).margins( 15, 15 ).spacing( 5, 5 ).create();
+    container.setLayout( containerLayout );
     createInputForm( container );
     createPlaceReservationButton( display, parent );
     createFlightLabel( display, parent );
@@ -59,7 +64,9 @@ public class InputControlsDemo implements EntryPoint {
 
   private void createHeader( Display display, Composite parent ) {
     Composite labelParent = new Composite( parent, SWT.NONE );
-    labelParent.setLayout( ExampleUtil.createGridLayout( 1, true, 0, 0 ) );
+    GridLayout layout
+      = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 0, 0 ).spacing( 0, 0 ).create();
+    labelParent.setLayout( layout );
     Label label = new Label( labelParent, SWT.NONE );
     GridData layoutDataLabel = new GridData( SWT.CENTER, SWT.CENTER, true, true );
     label.setLayoutData( layoutDataLabel );
@@ -87,7 +94,7 @@ public class InputControlsDemo implements EntryPoint {
     label.setForeground( label.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     label.setText( "First Name:" );
     final Text firstNameText = new Text( formComp, SWT.SINGLE | SWT.BORDER );
-    GridData gridData1 = ExampleUtil.createHorzFillData();
+    GridData gridData1 = GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create();
     firstNameText.setLayoutData( gridData1 );
     return firstNameText;
   }
@@ -97,7 +104,7 @@ public class InputControlsDemo implements EntryPoint {
     label.setForeground( label.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     label.setText( "Last Name:" );
     final Text lastNameText = new Text( formComp, SWT.SINGLE | SWT.BORDER );
-    GridData gridData2 = ExampleUtil.createHorzFillData();
+    GridData gridData2 = GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create();
     lastNameText.setLayoutData( gridData2 );
     return lastNameText;
   }
@@ -107,7 +114,7 @@ public class InputControlsDemo implements EntryPoint {
     label.setForeground( label.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     label.setText( "Passphrase:" );
     final Text passwordText = new Text( formComp, SWT.PASSWORD | SWT.BORDER );
-    GridData gridData3 = ExampleUtil.createHorzFillData();
+    GridData gridData3 = GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create();
     passwordText.setLayoutData( gridData3 );
     return passwordText;
   }
@@ -121,7 +128,7 @@ public class InputControlsDemo implements EntryPoint {
       "Germany", "Canada", "USA", "Bulgaria"
     };
     combo.setItems( countries );
-    GridData gridData = ExampleUtil.createHorzFillData();
+    GridData gridData = GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create();
     combo.setLayoutData( gridData );
     combo.select( 0 );
     return combo;
@@ -136,7 +143,7 @@ public class InputControlsDemo implements EntryPoint {
       "Business", "Economy", "Economy Plus"
     };
     classCombo.setItems( classes );
-    GridData gridData = ExampleUtil.createHorzFillData();
+    GridData gridData = GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create();
     classCombo.setLayoutData( gridData );
     classCombo.select( 0 );
     return classCombo;
@@ -163,7 +170,9 @@ public class InputControlsDemo implements EntryPoint {
   private void createPlaceReservationButton( Display display, Composite parent ) {
     Composite buttonParent = new Composite( parent, SWT.NONE );
     buttonParent.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, false ) );
-    buttonParent.setLayout( ExampleUtil.createGridLayout( 1, true, 10, 10 ) );
+    GridLayout layout
+      = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 10, 10 ).spacing( 10, 10 ).create();
+    buttonParent.setLayout( layout );
     Button button = new Button( buttonParent, SWT.PUSH );
     button.setBackground( display.getSystemColor( SWT.COLOR_DARK_RED ) );
     button.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
@@ -205,7 +214,9 @@ public class InputControlsDemo implements EntryPoint {
   private void createFlightLabel( Display display, Composite parent ) {
     Composite labelParent = new Composite( parent, SWT.NONE );
     labelParent.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-    labelParent.setLayout( ExampleUtil.createGridLayout( 1, true, 10, 0 ) );
+    GridLayout layout
+      = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 1, 10 ).spacing( 0, 0 ).create();
+    labelParent.setLayout( layout );
     flightLabel = new Label( labelParent, SWT.NONE );
     flightLabel.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
     GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, true );

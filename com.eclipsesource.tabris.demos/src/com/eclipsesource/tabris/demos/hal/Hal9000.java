@@ -10,6 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.hal;
 
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
@@ -26,8 +27,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-
-import com.eclipsesource.tabris.demos.ExampleUtil;
 
 public class Hal9000 {
 
@@ -112,7 +111,9 @@ public class Hal9000 {
     GridData gridData = new GridData( SWT.CENTER, SWT.FILL, true, false );
     gridData.widthHint = 200;
     container.setLayoutData( gridData );
-    container.setLayout( ExampleUtil.createGridLayout( 2, true, PLATE_BORDER, 0 ) );
+    GridLayout layout = GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( true )
+                        .margins( PLATE_BORDER, PLATE_BORDER ).spacing( 0, 0 ).create();
+    container.setLayout( layout );
     Color blue = new Color( display, 1, 116, 255 );
     Color black = display.getSystemColor( SWT.COLOR_BLACK );
     createPlateLabel( display, container, "HAL", SWT.RIGHT, blue );
@@ -177,7 +178,8 @@ public class Hal9000 {
     Composite textContainer = new Composite( parent, SWT.NONE );
     GridData grilleData = new GridData( SWT.FILL, SWT.FILL, true, true );
     textContainer.setLayoutData( grilleData );
-    textContainer.setLayout( ExampleUtil.createGridLayout( 1, true, 0, 0 ) );
+    GridLayout layout = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 0, 0 ).spacing( 0, 0 ).create();
+    textContainer.setLayout( layout );
     output = new Label( textContainer, SWT.WRAP );
     output.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
     output.setForeground( display.getSystemColor( SWT.COLOR_GREEN ) );

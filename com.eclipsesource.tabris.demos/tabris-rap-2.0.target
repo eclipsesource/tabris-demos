@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?>
-
-<target name="Tabris with RAP 2.0" sequenceNumber="29">
+<?pde version="3.8"?><target name="Tabris with RAP 2.0" sequenceNumber="31">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.json" version="1.0.0.v201011060100"/>
-<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/S20120917013952/repository/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="com.eclipsesource.tabris.feature.feature.group" version="0.9.0.201212181412"/>
+<unit id="com.eclipsesource.tabris.feature.feature.group" version="0.10.0.201301161556"/>
 <repository location="http://download.eclipsesource.com/technology/tabris/downloads/releases"/>
 </location>
 </locations>

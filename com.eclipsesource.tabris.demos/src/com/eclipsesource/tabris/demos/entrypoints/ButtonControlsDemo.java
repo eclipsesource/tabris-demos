@@ -7,6 +7,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -17,14 +18,13 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-
-import com.eclipsesource.tabris.demos.ExampleUtil;
 
 public class ButtonControlsDemo implements EntryPoint {
 
@@ -45,7 +45,9 @@ public class ButtonControlsDemo implements EntryPoint {
   private void createContent( Display display, Shell shell ) {
     Composite parent = new Composite( shell, SWT.NONE );
     parent.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
-    parent.setLayout( ExampleUtil.createGridLayout( 2, true, 15, 5 ) );
+    GridLayout layout
+      = GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( true ).margins( 15, 15 ).spacing( 5, 5 ).create();
+    parent.setLayout( layout );
     GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, false );
     layoutData.horizontalSpan = 2;
     createWinterSummerButtons( display, parent, layoutData );
@@ -61,7 +63,9 @@ public class ButtonControlsDemo implements EntryPoint {
     container2.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
     container2.setBackground( display.getSystemColor( SWT.COLOR_DARK_GREEN ) );
     container2.setLayoutData( container2Data );
-    container2.setLayout( ExampleUtil.createGridLayout( 1, true, 15, 5 ) );
+    GridLayout layout
+      = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 15, 15 ).spacing( 5, 5 ).create();
+    container2.setLayout( layout );
     final Button check = new Button( container2, SWT.CHECK );
     check.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
     check.setText( "From Kings Landing?" );
@@ -85,7 +89,9 @@ public class ButtonControlsDemo implements EntryPoint {
     gridData.horizontalSpan = 2;
     gridData.verticalIndent = 30;
     container.setLayoutData( gridData );
-    container.setLayout( ExampleUtil.createGridLayout( 2, false, 5, 5 ) );
+    GridLayout layout
+      = GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( false ).margins( 5, 5 ).spacing( 5, 5 ).create();
+    container.setLayout( layout );
     Button northButton = new Button( container, SWT.RADIO );
     northButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
     northButton.setText( "North" );
