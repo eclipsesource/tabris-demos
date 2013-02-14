@@ -45,7 +45,7 @@ public class BooksListPage implements Page {
     TreeViewer viewer = createTreeViewer( context, container );
     createViewerInput( context, viewer );
   }
-  
+
   public Composite getContainer() {
     return container;
   }

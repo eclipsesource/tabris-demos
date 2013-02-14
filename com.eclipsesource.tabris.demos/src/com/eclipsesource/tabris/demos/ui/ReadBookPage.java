@@ -15,7 +15,6 @@ import static com.eclipsesource.tabris.demos.ui.Constants.DUMMY_TEXT;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -31,6 +30,7 @@ public class ReadBookPage implements Page {
 
   public void create( Composite parent, UIContext context ) {
     container = new Composite( parent, SWT.NONE );
+    container.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
     GridLayout layout = GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create();
     layout.marginWidth = 16;
     layout.marginHeight = 16;
@@ -41,6 +41,7 @@ public class ReadBookPage implements Page {
 
   private void createText() {
     textLabel = new Label( container, SWT.NONE );
+    textLabel.setForeground( container.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     textLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
     textLabel.setText( DUMMY_TEXT );
   }
@@ -50,10 +51,16 @@ public class ReadBookPage implements Page {
     context.setTitle( book.getTitle() );
   }
 
-  public void setTheme( Color foreground, Color background ) {
-    textLabel.setForeground( foreground );
-    textLabel.setBackground( background );
-    container.setBackground( background );
+  public void toggleTheme() {
+    if( container.getBackground().equals( container.getDisplay().getSystemColor( SWT.COLOR_BLACK ) ) ) {
+      textLabel.setForeground( container.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
+      textLabel.setBackground( container.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
+      container.setBackground( container.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
+    } else {
+      textLabel.setForeground( container.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
+      textLabel.setBackground( container.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
+      container.setBackground( container.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
+    }
   }
 
   public void activate( UIContext context ) {

@@ -10,7 +10,9 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import static com.eclipsesource.tabris.demos.ui.Constants.*;
+import static com.eclipsesource.tabris.demos.ui.Constants.BOOK_ITEM;
+import static com.eclipsesource.tabris.demos.ui.Constants.RELATED_BOOKS_FONT;
+import static com.eclipsesource.tabris.demos.ui.Constants.TITLE_FONT;
 import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onComposite;
 import static org.eclipse.jface.resource.JFaceResources.getFontRegistry;
 
@@ -40,6 +42,7 @@ public class BookDetailsPage implements Page {
 
   public void create( Composite parent, UIContext context ) {
     Composite container = new Composite( parent, SWT.NONE );
+    container.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
     container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
     createBookDetailsComposite( container );
     createRelatedBooks( container, context );
@@ -77,6 +80,7 @@ public class BookDetailsPage implements Page {
 
   private void createBookComposite( Composite parent ) {
     bookDetailsComposite = new Composite( parent, SWT.NONE );
+    bookDetailsComposite.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
     GridData layoutData = GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create();
     bookDetailsComposite.setLayoutData( layoutData );
     onComposite( bookDetailsComposite ).showLocalTouch();
@@ -90,6 +94,7 @@ public class BookDetailsPage implements Page {
 
   private void createBooImage() {
     imageLabel = new Label( bookDetailsComposite, SWT.WRAP );
+    imageLabel.setForeground( bookDetailsComposite.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     GridData gridData = new GridData( SWT.FILL, SWT.FILL, false, false );
     gridData.verticalSpan = 2;
     imageLabel.setLayoutData( gridData );
@@ -97,12 +102,14 @@ public class BookDetailsPage implements Page {
 
   private void createBookTitle() {
     titleLabel = new Label( bookDetailsComposite, SWT.WRAP );
+    titleLabel.setForeground( bookDetailsComposite.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     titleLabel.setFont( getFontRegistry().get( TITLE_FONT ) );
     titleLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
   }
 
   private void createBookAuthor() {
     authorLabel = new Label( bookDetailsComposite, SWT.WRAP );
+    authorLabel.setForeground( bookDetailsComposite.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     authorLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
   }
 
@@ -120,6 +127,7 @@ public class BookDetailsPage implements Page {
     layout.marginTop = 12;
     layout.marginBottom = 6;
     composite.setLayout( layout );
+    composite.setBackground( composite.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
     return composite;
   }
 
@@ -140,7 +148,7 @@ public class BookDetailsPage implements Page {
     layoutData.heightHint = 1;
     line.setLayoutData( layoutData );
   }
-  
+
   private void createRelatedList( Composite parent, UIContext context ) {
     relatedTreeViewer = BooksListPage.createTreeViewer( context, parent );
   }
