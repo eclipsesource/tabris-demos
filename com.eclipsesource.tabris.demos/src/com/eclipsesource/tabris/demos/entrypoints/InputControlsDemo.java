@@ -50,13 +50,16 @@ public class InputControlsDemo implements EntryPoint {
   private void createContent( Display display, Shell shell ) {
     Composite parent = new Composite( shell, SWT.NONE );
     GridLayout layout
-      = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 0, 0 ).spacing( 0, 0 ).create();
+      = GridLayoutFactory.fillDefaults().margins( 0, 0 ).spacing( 0, 0 ).create();
     parent.setLayout( layout );
     createHeader( display, parent );
     Composite container = new Composite( parent, SWT.NONE );
     GridLayout containerLayout
-      = GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( true ).margins( 15, 15 ).spacing( 5, 5 ).create();
+      = GridLayoutFactory.fillDefaults().numColumns( 2 ).margins( 15, 15 ).spacing( 5, 5 ).create();
     container.setLayout( containerLayout );
+    GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, false );
+    container.setLayoutData( layoutData );
+    
     createInputForm( container );
     createPlaceReservationButton( display, parent );
     createFlightLabel( display, parent );
@@ -65,7 +68,7 @@ public class InputControlsDemo implements EntryPoint {
   private void createHeader( Display display, Composite parent ) {
     Composite labelParent = new Composite( parent, SWT.NONE );
     GridLayout layout
-      = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 0, 0 ).spacing( 0, 0 ).create();
+      = GridLayoutFactory.fillDefaults().margins( 0, 0 ).spacing( 0, 0 ).create();
     labelParent.setLayout( layout );
     Label label = new Label( labelParent, SWT.NONE );
     GridData layoutDataLabel = new GridData( SWT.CENTER, SWT.CENTER, true, true );
@@ -155,6 +158,8 @@ public class InputControlsDemo implements EntryPoint {
     label.setText( "Date:" );
     int dateTimeStyle = SWT.READ_ONLY | SWT.BORDER;
     final DateTime dateTime = new DateTime( formComp, dateTimeStyle );
+    GridData gridData = GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create();
+    dateTime.setLayoutData( gridData );
     return dateTime;
   }
 
@@ -171,7 +176,7 @@ public class InputControlsDemo implements EntryPoint {
     Composite buttonParent = new Composite( parent, SWT.NONE );
     buttonParent.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, false ) );
     GridLayout layout
-      = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 10, 10 ).spacing( 10, 10 ).create();
+      = GridLayoutFactory.fillDefaults().margins( 10, 10 ).spacing( 10, 10 ).create();
     buttonParent.setLayout( layout );
     Button button = new Button( buttonParent, SWT.PUSH );
     button.setBackground( display.getSystemColor( SWT.COLOR_DARK_RED ) );
@@ -215,7 +220,7 @@ public class InputControlsDemo implements EntryPoint {
     Composite labelParent = new Composite( parent, SWT.NONE );
     labelParent.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
     GridLayout layout
-      = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 1, 10 ).spacing( 0, 0 ).create();
+      = GridLayoutFactory.fillDefaults().margins( 1, 10 ).spacing( 0, 0 ).create();
     labelParent.setLayout( layout );
     flightLabel = new Label( labelParent, SWT.NONE );
     flightLabel.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
