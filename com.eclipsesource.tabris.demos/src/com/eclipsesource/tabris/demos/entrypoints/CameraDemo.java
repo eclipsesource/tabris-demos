@@ -26,7 +26,6 @@ import org.eclipse.swt.widgets.ToolItem;
 import com.eclipsesource.tabris.camera.Camera;
 import com.eclipsesource.tabris.camera.CameraCallback;
 import com.eclipsesource.tabris.camera.CameraOptions;
-import com.eclipsesource.tabris.camera.CameraOptions.SourceType;
 import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class CameraDemo implements EntryPoint {
@@ -40,7 +39,6 @@ public class CameraDemo implements EntryPoint {
     Composite comp = createMainComp( shell );
     createImageLabel( comp );
     createCameraButton( comp, imageLabel );
-    createGalleryButton( comp, imageLabel );
     shell.open();
     return 0;
   }
@@ -72,17 +70,8 @@ public class CameraDemo implements EntryPoint {
     return comp;
   }
 
-  private Camera createGalleryCamera() {
-    CameraOptions galleryOptions = new CameraOptions();
-    galleryOptions.setSourceType( SourceType.PHOTO_LIBRARY );
-    Rectangle bounds = imageLabel.getBounds();
-    galleryOptions.setResolution( bounds.width, bounds.height );
-    return new Camera( galleryOptions );
-  }
-
   private Camera createPhotoCamera() {
     CameraOptions photosOptions = new CameraOptions();
-    photosOptions.setSourceType( SourceType.CAMERA );
     Rectangle bounds = imageLabel.getBounds();
     photosOptions.setResolution( bounds.width, bounds.height );
     return new Camera( photosOptions );
@@ -117,27 +106,4 @@ public class CameraDemo implements EntryPoint {
     } );
   }
 
-  private void createGalleryButton( Composite comp, final Label imageLabel ) {
-    Button galleryButton = new Button( comp, SWT.PUSH );
-    galleryButton.setText( "Select image from gallery" );
-    galleryButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
-    galleryButton.addListener( SWT.Selection, new Listener() {
-
-      public void handleEvent( Event event ) {
-        final Camera galleryCamera = createGalleryCamera();
-        galleryCamera.takePicture( new CameraCallback() {
-
-          public void onSuccess( Image image ) {
-            imageLabel.setImage( image );
-            galleryCamera.dispose();
-          }
-
-          public void onError() {
-            imageLabel.setText( "Could not provide image from gallery" );
-            galleryCamera.dispose();
-          }
-        } );
-      }
-    } );
-  }
 }
