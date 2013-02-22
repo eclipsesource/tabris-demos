@@ -36,7 +36,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import com.eclipsesource.tabris.ClientDevice;
+import com.eclipsesource.tabris.ClientDeviceAdapter;
 import com.eclipsesource.tabris.ClientDevice.Capability;
+import com.eclipsesource.tabris.ClientDevice.ConnectionType;
+import com.eclipsesource.tabris.ClientDevice.Orientation;
 
 public class ClientDeviceDemo implements EntryPoint {
 
@@ -96,15 +99,29 @@ public class ClientDeviceDemo implements EntryPoint {
 
   private void createConnectionTypeGroup( Composite parent, ClientDevice clientDevice ) {
     Group group = createGroup( parent, "Connection Type" );
-    Label labelConnectionType = createLabel( group, "Type" );
-    labelConnectionType.setText( clientDevice.getConnectionType().toString() );
+    final Label label = createLabel( group, "Type" );
+    label.setText( clientDevice.getConnectionType().toString() );
+    clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
+      @Override
+      public void connectionTypeChanged( ConnectionType newConnectionType ) {
+        label.setText( newConnectionType.toString() );
+        label.pack();
+      }
+    } );
 
   }
 
   private void createOrientationGroup( Composite parent, ClientDevice clientDevice ) {
     Group group = createGroup( parent, "Device Orientation" );
-    Label labelOrientation = createLabel( group, "Orientation" );
-    labelOrientation.setText( clientDevice.getOrientation().toString() );
+    final Label label = createLabel( group, "Orientation" );
+    label.setText( clientDevice.getOrientation().toString() );
+    clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
+      @Override
+      public void orientationChange( Orientation newOrientation ) {
+        label.setText( newOrientation.toString() );
+        label.pack();
+      }
+    } );
   }
 
   private Label createLabel( Composite parent, String text ) {
