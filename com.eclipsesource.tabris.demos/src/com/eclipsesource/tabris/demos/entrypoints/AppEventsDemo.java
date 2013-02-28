@@ -18,11 +18,11 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
+import com.eclipsesource.tabris.app.App;
+import com.eclipsesource.tabris.app.AppEvent;
+import com.eclipsesource.tabris.app.AppListener;
+import com.eclipsesource.tabris.app.EventType;
 import com.eclipsesource.tabris.demos.hal.Hal9000;
-import com.eclipsesource.tabris.event.App;
-import com.eclipsesource.tabris.event.AppEvent;
-import com.eclipsesource.tabris.event.AppListener;
-import com.eclipsesource.tabris.event.EventType;
 
 public class AppEventsDemo implements EntryPoint {
 
@@ -45,7 +45,7 @@ public class AppEventsDemo implements EntryPoint {
   private void registerAppStateListener() {
     App app = RWT.getClient().getService( App.class );
     if( app != null ) {
-      app.addListener( EventType.PAUSE, new AppListener() {
+      app.addEventListener( EventType.PAUSE, new AppListener() {
 
         public void handleEvent( AppEvent event ) {
           if( event.getType() == EventType.PAUSE ) {
@@ -56,7 +56,7 @@ public class AppEventsDemo implements EntryPoint {
           }
         }
       } );
-      app.addListener( EventType.RESUME, new AppListener() {
+      app.addEventListener( EventType.RESUME, new AppListener() {
 
         public void handleEvent( AppEvent event ) {
           if( event.getType() == EventType.RESUME ) {

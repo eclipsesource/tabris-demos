@@ -7,11 +7,11 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import static com.eclipsesource.tabris.ClientDevice.Capability.CAMERA;
-import static com.eclipsesource.tabris.ClientDevice.Capability.LOCATION;
-import static com.eclipsesource.tabris.ClientDevice.Capability.MAPS;
-import static com.eclipsesource.tabris.ClientDevice.Capability.MESSAGE;
-import static com.eclipsesource.tabris.ClientDevice.Capability.PHONE;
+import static com.eclipsesource.tabris.device.ClientDevice.Capability.CAMERA;
+import static com.eclipsesource.tabris.device.ClientDevice.Capability.LOCATION;
+import static com.eclipsesource.tabris.device.ClientDevice.Capability.MAPS;
+import static com.eclipsesource.tabris.device.ClientDevice.Capability.MESSAGE;
+import static com.eclipsesource.tabris.device.ClientDevice.Capability.PHONE;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,11 +35,11 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import com.eclipsesource.tabris.ClientDevice;
-import com.eclipsesource.tabris.ClientDeviceAdapter;
-import com.eclipsesource.tabris.ClientDevice.Capability;
-import com.eclipsesource.tabris.ClientDevice.ConnectionType;
-import com.eclipsesource.tabris.ClientDevice.Orientation;
+import com.eclipsesource.tabris.device.ClientDevice;
+import com.eclipsesource.tabris.device.ClientDeviceAdapter;
+import com.eclipsesource.tabris.device.ClientDevice.Capability;
+import com.eclipsesource.tabris.device.ClientDevice.ConnectionType;
+import com.eclipsesource.tabris.device.ClientDevice.Orientation;
 
 public class ClientDeviceDemo implements EntryPoint {
 

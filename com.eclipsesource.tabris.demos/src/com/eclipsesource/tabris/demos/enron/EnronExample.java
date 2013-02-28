@@ -41,10 +41,10 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.TreeColumn;
 
-import com.eclipsesource.tabris.ClientDevice;
-import com.eclipsesource.tabris.ClientDevice.Platform;
 import com.eclipsesource.tabris.demos.enron.EnronDataset.Folder;
 import com.eclipsesource.tabris.demos.enron.EnronDataset.Node;
+import com.eclipsesource.tabris.device.ClientDevice;
+import com.eclipsesource.tabris.device.ClientDevice.Platform;
 
 public class EnronExample {
 
