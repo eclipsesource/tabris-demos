@@ -8,6 +8,7 @@
 package com.eclipsesource.tabris.demos.entrypoints;
 
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -70,11 +71,11 @@ public class CameraDemo implements EntryPoint {
     return comp;
   }
 
-  private Camera createPhotoCamera() {
+  private CameraOptions createPhotoCameraOptions() {
     CameraOptions photosOptions = new CameraOptions();
     Rectangle bounds = imageLabel.getBounds();
     photosOptions.setResolution( bounds.width, bounds.height );
-    return new Camera( photosOptions );
+    return photosOptions;
   }
 
   private void createImageLabel( Composite comp ) {
@@ -89,17 +90,15 @@ public class CameraDemo implements EntryPoint {
     cameraButton.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
-        final Camera photoCamera = createPhotoCamera();
-        photoCamera.takePicture( new CameraCallback() {
+        final Camera photoCamera = RWT.getClient().getService( Camera.class );
+        photoCamera.takePicture( createPhotoCameraOptions(), new CameraCallback() {
 
           public void onSuccess( Image image ) {
             imageLabel.setImage( image );
-            photoCamera.dispose();
           }
 
           public void onError() {
             imageLabel.setText( "Could not provide image from camera" );
-            photoCamera.dispose();
           }
         } );
       }

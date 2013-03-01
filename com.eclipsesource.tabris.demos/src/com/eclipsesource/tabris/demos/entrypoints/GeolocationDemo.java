@@ -64,7 +64,7 @@ public class GeolocationDemo implements EntryPoint {
     createShell();
     createTitle();
     createBrowser();
-    geolocation = new Geolocation();
+    geolocation = RWT.getClient().getService( Geolocation.class );
     Composite container = new Composite( shell, SWT.NONE );
     container.setLayoutData( GridDataFactory.fillDefaults()
       .align( SWT.FILL, SWT.FILL )
