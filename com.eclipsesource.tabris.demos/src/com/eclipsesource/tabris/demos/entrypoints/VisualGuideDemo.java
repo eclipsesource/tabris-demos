@@ -7,7 +7,8 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import org.eclipse.rap.rwt.RWT;
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onToolItem;
+
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -323,7 +324,7 @@ public class VisualGuideDemo implements EntryPoint {
     item.setText( "Item" );
     item = new ToolItem( toolBar, SWT.PUSH );
     item.setText( "Toolbar" );
-    item.setData( RWT.CUSTOM_VARIANT, "TITLE" );
+    onToolItem( item ).useAsTitle();
     new ToolItem( toolBar, SWT.SEPARATOR );
     item = new ToolItem( toolBar, SWT.PUSH );
     item.setImage( new Image( display,

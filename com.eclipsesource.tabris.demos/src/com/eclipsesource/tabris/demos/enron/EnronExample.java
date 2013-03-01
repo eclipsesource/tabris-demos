@@ -7,6 +7,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.enron;
 
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onToolItem;
 import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onTree;
 
 import java.io.File;
@@ -123,7 +124,8 @@ public class EnronExample {
       .align( SWT.FILL, SWT.BEGINNING )
       .grab( true, false )
       .applyTo( toolBar );
-    new ToolItem( toolBar, SWT.NONE ).setData( RWT.CUSTOM_VARIANT, "TITLE" );
+    ToolItem titleItem = new ToolItem( toolBar, SWT.NONE );
+    onToolItem( titleItem ).useAsTitle();
     ToolItem closeToolItem = new ToolItem( toolBar, SWT.PUSH );
     closeToolItem.setText( "Close" );
     closeToolItem.addSelectionListener( new SelectionAdapter() {

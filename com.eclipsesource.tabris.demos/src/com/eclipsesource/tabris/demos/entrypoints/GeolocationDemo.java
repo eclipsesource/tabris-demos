@@ -10,6 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onToolItem;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -96,7 +98,7 @@ public class GeolocationDemo implements EntryPoint {
     ToolBar toolBar = new ToolBar( shell, SWT.FLAT );
     toolBar.setLayoutData( new GridData( SWT.FILL, SWT.TOP, true, false ) );
     ToolItem title = new ToolItem( toolBar, SWT.NONE );
-    title.setData( RWT.CUSTOM_VARIANT, "TITLE" );
+    onToolItem( title ).useAsTitle();
     title.setText( "D'oh! Where am I?" );
   }
 
