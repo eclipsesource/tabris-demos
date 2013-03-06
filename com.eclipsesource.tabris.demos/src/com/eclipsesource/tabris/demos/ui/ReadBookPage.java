@@ -48,7 +48,7 @@ public class ReadBookPage implements Page {
 
   private void setPageTitle( UIContext context ) {
     Book book = context.getPageManager().getPageStore().get( BOOK_ITEM, Book.class );
-    context.setTitle( book.getTitle() );
+    context.getPageManager().setTitle( this, book.getTitle() );
   }
 
   public void toggleTheme() {

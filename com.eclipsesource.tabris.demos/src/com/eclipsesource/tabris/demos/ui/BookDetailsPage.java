@@ -52,7 +52,7 @@ public class BookDetailsPage implements Page {
 
   private void populatePage( final UIContext context ) {
     Book book = context.getPageManager().getPageStore().get( BOOK_ITEM, Book.class );
-    context.setTitle( book.getTitle() );
+    context.getPageManager().setTitle( this, book.getTitle() );
     titleLabel.setText( book.getTitle() );
     authorLabel.setText( book.getAuthor() );
     imageLabel.setImage( book.getImage() );
