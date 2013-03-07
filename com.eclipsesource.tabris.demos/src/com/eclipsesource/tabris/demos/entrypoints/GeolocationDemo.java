@@ -43,7 +43,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.eclipsesource.tabris.geolocation.Geolocation;
-import com.eclipsesource.tabris.geolocation.GeolocationCallback;
+import com.eclipsesource.tabris.geolocation.GeolocationAdapter;
+import com.eclipsesource.tabris.geolocation.GeolocationListener;
 import com.eclipsesource.tabris.geolocation.GeolocationOptions;
 import com.eclipsesource.tabris.geolocation.Position;
 import com.eclipsesource.tabris.geolocation.PositionError;
@@ -118,24 +119,26 @@ public class GeolocationDemo implements EntryPoint {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        geolocation.getCurrentPosition( new GeolocationCallback() {
+        GeolocationListener listener = new GeolocationListener() {
 
-          public void onSuccess( Position position ) {
+          public void positionReceived( Position position ) {
             lastLabel = "green_1";
             setBrowserUrl( position.getCoords().getLatitude(), position.getCoords().getLongitude() );
             String message = "You are in: \n" + getCity( position );
             openDialog( "Geolocation", message );
           }
 
-          public void onError( PositionError error ) {
+          public void errorReceived( PositionError error ) {
             StringBuilder builder = new StringBuilder();
             builder.append( "An error occured: \n" );
             builder.append( "Code: " + error.getCode() );
             builder.append( "Message: " + error.getMessage() );
             openDialog( "Error", builder.toString() );
           }
-        },
-        new GeolocationOptions().enableHighAccuracy() );
+        };
+
+        geolocation.addGeolocationListener( listener );
+        geolocation.determineCurrentPosition( new GeolocationOptions().enableHighAccuracy() );
       }
     } );
     return getLocationButton;
@@ -203,9 +206,10 @@ public class GeolocationDemo implements EntryPoint {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        geolocation.getCurrentPosition( new GeolocationCallback() {
+        GeolocationAdapter listener = new GeolocationAdapter() {
 
-          public void onSuccess( Position position ) {
+          @Override
+          public void positionReceived( Position position ) {
             lastLabel = "yellow_1";
             setBrowserUrl( SPRINGFIELD_LAT, SPRINGFIELD_LON );
             double distance = distFrom( position.getCoords().getLatitude(), position.getCoords()
@@ -216,10 +220,9 @@ public class GeolocationDemo implements EntryPoint {
                                                + " km" );
           }
 
-          public void onError( PositionError error ) {
-          }
-        },
-                                        new GeolocationOptions().enableHighAccuracy() );
+        };
+        geolocation.addGeolocationListener( listener );
+        geolocation.determineCurrentPosition( new GeolocationOptions().enableHighAccuracy() );
       }
     } );
     return button;
