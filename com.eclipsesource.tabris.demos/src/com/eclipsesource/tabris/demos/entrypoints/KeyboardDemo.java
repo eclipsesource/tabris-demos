@@ -81,9 +81,9 @@ public class KeyboardDemo implements EntryPoint {
     createLabelText( comp, "URL" ).useUrlKeyboard();
   }
 
-  private TextDecorator createLabelText( Composite parent, String titel ) {
+  private TextDecorator createLabelText( Composite parent, String title ) {
     Label titleLabel = new Label( parent, SWT.NONE );
-    titleLabel.setText( titel );
+    titleLabel.setText( title );
     Text text = new Text( parent, SWT.BORDER );
     text.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     return Widgets.onText( text );
