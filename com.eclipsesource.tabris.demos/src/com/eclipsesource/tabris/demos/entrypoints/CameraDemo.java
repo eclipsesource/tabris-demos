@@ -40,8 +40,23 @@ public class CameraDemo implements EntryPoint {
     Composite comp = createMainComp( shell );
     createImageLabel( comp );
     createCameraButton( comp, imageLabel );
+    initCamera();
     shell.open();
     return 0;
+  }
+
+  private void initCamera() {
+    Camera camera = RWT.getClient().getService( Camera.class );
+    camera.addCameraListener( new CameraListener() {
+
+      public void receivedPicture( Image image ) {
+        if( image == null ) {
+          imageLabel.setText( "Could not provide image from camera" );
+        } else {
+          imageLabel.setImage( image );
+        }
+      }
+    } );
   }
 
   private Shell createShell( Display display ) {
@@ -102,17 +117,7 @@ public class CameraDemo implements EntryPoint {
     cameraButton.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
-        final Camera photoCamera = RWT.getClient().getService( Camera.class );
-        photoCamera.addCameraListener( new CameraListener() {
-
-          public void receivedPicture( Image image ) {
-            if( image == null ) {
-              imageLabel.setText( "Could not provide image from camera" );
-            } else {
-              imageLabel.setImage( image );
-            }
-          }
-        } );
+        Camera photoCamera = RWT.getClient().getService( Camera.class );
         photoCamera.takePicture( createPhotoCameraOptions() );
       }
     } );
