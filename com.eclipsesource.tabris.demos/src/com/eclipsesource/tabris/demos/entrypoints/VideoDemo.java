@@ -22,10 +22,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import com.eclipsesource.tabris.widgets.PlaybackListener;
+import com.eclipsesource.tabris.widgets.PresentationListener;
 import com.eclipsesource.tabris.widgets.Video;
-import com.eclipsesource.tabris.widgets.Video.PlaybackMode;
-import com.eclipsesource.tabris.widgets.Video.PresentationMode;
-import com.eclipsesource.tabris.widgets.VideoListener;
+import com.eclipsesource.tabris.widgets.Video.Playback;
+import com.eclipsesource.tabris.widgets.Video.Presentation;
 
 public class VideoDemo implements EntryPoint {
 
@@ -71,36 +72,38 @@ public class VideoDemo implements EntryPoint {
     createRepeatButton( video, controls );
     pauseButton.setEnabled( false );
     stopButton.setEnabled( false );
-    video.addVideoListener( new VideoListener() {
+    video.addPresentationListener( new PresentationListener() {
 
-      public void presentationChanged( PresentationMode newMode ) {
-        if( newMode == PresentationMode.EMBEDDED ) {
+      public void presentationChanged( Presentation newMode ) {
+        if( newMode == Presentation.EMBEDDED ) {
           fullscreenButton.setEnabled( true );
         } else {
           fullscreenButton.setEnabled( false );
         }
       }
+    } );
+    video.addPlaybackListener( new PlaybackListener() {
 
-      public void playbackChanged( PlaybackMode newMode ) {
-        if( newMode == PlaybackMode.PLAY ) {
+      public void playbackChanged( Playback newMode ) {
+        if( newMode == Playback.PLAY ) {
           playButton.setEnabled( false );
           pauseButton.setEnabled( true );
           stopButton.setEnabled( true );
           forwardButton.setEnabled( true );
           backwardButton.setEnabled( true );
-        } else if( newMode == PlaybackMode.PAUSE || newMode == PlaybackMode.STOP ) {
+        } else if( newMode == Playback.PAUSE || newMode == Playback.STOP ) {
           playButton.setEnabled( true );
           pauseButton.setEnabled( false );
           stopButton.setEnabled( false );
           forwardButton.setEnabled( true );
           backwardButton.setEnabled( true );
-        } else if( newMode == PlaybackMode.FAST_FORWARD ) {
+        } else if( newMode == Playback.FAST_FORWARD ) {
           playButton.setEnabled( true );
           pauseButton.setEnabled( true );
           stopButton.setEnabled( true );
           forwardButton.setEnabled( false );
           backwardButton.setEnabled( true );
-        } else if( newMode == PlaybackMode.FAST_BACKWARD ) {
+        } else if( newMode == Playback.FAST_BACKWARD ) {
           playButton.setEnabled( true );
           pauseButton.setEnabled( true );
           stopButton.setEnabled( true );
