@@ -7,7 +7,16 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import static com.eclipsesource.tabris.demos.ui.Constants.*;
+import static com.eclipsesource.tabris.demos.ui.Constants.BOOKS;
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SEARCH;
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SETTINGS;
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SHARE;
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_THEME;
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_ALL_BOOKS;
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_FAVOURITE_BOOKS;
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_POPULAR_BOOKS;
+import static com.eclipsesource.tabris.demos.ui.Constants.RELATED_BOOKS_FONT;
+import static com.eclipsesource.tabris.demos.ui.Constants.TITLE_FONT;
 import static com.eclipsesource.tabris.ui.ActionConfiguration.newAction;
 import static com.eclipsesource.tabris.ui.PageConfiguration.newPage;
 
@@ -21,7 +30,6 @@ import org.eclipse.swt.graphics.Image;
 
 import com.eclipsesource.tabris.ui.ActionConfiguration;
 import com.eclipsesource.tabris.ui.PageConfiguration;
-import com.eclipsesource.tabris.ui.Prominence;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 import com.eclipsesource.tabris.ui.UIContext;
@@ -118,7 +126,6 @@ public class BookStoreConfiguration implements UIConfiguration {
     ActionConfiguration action = newAction( SettingsAction.class.getName(), SettingsAction.class );
     action.setImage( createImage( context, IMAGE_ACTION_SETTINGS ) );
     action.setTitle( "Settings" );
-    action.setProminence( Prominence.DEFAULT );
     ui.addAction( action );
   }
 
