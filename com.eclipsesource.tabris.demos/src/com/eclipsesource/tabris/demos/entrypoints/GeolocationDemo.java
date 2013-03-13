@@ -115,29 +115,29 @@ public class GeolocationDemo implements EntryPoint {
     getLocationButton.setText( "Where am I?" );
     getLocationButton.setBackground( new Color( getLocationButton.getDisplay(), 60, 60, 60 ) );
     getLocationButton.setForeground( new Color( getLocationButton.getDisplay(), 225, 255, 255 ) );
+    GeolocationListener listener = new GeolocationListener() {
+
+      public void positionReceived( Position position ) {
+        lastLabel = "green_1";
+        setBrowserUrl( position.getCoords().getLatitude(), position.getCoords().getLongitude() );
+        String message = "You are in: \n" + getCity( position );
+        openDialog( "Geolocation", message );
+      }
+
+      public void errorReceived( PositionError error ) {
+        StringBuilder builder = new StringBuilder();
+        builder.append( "An error occured: \n" );
+        builder.append( "Code: " + error.getCode() );
+        builder.append( "Message: " + error.getMessage() );
+        openDialog( "Error", builder.toString() );
+      }
+    };
+
+    geolocation.addGeolocationListener( listener );
     getLocationButton.addSelectionListener( new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        GeolocationListener listener = new GeolocationListener() {
-
-          public void positionReceived( Position position ) {
-            lastLabel = "green_1";
-            setBrowserUrl( position.getCoords().getLatitude(), position.getCoords().getLongitude() );
-            String message = "You are in: \n" + getCity( position );
-            openDialog( "Geolocation", message );
-          }
-
-          public void errorReceived( PositionError error ) {
-            StringBuilder builder = new StringBuilder();
-            builder.append( "An error occured: \n" );
-            builder.append( "Code: " + error.getCode() );
-            builder.append( "Message: " + error.getMessage() );
-            openDialog( "Error", builder.toString() );
-          }
-        };
-
-        geolocation.addGeolocationListener( listener );
         geolocation.determineCurrentPosition( new GeolocationOptions().enableHighAccuracy() );
       }
     } );
@@ -202,26 +202,26 @@ public class GeolocationDemo implements EntryPoint {
     button.setText( "Head me to Springfield" );
     button.setBackground( new Color( button.getDisplay(), 225, 151, 7 ) );
     button.setForeground( new Color( button.getDisplay(), 225, 255, 255 ) );
+    GeolocationAdapter listener = new GeolocationAdapter() {
+
+      @Override
+      public void positionReceived( Position position ) {
+        lastLabel = "yellow_1";
+        setBrowserUrl( SPRINGFIELD_LAT, SPRINGFIELD_LON );
+        double distance = distFrom( position.getCoords().getLatitude(), position.getCoords()
+                                    .getLongitude(), SPRINGFIELD_LAT, SPRINGFIELD_LON );
+        DecimalFormat format = new DecimalFormat( "#0.00" );
+        openDialog( "Springfield Locator", "Distance to Moe's: \n"
+            + format.format( distance )
+            + " km" );
+      }
+
+    };
+    geolocation.addGeolocationListener( listener );
     button.addSelectionListener( new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        GeolocationAdapter listener = new GeolocationAdapter() {
-
-          @Override
-          public void positionReceived( Position position ) {
-            lastLabel = "yellow_1";
-            setBrowserUrl( SPRINGFIELD_LAT, SPRINGFIELD_LON );
-            double distance = distFrom( position.getCoords().getLatitude(), position.getCoords()
-              .getLongitude(), SPRINGFIELD_LAT, SPRINGFIELD_LON );
-            DecimalFormat format = new DecimalFormat( "#0.00" );
-            openDialog( "Springfield Locator", "Distance to Moe's: \n"
-                                               + format.format( distance )
-                                               + " km" );
-          }
-
-        };
-        geolocation.addGeolocationListener( listener );
         geolocation.determineCurrentPosition( new GeolocationOptions().enableHighAccuracy() );
       }
     } );
