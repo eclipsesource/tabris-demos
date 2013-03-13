@@ -136,7 +136,7 @@ public class GalleryDemo implements EntryPoint {
 
   private void createThumbnailsArea( Shell parentShell ) {
     thumbnailsArea = new Shell(parentShell, SWT.NO_TRIM);
-    onWidget( thumbnailsComposite ).useAnimation();
+    onWidget( thumbnailsArea ).useAnimation();
     thumbnailsArea.setBounds( 0, thumbnailsArea.getDisplay().getBounds().height, thumbnailsArea.getDisplay().getBounds().width, 164 );
     FillLayout thumbnailsAreaLayout = new FillLayout();
     thumbnailsAreaLayout.marginHeight = 7;
