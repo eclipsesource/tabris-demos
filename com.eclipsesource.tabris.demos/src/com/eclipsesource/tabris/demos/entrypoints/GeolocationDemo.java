@@ -96,7 +96,7 @@ public class GeolocationDemo implements EntryPoint {
   }
 
   private void createTitle() {
-    ToolBar toolBar = new ToolBar( shell, SWT.FLAT );
+    ToolBar toolBar = new ToolBar( shell, SWT.NONE);
     toolBar.setLayoutData( new GridData( SWT.FILL, SWT.TOP, true, false ) );
     ToolItem title = new ToolItem( toolBar, SWT.NONE );
     onToolItem( title ).useAsTitle();

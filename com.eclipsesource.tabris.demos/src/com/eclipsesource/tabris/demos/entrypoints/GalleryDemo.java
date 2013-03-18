@@ -211,10 +211,10 @@ public class GalleryDemo implements EntryPoint {
               + imageName + "_thumb.jpg"));
       final Label thumbLabel = new Label(thumbnailsComposite, SWT.NONE);
       thumbLabel.setImage(thumbImage);
+      onLabel( thumbLabel ).showLocalTouch();
       thumbLabel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseUp(MouseEvent e) {
-//          hideThumbnails();
           Image fullImage = imageCache.get(imageName);
           if (fullImage == null) {
             fullImage = new Image(thumbLabel.getDisplay(),
