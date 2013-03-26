@@ -11,11 +11,11 @@
 package com.eclipsesource.tabris.demos.ui;
 
 import com.eclipsesource.tabris.ui.Action;
-import com.eclipsesource.tabris.ui.UIContext;
+import com.eclipsesource.tabris.ui.UI;
 
 public class SettingsAction implements Action {
 
-  public void execute( UIContext context ) {
-    context.getPageManager().showPage( SettingsPage.class.getName() );
+  public void execute( UI ui ) {
+    ui.getPageOperator().openPage( SettingsPage.class.getName() );
   }
 }

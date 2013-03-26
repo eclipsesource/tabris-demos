@@ -12,23 +12,29 @@ package com.eclipsesource.tabris.demos.ui;
 
 import static com.eclipsesource.tabris.demos.ui.Constants.BOOKS;
 import static com.eclipsesource.tabris.demos.ui.Constants.BOOK_ITEM;
+import static com.eclipsesource.tabris.demos.ui.Constants.RELATED_BOOKS_FONT;
+import static com.eclipsesource.tabris.demos.ui.Constants.TITLE_FONT;
 
 import java.util.List;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.resource.FontRegistry;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
-import com.eclipsesource.tabris.Store;
 import com.eclipsesource.tabris.ui.Page;
-import com.eclipsesource.tabris.ui.UIContext;
+import com.eclipsesource.tabris.ui.PageData;
+import com.eclipsesource.tabris.ui.UI;
 
 public class BooksListPage implements Page {
 
@@ -39,22 +45,42 @@ public class BooksListPage implements Page {
     this.bookFilter = bookFilter;
   }
 
-  public void create( Composite parent, final UIContext context ) {
+  public void createContents( Composite parent, final UI ui ) {
+    registerResources();
+    createBooks( ui );
     container = new Composite( parent, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
-    TreeViewer viewer = createTreeViewer( context, container );
-    createViewerInput( context, viewer );
+    TreeViewer viewer = createTreeViewer( ui, container );
+    createViewerInput( ui, viewer );
+  }
+
+  private void registerResources() {
+    FontRegistry fontRegistry = JFaceResources.getFontRegistry();
+    fontRegistry.put( TITLE_FONT, createFontData( 16, SWT.BOLD ) );
+    fontRegistry.put( RELATED_BOOKS_FONT, createFontData( 16, SWT.BOLD ) );
+  }
+
+  private FontData[] createFontData( int height, int style ) {
+    return new FontData[]{ new FontData( "Verdana", height, style ) };
+  }
+
+  private void createBooks( final UI ui ) {
+    Object books = RWT.getUISession().getAttribute( BOOKS );
+    if( books == null ) {
+      books = BookProvider.getBooks( ui );
+      RWT.getUISession().setAttribute( BOOKS, books );
+    }
   }
 
   public Composite getContainer() {
     return container;
   }
 
-  public static TreeViewer createTreeViewer( final UIContext context, Composite container ) {
+  public static TreeViewer createTreeViewer( final UI ui, Composite container ) {
     TreeViewer viewer = new TreeViewer( container, SWT.V_SCROLL );
     viewer.setContentProvider( new BooksContentProvider() );
     viewer.setLabelProvider( new BooksLabelProvider() );
-    addBookSelectionListener( context, viewer );
+    addBookSelectionListener( ui, viewer );
     Tree tree = viewer.getTree();
     tree.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
     new TreeColumn( tree, SWT.LEFT );
@@ -63,30 +89,30 @@ public class BooksListPage implements Page {
   }
 
   @SuppressWarnings("unchecked")
-  private void createViewerInput( final UIContext context, TreeViewer viewer ) {
-    List books = context.getGlobalStore().get( BOOKS, List.class );
+  private void createViewerInput( final UI ui, TreeViewer viewer ) {
+    List books = ( List )RWT.getUISession().getAttribute( BOOKS );
     List<Book> filteredBooks = bookFilter.filter( books );
     viewer.setInput( filteredBooks );
   }
 
-  private static void addBookSelectionListener( final UIContext context, TreeViewer viewer ) {
+  private static void addBookSelectionListener( final UI ui, TreeViewer viewer ) {
     viewer.addSelectionChangedListener( new ISelectionChangedListener() {
       public void selectionChanged( SelectionChangedEvent event ) {
         Object book = ( ( IStructuredSelection )event.getSelection() ).getFirstElement();
         if( book != null ) {
-          Store store = new Store();
-          store.add( BOOK_ITEM, book );
-          context.getPageManager().showPage( BookDetailsPage.class.getName(), store );
+          PageData data = new PageData();
+          data.set( BOOK_ITEM, book );
+          ui.getPageOperator().openPage( BookDetailsPage.class.getName(), data );
         }
       }
     } );
   }
 
-  public void activate( UIContext context ) {
+  public void activate() {
     // nothing to do here
   }
 
-  public void deactivate( UIContext context ) {
+  public void deactivate() {
     // nothing to do here
   }
 }

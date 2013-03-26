@@ -11,12 +11,12 @@
 package com.eclipsesource.tabris.demos.ui;
 
 import com.eclipsesource.tabris.ui.Action;
-import com.eclipsesource.tabris.ui.UIContext;
+import com.eclipsesource.tabris.ui.UI;
 
 public class ChangeThemeAction implements Action {
 
-  public void execute( UIContext context ) {
-    ReadBookPage page = ( ReadBookPage )context.getPageManager().getPage();
+  public void execute( UI ui ) {
+    ReadBookPage page = ( ReadBookPage )ui.getPageOperator().getCurrentPage();
     page.toggleTheme();
   }
 

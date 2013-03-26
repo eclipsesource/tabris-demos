@@ -18,14 +18,14 @@ import org.eclipse.rap.rwt.RWT;
 import com.eclipsesource.tabris.interaction.AppLauncher;
 import com.eclipsesource.tabris.interaction.MailOptions;
 import com.eclipsesource.tabris.ui.Action;
-import com.eclipsesource.tabris.ui.UIContext;
+import com.eclipsesource.tabris.ui.UI;
 
 public class ShareAction implements Action {
 
-  public void execute( UIContext context ) {
+  public void execute( UI ui ) {
     AppLauncher appLauncher = RWT.getClient().getService( AppLauncher.class );
     if( appLauncher != null ) {
-      Book book = context.getPageManager().getPageStore().get( BOOK_ITEM, Book.class );
+      Book book = ui.getPageOperator().getCurrentPageData().get( BOOK_ITEM, Book.class );
       String body = format( "Check out the book \"{0}\".", book.getTitle() );
       MailOptions launchOptions = new MailOptions( "user@mail.com", body );
       appLauncher.open( launchOptions );

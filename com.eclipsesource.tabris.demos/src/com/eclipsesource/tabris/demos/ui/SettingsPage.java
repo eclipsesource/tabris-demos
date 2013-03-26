@@ -18,11 +18,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 import com.eclipsesource.tabris.ui.Page;
-import com.eclipsesource.tabris.ui.UIContext;
+import com.eclipsesource.tabris.ui.UI;
 
 public class SettingsPage implements Page {
 
-  public void create( Composite parent, UIContext context ) {
+  private UI ui;
+
+  public void createContents( Composite parent, UI ui ) {
+    this.ui = ui;
     Composite container = new Composite( parent, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
     Label textLabel = new Label( container, SWT.CENTER );
@@ -31,11 +34,11 @@ public class SettingsPage implements Page {
     textLabel.setText( "Settings" );
   }
 
-  public void activate( UIContext context ) {
-    context.getActionManager().setActionVisible( SettingsAction.class.getName(), false );
+  public void activate() {
+    ui.getActionOperator().setActionVisible( SettingsAction.class.getName(), false );
   }
 
-  public void deactivate( UIContext context ) {
-    context.getActionManager().setActionVisible( SettingsAction.class.getName(), true );
+  public void deactivate() {
+    ui.getActionOperator().setActionVisible( SettingsAction.class.getName(), true );
   }
 }

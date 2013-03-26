@@ -20,15 +20,17 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 import com.eclipsesource.tabris.ui.Page;
-import com.eclipsesource.tabris.ui.UIContext;
+import com.eclipsesource.tabris.ui.UI;
 
 public class ReadBookPage implements Page {
 
   public static final String BOOK_ITEM = "bookItem";
   private Label textLabel;
   private Composite container;
+  private UI ui;
 
-  public void create( Composite parent, UIContext context ) {
+  public void createContents( Composite parent, UI ui ) {
+    this.ui = ui;
     container = new Composite( parent, SWT.NONE );
     container.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
     GridLayout layout = GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create();
@@ -36,19 +38,19 @@ public class ReadBookPage implements Page {
     layout.marginHeight = 16;
     container.setLayout( layout );
     createText();
-    setPageTitle( context );
+    setPageTitle( ui );
   }
 
   private void createText() {
-    textLabel = new Label( container, SWT.NONE );
+    textLabel = new Label( container, SWT.WRAP );
     textLabel.setForeground( container.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     textLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
     textLabel.setText( DUMMY_TEXT );
   }
 
-  private void setPageTitle( UIContext context ) {
-    Book book = context.getPageManager().getPageStore().get( BOOK_ITEM, Book.class );
-    context.getPageManager().setTitle( this, book.getTitle() );
+  private void setPageTitle( UI ui ) {
+    Book book = ui.getPageOperator().getCurrentPageData().get( BOOK_ITEM, Book.class );
+    ui.getPageOperator().setCurrentPageTitle( this, book.getTitle() );
   }
 
   public void toggleTheme() {
@@ -63,15 +65,15 @@ public class ReadBookPage implements Page {
     }
   }
 
-  public void activate( UIContext context ) {
-    setSettingsActionVisibility( context, false );
+  public void activate() {
+    setSettingsActionVisibility( false );
   }
 
-  public void deactivate( UIContext context ) {
-    setSettingsActionVisibility( context, true );
+  public void deactivate() {
+    setSettingsActionVisibility( true );
   }
 
-  private void setSettingsActionVisibility( UIContext context, boolean visible ) {
-    context.getActionManager().setActionVisible( SettingsAction.class.getName(), visible );
+  private void setSettingsActionVisibility( boolean visible ) {
+    ui.getActionOperator().setActionVisible( SettingsAction.class.getName(), visible );
   }
 }

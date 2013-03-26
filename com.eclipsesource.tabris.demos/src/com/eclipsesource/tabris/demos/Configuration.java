@@ -9,9 +9,8 @@ package com.eclipsesource.tabris.demos;
 
 import org.eclipse.rap.rwt.application.Application;
 import org.eclipse.rap.rwt.application.ApplicationConfiguration;
-import org.osgi.framework.FrameworkUtil;
 
-import com.eclipsesource.tabris.Bootstrapper;
+import com.eclipsesource.tabris.TabrisClient;
 import com.eclipsesource.tabris.demos.entrypoints.AppEventsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.AppLauncherDemo;
 import com.eclipsesource.tabris.demos.entrypoints.ButtonControlsDemo;
@@ -52,9 +51,7 @@ public class Configuration implements ApplicationConfiguration {
   }
 
   private void bootstrapTabris( Application application ) {
-    Bootstrapper bootstrapper = new Bootstrapper( application );
-    bootstrapper.bootstrap();
-    bootstrapper.registerEntryPointLookup( FrameworkUtil.getBundle( Configuration.class ),
-                                           "/index.json" );
+    TabrisClient tabrisClient = new TabrisClient();
+    tabrisClient.install( application );
   }
 }
