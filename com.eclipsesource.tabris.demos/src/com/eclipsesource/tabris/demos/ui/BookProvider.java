@@ -32,8 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.swt.graphics.Image;
-
-import com.eclipsesource.tabris.ui.UI;
+import org.eclipse.swt.widgets.Display;
 
 
 public class BookProvider {
@@ -67,7 +66,7 @@ public class BookProvider {
     return data;
   }
 
-  public static List<Book> getBooks( UI ui ) {
+  public static List<Book> getBooks( Display ui ) {
     List<Book> books = new ArrayList<Book>();
     Book bookSchroder = createBook( ui, bookData.get( BOOK_GAIGE ) );
     Book bookAfterVisiting = createBook( ui, bookData.get( BOOK_HAINY ) ).setFavourite( true );
@@ -92,8 +91,8 @@ public class BookProvider {
     return books;
   }
 
-  private static Book createBook( UI ui, BookData data ) {
-    Image image = new Image( ui.getDisplay(), BookProvider.class.getResourceAsStream( data.imagePath ) );
+  private static Book createBook( Display display, BookData data ) {
+    Image image = new Image( display, BookProvider.class.getResourceAsStream( data.imagePath ) );
     return new Book( data.title, data.author, image );
   }
 

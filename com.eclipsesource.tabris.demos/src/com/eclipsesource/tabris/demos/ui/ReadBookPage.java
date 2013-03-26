@@ -19,18 +19,17 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import com.eclipsesource.tabris.ui.Page;
-import com.eclipsesource.tabris.ui.UI;
+import com.eclipsesource.tabris.ui.AbstractPage;
+import com.eclipsesource.tabris.ui.PageData;
 
-public class ReadBookPage implements Page {
+public class ReadBookPage extends AbstractPage {
 
   public static final String BOOK_ITEM = "bookItem";
   private Label textLabel;
   private Composite container;
-  private UI ui;
 
-  public void createContents( Composite parent, UI ui ) {
-    this.ui = ui;
+  @Override
+  public void createContent( Composite parent, PageData data ) {
     container = new Composite( parent, SWT.NONE );
     container.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
     GridLayout layout = GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create();
@@ -38,7 +37,7 @@ public class ReadBookPage implements Page {
     layout.marginHeight = 16;
     container.setLayout( layout );
     createText();
-    setPageTitle( ui );
+    setPageTitle( data );
   }
 
   private void createText() {
@@ -48,9 +47,9 @@ public class ReadBookPage implements Page {
     textLabel.setText( DUMMY_TEXT );
   }
 
-  private void setPageTitle( UI ui ) {
-    Book book = ui.getPageOperator().getCurrentPageData().get( BOOK_ITEM, Book.class );
-    ui.getPageOperator().setCurrentPageTitle( this, book.getTitle() );
+  private void setPageTitle( PageData data ) {
+    Book book = data.get( BOOK_ITEM, Book.class );
+    setTitle( book.getTitle() );
   }
 
   public void toggleTheme() {
@@ -65,15 +64,17 @@ public class ReadBookPage implements Page {
     }
   }
 
+  @Override
   public void activate() {
     setSettingsActionVisibility( false );
   }
 
+  @Override
   public void deactivate() {
     setSettingsActionVisibility( true );
   }
 
   private void setSettingsActionVisibility( boolean visible ) {
-    ui.getActionOperator().setActionVisible( SettingsAction.class.getName(), visible );
+    setActionVisible( SettingsAction.class.getName(), visible );
   }
 }

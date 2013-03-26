@@ -32,11 +32,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
-import com.eclipsesource.tabris.ui.Page;
+import com.eclipsesource.tabris.ui.AbstractPage;
 import com.eclipsesource.tabris.ui.PageData;
-import com.eclipsesource.tabris.ui.UI;
 
-public class BooksListPage implements Page {
+public class BooksListPage extends AbstractPage {
 
   private final BookFilter bookFilter;
   private Composite container;
@@ -45,13 +44,14 @@ public class BooksListPage implements Page {
     this.bookFilter = bookFilter;
   }
 
-  public void createContents( Composite parent, final UI ui ) {
+  @Override
+  public void createContent( Composite parent, PageData data ) {
     registerResources();
-    createBooks( ui );
+    createBooks();
     container = new Composite( parent, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
-    TreeViewer viewer = createTreeViewer( ui, container );
-    createViewerInput( ui, viewer );
+    TreeViewer viewer = createTreeViewer( this, container );
+    createViewerInput( viewer );
   }
 
   private void registerResources() {
@@ -64,10 +64,10 @@ public class BooksListPage implements Page {
     return new FontData[]{ new FontData( "Verdana", height, style ) };
   }
 
-  private void createBooks( final UI ui ) {
+  private void createBooks() {
     Object books = RWT.getUISession().getAttribute( BOOKS );
     if( books == null ) {
-      books = BookProvider.getBooks( ui );
+      books = BookProvider.getBooks( getUI().getDisplay() );
       RWT.getUISession().setAttribute( BOOKS, books );
     }
   }
@@ -76,11 +76,11 @@ public class BooksListPage implements Page {
     return container;
   }
 
-  public static TreeViewer createTreeViewer( final UI ui, Composite container ) {
+  public static TreeViewer createTreeViewer( AbstractPage page, Composite container ) {
     TreeViewer viewer = new TreeViewer( container, SWT.V_SCROLL );
     viewer.setContentProvider( new BooksContentProvider() );
     viewer.setLabelProvider( new BooksLabelProvider() );
-    addBookSelectionListener( ui, viewer );
+    addBookSelectionListener( page, viewer );
     Tree tree = viewer.getTree();
     tree.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
     new TreeColumn( tree, SWT.LEFT );
@@ -89,30 +89,23 @@ public class BooksListPage implements Page {
   }
 
   @SuppressWarnings("unchecked")
-  private void createViewerInput( final UI ui, TreeViewer viewer ) {
+  private void createViewerInput( TreeViewer viewer ) {
     List books = ( List )RWT.getUISession().getAttribute( BOOKS );
     List<Book> filteredBooks = bookFilter.filter( books );
     viewer.setInput( filteredBooks );
   }
 
-  private static void addBookSelectionListener( final UI ui, TreeViewer viewer ) {
+  private static void addBookSelectionListener( final AbstractPage page, TreeViewer viewer ) {
     viewer.addSelectionChangedListener( new ISelectionChangedListener() {
       public void selectionChanged( SelectionChangedEvent event ) {
         Object book = ( ( IStructuredSelection )event.getSelection() ).getFirstElement();
         if( book != null ) {
           PageData data = new PageData();
           data.set( BOOK_ITEM, book );
-          ui.getPageOperator().openPage( BookDetailsPage.class.getName(), data );
+          page.openPage( BookDetailsPage.class.getName(), data );
         }
       }
     } );
   }
 
-  public void activate() {
-    // nothing to do here
-  }
-
-  public void deactivate() {
-    // nothing to do here
-  }
 }
