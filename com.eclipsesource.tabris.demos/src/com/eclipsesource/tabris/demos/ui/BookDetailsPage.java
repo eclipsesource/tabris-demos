@@ -73,7 +73,7 @@ public class BookDetailsPage extends AbstractPage {
 
   private void createBookDetailsComposite( Composite parent ) {
     createBookComposite( parent );
-    createBooImage();
+    createBookImage();
     createBookTitle();
     createBookAuthor();
   }
@@ -92,7 +92,7 @@ public class BookDetailsPage extends AbstractPage {
     bookDetailsComposite.setLayout( layout );
   }
 
-  private void createBooImage() {
+  private void createBookImage() {
     imageLabel = new Label( bookDetailsComposite, SWT.WRAP );
     imageLabel.setForeground( bookDetailsComposite.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     GridData gridData = new GridData( SWT.FILL, SWT.FILL, false, false );
