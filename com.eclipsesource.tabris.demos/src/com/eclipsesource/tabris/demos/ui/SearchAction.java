@@ -14,13 +14,13 @@ import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 
-import com.eclipsesource.tabris.ui.Action;
-import com.eclipsesource.tabris.ui.UI;
+import com.eclipsesource.tabris.ui.AbstractAction;
 
-public class SearchAction implements Action {
+public class SearchAction extends AbstractAction {
 
-  public void execute( UI ui ) {
-    BooksListPage page = ( BooksListPage )ui.getPageOperator().getCurrentPage();
+  @Override
+  public void execute() {
+    BooksListPage page = ( BooksListPage )getCurrentPage();
     MessageBox messageBox = new MessageBox( page.getContainer().getShell(), SWT.ICON_WARNING );
     messageBox.setText( "Search" );
     messageBox.setMessage( "Search for books." );

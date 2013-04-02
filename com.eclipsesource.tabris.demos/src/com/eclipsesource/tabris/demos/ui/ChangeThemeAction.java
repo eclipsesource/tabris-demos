@@ -10,13 +10,13 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import com.eclipsesource.tabris.ui.Action;
-import com.eclipsesource.tabris.ui.UI;
+import com.eclipsesource.tabris.ui.AbstractAction;
 
-public class ChangeThemeAction implements Action {
+public class ChangeThemeAction extends AbstractAction {
 
-  public void execute( UI ui ) {
-    ReadBookPage page = ( ReadBookPage )ui.getPageOperator().getCurrentPage();
+  @Override
+  public void execute() {
+    ReadBookPage page = ( ReadBookPage )getCurrentPage();
     page.toggleTheme();
   }
 
