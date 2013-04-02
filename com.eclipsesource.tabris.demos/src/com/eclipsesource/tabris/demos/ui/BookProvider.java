@@ -66,15 +66,15 @@ public class BookProvider {
     return data;
   }
 
-  public static List<Book> getBooks( Display ui ) {
+  public static List<Book> getBooks( Display display ) {
     List<Book> books = new ArrayList<Book>();
-    Book bookSchroder = createBook( ui, bookData.get( BOOK_GAIGE ) );
-    Book bookAfterVisiting = createBook( ui, bookData.get( BOOK_HAINY ) ).setFavourite( true );
-    Book bookVampires = createBook( ui, bookData.get( BOOK_RUSSEL ) ).setFavourite( true );
-    Book bookHistory = createBook( ui, bookData.get( BOOK_BROOK ) ).setFavourite( true ).setPopular( true );
-    Book bookAutobiography = createBook( ui, bookData.get( BOOK_SLOSS ) ).setPopular( true );
-    Book bookLiteratur = createBook( ui, bookData.get( BOOK_SHIELDS ) ).setPopular( true );
-    Book bookDinner = createBook( ui, bookData.get( BOOK_KOCH ) ).setPopular( true );
+    Book bookSchroder = createBook( display, bookData.get( BOOK_GAIGE ) );
+    Book bookAfterVisiting = createBook( display, bookData.get( BOOK_HAINY ) ).setFavourite( true );
+    Book bookVampires = createBook( display, bookData.get( BOOK_RUSSEL ) ).setFavourite( true );
+    Book bookHistory = createBook( display, bookData.get( BOOK_BROOK ) ).setFavourite( true ).setPopular( true );
+    Book bookAutobiography = createBook( display, bookData.get( BOOK_SLOSS ) ).setPopular( true );
+    Book bookLiteratur = createBook( display, bookData.get( BOOK_SHIELDS ) ).setPopular( true );
+    Book bookDinner = createBook( display, bookData.get( BOOK_KOCH ) ).setPopular( true );
     relate( bookVampires, bookAfterVisiting );
     relate( bookVampires, bookAutobiography );
     relate( bookSchroder, bookAfterVisiting );
