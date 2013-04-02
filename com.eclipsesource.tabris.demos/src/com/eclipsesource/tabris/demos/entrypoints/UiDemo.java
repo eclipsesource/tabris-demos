@@ -18,6 +18,8 @@ import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_ALL_BOOKS;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_FAVOURITE_BOOKS;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_POPULAR_BOOKS;
 
+import java.io.InputStream;
+
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.application.EntryPointFactory;
 
@@ -61,10 +63,10 @@ public class UiDemo implements EntryPointFactory {
   private void createAllBooksPage( UIConfiguration configuration ) {
     PageConfiguration page = new PageConfiguration( AllBooksPage.class.getName(), AllBooksPage.class );
     page.setTitle( "All Books" );
-    page.setImage( IMAGE_PAGE_ALL_BOOKS );
+    page.setImage( getImage( IMAGE_PAGE_ALL_BOOKS ) );
     page.setTopLevel( true );
     ActionConfiguration action = new ActionConfiguration( SearchAction.class.getName(), SearchAction.class );
-    action.setImage( IMAGE_ACTION_SEARCH );
+    action.setImage( getImage( IMAGE_ACTION_SEARCH ) );
     action.setTitle( "Search" );
     page.addActionConfiguration( action );
     configuration.addPageConfiguration( page );
@@ -73,7 +75,7 @@ public class UiDemo implements EntryPointFactory {
   private void createPopularBooksPage( UIConfiguration configuration ) {
     PageConfiguration page = new PageConfiguration( PopularBooksPage.class.getName(), PopularBooksPage.class );
     page.setTitle( "Popular" );
-    page.setImage( IMAGE_PAGE_POPULAR_BOOKS );
+    page.setImage( getImage( IMAGE_PAGE_POPULAR_BOOKS ) );
     page.setTopLevel( true );
     configuration.addPageConfiguration( page );
   }
@@ -81,7 +83,7 @@ public class UiDemo implements EntryPointFactory {
   private void createFavouriteBooksPage( UIConfiguration configuration ) {
     PageConfiguration page = new PageConfiguration( FavouriteBooksPage.class.getName(), FavouriteBooksPage.class );
     page.setTitle( "Favourite" );
-    page.setImage( IMAGE_PAGE_FAVOURITE_BOOKS );
+    page.setImage( getImage( IMAGE_PAGE_FAVOURITE_BOOKS ) );
     page.setTopLevel( true );
     configuration.addPageConfiguration( page );
   }
@@ -90,7 +92,7 @@ public class UiDemo implements EntryPointFactory {
     PageConfiguration page = new PageConfiguration( BookDetailsPage.class.getName(), BookDetailsPage.class );
     page.setTitle( "Book" );
     ActionConfiguration action = new ActionConfiguration( ShareAction.class.getName(), ShareAction.class );
-    action.setImage( IMAGE_ACTION_SHARE );
+    action.setImage( getImage( IMAGE_ACTION_SHARE ) );
     action.setTitle( "Share" );
     page.addActionConfiguration( action );
     configuration.addPageConfiguration( page );
@@ -101,7 +103,7 @@ public class UiDemo implements EntryPointFactory {
     page.setTitle( "Book" );
     ActionConfiguration action = new ActionConfiguration( ChangeThemeAction.class.getName(),
                                                           ChangeThemeAction.class );
-    action.setImage( IMAGE_ACTION_THEME );
+    action.setImage( getImage( IMAGE_ACTION_THEME ) );
     action.setTitle( "Change Theme" );
     page.addActionConfiguration( action );
     configuration.addPageConfiguration( page );
@@ -115,9 +117,13 @@ public class UiDemo implements EntryPointFactory {
 
   private void createGlobalActions( UIConfiguration configuration ) {
     ActionConfiguration action = new ActionConfiguration( SettingsAction.class.getName(), SettingsAction.class );
-    action.setImage( IMAGE_ACTION_SETTINGS );
+    action.setImage( getImage( IMAGE_ACTION_SETTINGS ) );
     action.setTitle( "Settings" );
     configuration.addActionConfiguration( action );
+  }
+
+  private InputStream getImage( String path ) {
+    return UiDemo.class.getResourceAsStream( path );
   }
 
 }
