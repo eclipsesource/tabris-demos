@@ -50,7 +50,7 @@ import com.eclipsesource.tabris.device.ClientDevice.Platform;
 public class EnronExample {
 
   // Change this path to your Enron maildir
-  private static final String DEFAULT_DATASET_DIR = "/Users/holger/dev/tools/enron_mail_20110402/maildir";
+  private static final String DEFAULT_DATASET_DIR = "/var/lib/tomcat5.5/shared/data/enron_mail_20110402/maildir";
   private static final String DATASET_DIR_PROP = "org.eclipse.rap.demo.enronDatasetDirectory";
   private TreeViewer viewer;
   private Composite parent;
