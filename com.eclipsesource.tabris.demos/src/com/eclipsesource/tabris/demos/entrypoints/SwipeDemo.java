@@ -26,8 +26,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-import com.eclipsesource.tabris.TabrisClient;
 import com.eclipsesource.tabris.demos.swipe.DictionarySwipeItemProvider;
+import com.eclipsesource.tabris.device.ClientDevice;
+import com.eclipsesource.tabris.device.ClientDevice.Platform;
 import com.eclipsesource.tabris.widgets.swipe.Swipe;
 
 public class SwipeDemo implements EntryPoint {
@@ -35,7 +36,8 @@ public class SwipeDemo implements EntryPoint {
   public int createUI() {
     Display display = new Display();
     final Shell shell = createShell( display );
-    if( RWT.getClient() instanceof TabrisClient ) {
+    ClientDevice device = RWT.getClient().getService( ClientDevice.class );
+    if( device != null && device.getPlatform() != Platform.WEB ) {
       createToolBar( shell );
       Composite container = createParentComposite( shell );
       createSwipeWidget( container );
