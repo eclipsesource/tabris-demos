@@ -27,14 +27,13 @@ public class VirtualTreeDemo implements EntryPoint {
     Shell shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized(true);
     shell.setLayout( new FillLayout() );
-    createContent( display, shell );
+    createContent( shell );
     shell.open();
-    shell.setVisible(true);    
     return 0;
   }
 
-  private void createContent( Display display, Shell shell ) {
-    Composite comp = new Composite( shell, SWT.NONE );
+  private void createContent( Composite parent ) {
+    Composite comp = new Composite( parent, SWT.NONE );
     comp.setLayout( new FillLayout() );
     EnronExample enronExample = new EnronExample();
     enronExample.createMainArea( comp );

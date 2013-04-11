@@ -9,6 +9,8 @@
  */
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onToolItem;
+
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.layout.RowLayoutFactory;
@@ -16,11 +18,12 @@ import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 
 import com.eclipsesource.tabris.widgets.PlaybackListener;
 import com.eclipsesource.tabris.widgets.PresentationListener;
@@ -43,20 +46,33 @@ public class VideoDemo implements EntryPoint {
     Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized( true );
-    shell.setLayout( new FillLayout() );
-    createContent( display, shell );
+    GridLayoutFactory.fillDefaults().applyTo( shell );
+    createToolBar( shell );
+    createContent( shell );
     shell.open();
-    shell.setVisible( true );
     return 0;
   }
 
-  private void createContent( Display display, Shell shell ) {
-    Composite container = new Composite( shell, SWT.NONE );
-    container.setLayout( GridLayoutFactory.fillDefaults().numColumns( 1 ).create() );
-    Video video = new Video( videoUrl, container );
-    video.setLayoutData( GridDataFactory.fillDefaults().grab( true, true ).create() );
-    Composite controls = new Composite( container, SWT.NONE );
-    controls.setLayoutData( GridDataFactory.fillDefaults().grab( true, false ).create() );
+  private void createToolBar( Composite parent ) {
+    ToolBar toolBar = new ToolBar( parent, SWT.NONE );
+    GridDataFactory.fillDefaults().grab( true, false ).align( SWT.FILL, SWT.TOP ).applyTo( toolBar );
+    
+    ToolItem title = new ToolItem( toolBar, SWT.NONE );
+    onToolItem( title ).useAsTitle();
+    title.setText( "Video" );
+  }
+
+
+  private void createContent( Composite parent ) {
+    Composite content = new Composite( parent, SWT.NONE );
+    GridDataFactory.fillDefaults().grab( true, true ).align( SWT.FILL, SWT.FILL ).applyTo( content );
+    GridLayoutFactory.fillDefaults().applyTo( content );
+    
+    Video video = new Video( videoUrl, content );
+    GridDataFactory.fillDefaults().grab( true, true ).applyTo( video );
+    
+    Composite controls = new Composite( content, SWT.NONE );
+    GridDataFactory.fillDefaults().grab( true, false ).applyTo( controls );
     hookControlsAndVideo( video, controls );
   }
 

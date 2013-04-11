@@ -35,10 +35,9 @@ public class AppEventsDemo implements EntryPoint {
     shell.setMaximized( true );
     shell.setLayout( new FillLayout() );
     shell.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
-    hal = new Hal9000( display, shell );
+    hal = new Hal9000( shell );
     registerAppStateListener();
     shell.open();
-    shell.setVisible( true );
     return 0;
   }
 

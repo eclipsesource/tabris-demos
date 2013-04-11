@@ -13,7 +13,6 @@ package com.eclipsesource.tabris.demos.hal;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
@@ -26,7 +25,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
 
 public class Hal9000 {
 
@@ -39,37 +37,38 @@ public class Hal9000 {
   private Image halEye;
   private int fontSize;
 
-  public Hal9000( Display display, Shell shell ) {
-    initSizeAgnosticParts( display );
-    createContent( display, shell );
+  public Hal9000( Composite parent ) {
+    initSizeAgnosticParts( parent.getDisplay() );
+    createContent( parent );
   }
 
   public Label getText() {
     return output;
   }
 
-  private void createContent( Display display, Shell shell ) {
-    Composite parent = new Composite( shell, SWT.NONE );
+  private void createContent( Composite parent ) {
+    Display display = parent.getDisplay();
+    Composite content = new Composite( parent, SWT.NONE );
     borderColor = display.getSystemColor( SWT.COLOR_GRAY );
-    parent.setBackground( borderColor );
-    parent.setLayout( new FormLayout() );
-    Composite top = createBlackComposite( display, parent );
+    content.setBackground( borderColor );
+    content.setLayout( new FormLayout() );
+    Composite top = createBlackComposite( content );
     top.setLayout( createGridLayout( 1, true, 40, 10, 0 ) );
     FormData formDataTop = createTopLayoutData();
     top.setLayoutData( formDataTop );
-    Composite bottom = createBlackComposite( display, parent );
+    Composite bottom = createBlackComposite( content );
     bottom.setLayout( createGridLayout( 1, true, 10, 10, 0 ) );
     bottom.setBackgroundImage( loadImage( display, "/rubber_grip.png" ) );
     FormData formDataBottom = createBottomLayoutData( top, formDataTop );
     bottom.setLayoutData( formDataBottom );
-    createTypePlate( display, top );
-    createEye( display, top );
-    createGrille( display, bottom );
+    createTypePlate( top );
+    createEye( top );
+    createGrille( bottom );
   }
 
-  private Composite createBlackComposite( Display display, Composite parent ) {
+  private Composite createBlackComposite( Composite parent ) {
     Composite blackComposite = new Composite( parent, SWT.NONE );
-    blackComposite.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
+    blackComposite.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     return blackComposite;
   }
 
@@ -105,8 +104,8 @@ public class Hal9000 {
     return formDataBottom;
   }
 
-  private void createTypePlate( Display display, Composite typePlate ) {
-    Composite container = new Composite( typePlate, SWT.NONE );
+  private void createTypePlate( Composite parent ) {
+    Composite container = new Composite( parent, SWT.NONE );
     container.setBackground( borderColor );
     GridData gridData = new GridData( SWT.CENTER, SWT.FILL, true, false );
     gridData.widthHint = 200;
@@ -114,35 +113,34 @@ public class Hal9000 {
     GridLayout layout = GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( true )
                         .margins( PLATE_BORDER, PLATE_BORDER ).spacing( 0, 0 ).create();
     container.setLayout( layout );
-    Color blue = new Color( display, 1, 116, 255 );
-    Color black = display.getSystemColor( SWT.COLOR_BLACK );
-    createPlateLabel( display, container, "HAL", SWT.RIGHT, blue );
-    createPlateLabel( display, container, "9000", SWT.LEFT, black );
+    Color blue = new Color( parent.getDisplay(), 1, 116, 255 );
+    Color black = parent.getDisplay().getSystemColor( SWT.COLOR_BLACK );
+    createPlateLabel( container, "HAL", SWT.RIGHT, blue );
+    createPlateLabel( container, "9000", SWT.LEFT, black );
   }
 
-  private void createPlateLabel( Display display,
-                                 Composite container,
+  private void createPlateLabel( Composite parent,
                                  String text,
                                  int alignment,
                                  Color background )
   {
     GridData labelLayoutData = new GridData( SWT.FILL, SWT.FILL, true, true );
-    Label hal = new Label( container, alignment );
+    Label hal = new Label( parent, alignment );
     hal.setBackground( background );
-    hal.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
+    hal.setForeground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
     hal.setText( text );
     hal.setLayoutData( labelLayoutData );
-    hal.setFont( createBold( display, PLATE_FONT_SIZE ) );
+    hal.setFont( createBold( parent.getDisplay(), PLATE_FONT_SIZE ) );
   }
 
-  private void createEye( Display display, Composite parent ) {
+  private void createEye( Composite parent ) {
     Composite eyeContainer = new Composite( parent, SWT.NONE );
     GridData container2Data = new GridData( SWT.FILL, SWT.FILL, false, true );
-    eyeContainer.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
+    eyeContainer.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     eyeContainer.setLayoutData( container2Data );
     eyeContainer.setLayout( new FormLayout() );
     final Label eyeLabel = new Label( eyeContainer, SWT.CENTER );
-    eyeLabel.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
+    eyeLabel.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     eyeLabel.setImage( halEye );
     eyeLabel.setLayoutData( createFormDataEye() );
   }
@@ -174,7 +172,7 @@ public class Hal9000 {
     return new Font( display, fontData );
   }
 
-  private void createGrille( Display display, Composite parent ) {
+  private void createGrille( Composite parent ) {
     Composite textContainer = new Composite( parent, SWT.NONE );
     GridData grilleData = new GridData( SWT.FILL, SWT.FILL, true, true );
     textContainer.setLayoutData( grilleData );
@@ -182,12 +180,12 @@ public class Hal9000 {
     textContainer.setLayout( layout );
     output = new Label( textContainer, SWT.WRAP );
     output.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
-    output.setForeground( display.getSystemColor( SWT.COLOR_GREEN ) );
-    output.setFont( createBold( display, fontSize ) );
+    output.setForeground( parent.getDisplay().getSystemColor( SWT.COLOR_GREEN ) );
+    output.setFont( createBold( parent.getDisplay(), fontSize ) );
     output.setText( "Good morning Dave.\n\nYou can send me to sleep by changing to another app.\n" );
   }
 
-  private Image loadImage( Device device, String path ) {
-    return new Image( device, Hal9000.class.getResourceAsStream( path ) );
+  private Image loadImage( Display display, String path ) {
+    return new Image( display, Hal9000.class.getResourceAsStream( path ) );
   }
 }

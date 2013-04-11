@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 import com.eclipsesource.tabris.widgets.ScrollingComposite;
+import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 
 public class ScrollDemo implements EntryPoint {
@@ -82,6 +83,7 @@ public class ScrollDemo implements EntryPoint {
     addData( scrollingParent );
     Composite controlsParent = createActionsArea( scrollingArea );
     Text itemNumberText = new Text( controlsParent, SWT.BORDER );
+    Widgets.onText( itemNumberText ).useNumberKeyboard();
     itemNumberText.setMessage( "Enter Item # and ..." );
     addShowAction( controlsParent, scrollingParent, itemNumberText );
     addCheckVisibilityAction( controlsParent, scrollingParent, itemNumberText );

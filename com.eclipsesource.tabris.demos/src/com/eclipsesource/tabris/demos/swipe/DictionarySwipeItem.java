@@ -37,7 +37,7 @@ public class DictionarySwipeItem implements SwipeItem {
 
   public Control load( Composite parent ) {
     Composite result = new Composite( parent, SWT.NONE );
-    GridLayoutFactory.fillDefaults().margins( 5, 5 ).applyTo( result );
+    GridLayoutFactory.fillDefaults().margins( 5, 0 ).applyTo( result );
     Composite page = createPage( result );
     createTitleLabel( page );
     createEnglishLabel( page );

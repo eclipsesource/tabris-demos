@@ -24,6 +24,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
+
+import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class InputControlsDemo implements EntryPoint {
 
@@ -41,45 +45,34 @@ public class InputControlsDemo implements EntryPoint {
     shell.setMaximized( true );
     shell.setLayout( new FillLayout() );
     shell.setBackground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    createContent( display, shell );
+    createContent( shell );
     shell.open();
-    shell.setVisible( true );
     return 0;
   }
 
-  private void createContent( Display display, Shell shell ) {
-    Composite parent = new Composite( shell, SWT.NONE );
-    GridLayout layout
-      = GridLayoutFactory.fillDefaults().margins( 0, 0 ).spacing( 0, 0 ).create();
-    parent.setLayout( layout );
-    createHeader( display, parent );
-    Composite container = new Composite( parent, SWT.NONE );
-    GridLayout containerLayout
-      = GridLayoutFactory.fillDefaults().numColumns( 2 ).margins( 15, 15 ).spacing( 5, 5 ).create();
-    container.setLayout( containerLayout );
-    GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, false );
-    container.setLayoutData( layoutData );
+  private void createContent( Composite parent ) {
+    Composite content = new Composite( parent, SWT.NONE );
+    GridLayoutFactory.fillDefaults().spacing( 0, 0 ).applyTo( content );
+    createToolBar( content );
     
+    Composite container = new Composite( content, SWT.NONE );
+    GridLayoutFactory.fillDefaults().numColumns( 2 ).margins( 15, 15 ).spacing( 5, 5 ).applyTo( container );
+    GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, false ).applyTo( container );
     createInputForm( container );
-    createPlaceReservationButton( display, parent );
-    createFlightLabel( display, parent );
+    createPlaceReservationButton( content );
+    createFlightLabel( content );
   }
 
-  private void createHeader( Display display, Composite parent ) {
-    Composite labelParent = new Composite( parent, SWT.NONE );
-    GridLayout layout
-      = GridLayoutFactory.fillDefaults().margins( 0, 0 ).spacing( 0, 0 ).create();
-    labelParent.setLayout( layout );
-    Label label = new Label( labelParent, SWT.NONE );
-    GridData layoutDataLabel = new GridData( SWT.CENTER, SWT.CENTER, true, true );
-    label.setLayoutData( layoutDataLabel );
-    GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, false );
-    layoutData.heightHint = 40;
-    labelParent.setLayoutData( layoutData );
-    labelParent.setBackground( display.getSystemColor( SWT.COLOR_DARK_GREEN ) );
-    label.setBackground( display.getSystemColor( SWT.COLOR_DARK_GREEN ) );
-    label.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    label.setText( "Oceanic Flight 815 Reservation" );
+  private void createToolBar( Composite parent ) {
+    ToolBar toolBar = new ToolBar( parent, SWT.NONE );
+    toolBar.setLayoutData( GridDataFactory.fillDefaults().grab( true, false ).create() );
+    Display display = parent.getDisplay();
+    toolBar.setBackground( display.getSystemColor( SWT.COLOR_DARK_GREEN ) );
+    toolBar.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
+
+    ToolItem title = new ToolItem( toolBar, SWT.NONE );
+    Widgets.onToolItem( title ).useAsTitle();
+    title.setText( "Oceanic Flight 815 Booking" );
   }
 
   private void createInputForm( Composite parent ) {
@@ -172,15 +165,15 @@ public class InputControlsDemo implements EntryPoint {
     vegetarianCheckbox.setSelection( true );
   }
 
-  private void createPlaceReservationButton( Display display, Composite parent ) {
+  private void createPlaceReservationButton( Composite parent ) {
     Composite buttonParent = new Composite( parent, SWT.NONE );
     buttonParent.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, false ) );
     GridLayout layout
       = GridLayoutFactory.fillDefaults().margins( 10, 10 ).spacing( 10, 10 ).create();
     buttonParent.setLayout( layout );
     Button button = new Button( buttonParent, SWT.PUSH );
-    button.setBackground( display.getSystemColor( SWT.COLOR_DARK_RED ) );
-    button.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
+    button.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_DARK_RED ) );
+    button.setForeground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
     button.setText( "Place Reservation" );
     button.setLayoutData( new GridData( SWT.FILL, SWT.BOTTOM, true, true ) );
     button.addSelectionListener( new SelectionAdapter() {
@@ -216,14 +209,14 @@ public class InputControlsDemo implements EntryPoint {
     flightLabel.setText( stringBuilder.toString() );
   }
 
-  private void createFlightLabel( Display display, Composite parent ) {
+  private void createFlightLabel( Composite parent ) {
     Composite labelParent = new Composite( parent, SWT.NONE );
     labelParent.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
     GridLayout layout
       = GridLayoutFactory.fillDefaults().margins( 1, 10 ).spacing( 0, 0 ).create();
     labelParent.setLayout( layout );
     flightLabel = new Label( labelParent, SWT.NONE );
-    flightLabel.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
+    flightLabel.setForeground( parent.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, true );
     flightLabel.setLayoutData( layoutData );
   }
