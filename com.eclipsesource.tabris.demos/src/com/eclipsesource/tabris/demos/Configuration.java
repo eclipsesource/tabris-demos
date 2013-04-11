@@ -10,7 +10,7 @@ package com.eclipsesource.tabris.demos;
 import org.eclipse.rap.rwt.application.Application;
 import org.eclipse.rap.rwt.application.ApplicationConfiguration;
 
-import com.eclipsesource.tabris.TabrisClient;
+import com.eclipsesource.tabris.TabrisClientInstaller;
 import com.eclipsesource.tabris.demos.entrypoints.AppEventsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.AppLauncherDemo;
 import com.eclipsesource.tabris.demos.entrypoints.ButtonControlsDemo;
@@ -51,7 +51,6 @@ public class Configuration implements ApplicationConfiguration {
   }
 
   private void bootstrapTabris( Application application ) {
-    TabrisClient tabrisClient = new TabrisClient();
-    tabrisClient.install( application );
+    TabrisClientInstaller.install( application );
   }
 }
