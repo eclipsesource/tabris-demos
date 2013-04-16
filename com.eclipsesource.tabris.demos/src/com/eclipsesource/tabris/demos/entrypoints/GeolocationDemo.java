@@ -115,13 +115,14 @@ public class GeolocationDemo implements EntryPoint {
     getLocationButton.setText( "Where am I?" );
     getLocationButton.setBackground( new Color( getLocationButton.getDisplay(), 60, 60, 60 ) );
     getLocationButton.setForeground( new Color( getLocationButton.getDisplay(), 225, 255, 255 ) );
-    GeolocationListener listener = new GeolocationListener() {
+    final GeolocationListener listener = new GeolocationListener() {
 
       public void positionReceived( Position position ) {
         lastLabel = "green_1";
         setBrowserUrl( position.getCoords().getLatitude(), position.getCoords().getLongitude() );
         String message = "You are in: \n" + getCity( position );
         openDialog( "Geolocation", message );
+        geolocation.removeGeolocationListener( this );
       }
 
       public void errorReceived( PositionError error ) {
@@ -130,14 +131,15 @@ public class GeolocationDemo implements EntryPoint {
         builder.append( "Code: " + error.getCode() );
         builder.append( "Message: " + error.getMessage() );
         openDialog( "Error", builder.toString() );
+        geolocation.removeGeolocationListener( this );
       }
     };
 
-    geolocation.addGeolocationListener( listener );
     getLocationButton.addSelectionListener( new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
+        geolocation.addGeolocationListener( listener );
         geolocation.determineCurrentPosition( new GeolocationOptions().enableHighAccuracy() );
       }
     } );
@@ -202,7 +204,7 @@ public class GeolocationDemo implements EntryPoint {
     button.setText( "Head me to Springfield" );
     button.setBackground( new Color( button.getDisplay(), 225, 151, 7 ) );
     button.setForeground( new Color( button.getDisplay(), 225, 255, 255 ) );
-    GeolocationAdapter listener = new GeolocationAdapter() {
+    final GeolocationAdapter listener = new GeolocationAdapter() {
 
       @Override
       public void positionReceived( Position position ) {
@@ -214,14 +216,15 @@ public class GeolocationDemo implements EntryPoint {
         openDialog( "Springfield Locator", "Distance to Moe's: \n"
             + format.format( distance )
             + " km" );
+        geolocation.removeGeolocationListener( this );
       }
 
     };
-    geolocation.addGeolocationListener( listener );
     button.addSelectionListener( new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
+        geolocation.addGeolocationListener( listener );
         geolocation.determineCurrentPosition( new GeolocationOptions().enableHighAccuracy() );
       }
     } );
