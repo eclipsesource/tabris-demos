@@ -10,13 +10,12 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import com.eclipsesource.tabris.ui.Action;
-import com.eclipsesource.tabris.ui.UIContext;
+import com.eclipsesource.tabris.ui.AbstractAction;
 
-public class SettingsAction implements Action {
+public class SettingsAction extends AbstractAction {
 
-  public void execute( UIContext context ) {
-    context.getPageManager().showPreviousPage();
-    context.getPageManager().showPage( SettingsPage.class.getName() );
+  @Override
+  public void execute() {
+    openPage( SettingsPage.class.getName() );
   }
 }

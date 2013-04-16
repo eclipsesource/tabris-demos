@@ -10,6 +10,11 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onLabel;
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onScrolledComposite;
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onToolItem;
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onWidget;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +22,6 @@ import java.util.Map;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -78,7 +82,7 @@ public class GalleryDemo implements EntryPoint {
     GridLayoutFactory.fillDefaults().spacing( 0, 0 ).applyTo( parent );
     createToolbar( parent );
     createZoomImageArea( parent );
-    createThumbnailsArea( shell );  
+    createThumbnailsArea( shell );
   }
 
   private void createToolbar(final Composite parent) {
@@ -93,12 +97,12 @@ public class GalleryDemo implements EntryPoint {
         toggleThubnails();
       }
     } );
-    
+
     ToolItem titleItem = new ToolItem(toolBar, SWT.NONE);
-    titleItem.setData(RWT.CUSTOM_VARIANT, "TITLE");
+    onToolItem( titleItem ).useAsTitle();
     titleItem.setText("The Big Bang Theory");
   }
-  
+
   protected void toggleThubnails() {
     if( thumbnailsVisible ) {
       hideThumbnails();
@@ -132,7 +136,7 @@ public class GalleryDemo implements EntryPoint {
 
   private void createThumbnailsArea( Shell parentShell ) {
     thumbnailsArea = new Shell(parentShell, SWT.NO_TRIM);
-    thumbnailsArea.setData(RWT.CUSTOM_VARIANT, "ANIMATED");
+    onWidget( thumbnailsArea ).useAnimation();
     thumbnailsArea.setBounds( 0, thumbnailsArea.getDisplay().getBounds().height, thumbnailsArea.getDisplay().getBounds().width, 164 );
     FillLayout thumbnailsAreaLayout = new FillLayout();
     thumbnailsAreaLayout.marginHeight = 7;
@@ -141,15 +145,15 @@ public class GalleryDemo implements EntryPoint {
     Color bgColor = new Color( thumbnailsArea.getDisplay(), new RGB(32,32,32));
     thumbnailsArea.setLayout(thumbnailsAreaLayout);
     thumbnailsArea.setBackground(bgColor );
-  
+
     scrolledComposite = new ScrolledComposite(thumbnailsArea, SWT.H_SCROLL);
-    scrolledComposite.setData(RWT.CUSTOM_VARIANT, "PAGINGENABLED");
-  
+    onScrolledComposite( scrolledComposite ).usePaging();
+
     thumbnailsComposite = new Composite(scrolledComposite, SWT.NONE);
     GridDataFactory.fillDefaults().align(SWT.BEGINNING, SWT.CENTER).grab(true, false).applyTo(thumbnailsComposite);
     GridLayoutFactory.fillDefaults().spacing(5, 0).numColumns(19).applyTo(thumbnailsComposite);
     thumbnailsComposite.setBackground(bgColor );
-  
+
     scrolledComposite.setExpandHorizontal(true);
     scrolledComposite.setExpandVertical(true);
     scrolledComposite.addControlListener(new ControlAdapter() {
@@ -168,9 +172,9 @@ public class GalleryDemo implements EntryPoint {
     GridDataFactory.fillDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).applyTo( imageArea );
     imageArea.setBackground(parent.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     imageArea.setLayout( new FillLayout() );
-  
+
     zoomImageLabel = new Label( imageArea, SWT.NONE );
-    zoomImageLabel.setData( RWT.CUSTOM_VARIANT, "ZOOM" );
+    onLabel( zoomImageLabel ).useZoom();
     zoomImageLabel.addMouseListener( new MouseAdapter() {
       @Override
       public void mouseDown( MouseEvent e ) {
@@ -178,7 +182,7 @@ public class GalleryDemo implements EntryPoint {
       }
     } );
   }
-  
+
   private void populateWithImages() {
     List<String> images = new ArrayList<String>();
     images.add("catseye");
@@ -207,10 +211,10 @@ public class GalleryDemo implements EntryPoint {
               + imageName + "_thumb.jpg"));
       final Label thumbLabel = new Label(thumbnailsComposite, SWT.NONE);
       thumbLabel.setImage(thumbImage);
+      onLabel( thumbLabel ).showLocalTouch();
       thumbLabel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseUp(MouseEvent e) {
-//          hideThumbnails();
           Image fullImage = imageCache.get(imageName);
           if (fullImage == null) {
             fullImage = new Image(thumbLabel.getDisplay(),

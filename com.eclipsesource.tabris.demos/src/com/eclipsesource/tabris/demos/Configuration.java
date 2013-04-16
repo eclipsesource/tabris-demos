@@ -9,9 +9,8 @@ package com.eclipsesource.tabris.demos;
 
 import org.eclipse.rap.rwt.application.Application;
 import org.eclipse.rap.rwt.application.ApplicationConfiguration;
-import org.osgi.framework.FrameworkUtil;
 
-import com.eclipsesource.tabris.Bootstrapper;
+import com.eclipsesource.tabris.TabrisClientInstaller;
 import com.eclipsesource.tabris.demos.entrypoints.AppEventsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.AppLauncherDemo;
 import com.eclipsesource.tabris.demos.entrypoints.ButtonControlsDemo;
@@ -22,6 +21,7 @@ import com.eclipsesource.tabris.demos.entrypoints.GalleryDemo;
 import com.eclipsesource.tabris.demos.entrypoints.GeolocationDemo;
 import com.eclipsesource.tabris.demos.entrypoints.InputControlsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.KeyboardDemo;
+import com.eclipsesource.tabris.demos.entrypoints.ScrollDemo;
 import com.eclipsesource.tabris.demos.entrypoints.SimpleTreeDemo;
 import com.eclipsesource.tabris.demos.entrypoints.SwipeDemo;
 import com.eclipsesource.tabris.demos.entrypoints.UiDemo;
@@ -47,12 +47,10 @@ public class Configuration implements ApplicationConfiguration {
     application.addEntryPoint( "/swipe", SwipeDemo.class, null );
     application.addEntryPoint( "/ui", new UiDemo(), null );
     application.addEntryPoint( "/device", ClientDeviceDemo.class, null );
+    application.addEntryPoint( "/scroll", ScrollDemo.class, null );
   }
 
   private void bootstrapTabris( Application application ) {
-    Bootstrapper bootstrapper = new Bootstrapper( application );
-    bootstrapper.bootstrap();
-    bootstrapper.registerEntryPointLookup( FrameworkUtil.getBundle( Configuration.class ),
-                                           "/index.json" );
+    TabrisClientInstaller.install( application );
   }
 }

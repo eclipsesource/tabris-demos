@@ -7,169 +7,197 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
+
+import com.eclipsesource.tabris.demos.button.Questions;
+import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class ButtonControlsDemo implements EntryPoint {
 
-  private Label sideLabel;
+  private Questions questions;
+  private Button buttonA;
+  private Button buttonB;
+  private Button buttonC;
+  private Button buttonNext;
+  private Button buttonPrevious;
+  private Label labelQuestion;
 
   public int createUI() {
     Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized( true );
-    shell.setLayout( new FillLayout() );
+    GridLayoutFactory.fillDefaults().applyTo( shell );
     shell.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
-    createContent( display, shell );
+    createToolbar( shell );
+    createContent( shell );
+    createNavigation( shell );
     shell.open();
-    shell.setVisible( true );
+    reset();
     return 0;
   }
 
-  private void createContent( Display display, Shell shell ) {
-    Composite parent = new Composite( shell, SWT.NONE );
-    parent.setBackground( display.getSystemColor( SWT.COLOR_BLACK ) );
-    GridLayout layout
-      = GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( true ).margins( 15, 15 ).spacing( 5, 5 ).create();
-    parent.setLayout( layout );
-    GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, false );
-    layoutData.horizontalSpan = 2;
-    createWinterSummerButtons( display, parent, layoutData );
-    createDirectionButtons( display, parent, layoutData );
-    createCheckButton( display, parent );
-  }
-
-  private void createCheckButton( Display display, Composite parent ) {
-    Composite container2 = new Composite( parent, SWT.NONE );
-    GridData container2Data = new GridData( SWT.FILL, SWT.FILL, true, false );
-    container2Data.horizontalSpan = 2;
-    container2Data.verticalIndent = 30;
-    container2.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    container2.setBackground( display.getSystemColor( SWT.COLOR_DARK_GREEN ) );
-    container2.setLayoutData( container2Data );
-    GridLayout layout
-      = GridLayoutFactory.fillDefaults().equalWidth( true ).margins( 15, 15 ).spacing( 5, 5 ).create();
-    container2.setLayout( layout );
-    final Button check = new Button( container2, SWT.CHECK );
-    check.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    check.setText( "From Kings Landing?" );
-    check.addSelectionListener( new SelectionAdapter() {
-
+  private void createToolbar( Composite parent ) {
+    ToolBar toolBar = new ToolBar( parent, SWT.NONE );
+    GridDataFactory.fillDefaults().grab( true, false ).align( SWT.FILL, SWT.TOP ).applyTo( toolBar );
+    
+    ToolItem titleItem = new ToolItem( toolBar, SWT.NONE );
+    Widgets.onToolItem( titleItem ).useAsTitle();
+    titleItem.setText( "You don't know that?" );
+    
+    ToolItem resetItem = new ToolItem( toolBar, SWT.PUSH );
+    resetItem.setText( "Restart" );
+    resetItem.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        if( check.getSelection() ) {
-          check.setText( "The wall is far away!" );
-        } else {
-          check.setText( "From Kings Landing?" );
+        reset();
+        updateUI();
+      }
+    } );
+  }
+  
+  private void createContent( Composite parent ) {
+    Composite content = new Composite( parent, SWT.NONE );
+    GridDataFactory.fillDefaults().grab( true, true ).align( SWT.FILL, SWT.FILL ).applyTo( content );
+    GridLayoutFactory.fillDefaults().margins( 16, 16 ).applyTo( content );
+    createQuestion( content );
+    createAnswers( content );
+  }
+
+  public void createQuestion( Composite parent ) {
+    labelQuestion = new Label( parent, SWT.WRAP | SWT.CENTER );
+    GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).applyTo( labelQuestion );
+    FontDescriptor labelFontDescriptor = FontDescriptor.createFrom( labelQuestion.getFont() );
+    FontDescriptor bigFontDescriptor = labelFontDescriptor.setStyle( SWT.BOLD ).increaseHeight( 7 );
+    labelQuestion.setFont( bigFontDescriptor.createFont( parent.getDisplay() ) );
+    labelQuestion.setForeground( new Color( parent.getDisplay(), 219, 219, 219 ) );
+  }
+  
+  private void createAnswers( Composite parent ) {
+    Composite result = new Composite( parent, SWT.NONE );
+    GridDataFactory.fillDefaults().grab( true, true ).align( SWT.FILL, SWT.FILL ).applyTo( result );
+    GridLayoutFactory.fillDefaults().applyTo( result );
+    buttonA = createAnswerButton( result, new RGB(43, 232, 105) );
+    buttonB = createAnswerButton( result, new RGB(182, 107, 153) );
+    buttonC = createAnswerButton( result, new RGB(225, 134, 87) );    
+  }
+
+  private Button createAnswerButton( Composite result, RGB color ) {
+    final Button button = new Button( result, SWT.RADIO | SWT.WRAP );
+    button.setForeground( new Color( button.getDisplay(), color ) );
+    button.addSelectionListener( new SelectionAdapter() {
+      @Override
+      public void widgetSelected( SelectionEvent e ) {
+        if( button.getSelection() ) {
+          answerSelected( button.getText() );
         }
       }
     } );
+    return button;
   }
 
-  private void createDirectionButtons( Display display, Composite parent, GridData layoutData ) {
-    Composite container = new Composite( parent, SWT.NONE );
-    container.setBackground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    GridData gridData = new GridData( SWT.FILL, SWT.FILL, true, false );
-    gridData.horizontalSpan = 2;
-    gridData.verticalIndent = 30;
-    container.setLayoutData( gridData );
-    GridLayout layout
-      = GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( false ).margins( 5, 5 ).spacing( 5, 5 ).create();
-    container.setLayout( layout );
-    Button northButton = new Button( container, SWT.RADIO );
-    northButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
-    northButton.setText( "North" );
-    Button eastButton = new Button( container, SWT.RADIO );
-    eastButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
-    eastButton.setText( "East" );
-    Button southButton = new Button( container, SWT.RADIO );
-    southButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
-    southButton.setText( "South" );
-    Button westButton = new Button( container, SWT.RADIO );
-    westButton.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
-    westButton.setText( "West" );
-    sideLabel = new Label( container, SWT.NONE );
-    sideLabel.setLayoutData( layoutData );
-    sideLabel.setForeground( display.getSystemColor( SWT.COLOR_BLACK ) );
-    addSelectionListener( northButton );
-    addSelectionListener( eastButton );
-    addSelectionListener( southButton );
-    addSelectionListener( westButton );
-    northButton.setSelection( true );
-    Event event = new Event();
-    event.widget = northButton;
-    northButton.notifyListeners( SWT.Selection, event );
+  private void createNavigation( Composite parent ) {
+    Composite navigation = new Composite( parent, SWT.NONE );
+    GridDataFactory.fillDefaults().grab( true, false ).align( SWT.FILL, SWT.FILL ).applyTo( navigation );
+    GridLayoutFactory.fillDefaults().numColumns( 2 ).margins( 8, 8 ).equalWidth( true ).applyTo( navigation );
+    
+    createNavigationPrevious( navigation );
+    createNavigationNext( navigation );
   }
 
-  private void addSelectionListener( Button button ) {
-    SelectionAdapter selectionAdapter = new SelectionAdapter() {
-
+  public void createNavigationNext( Composite parent ) {
+    buttonNext = new Button( parent, SWT.PUSH );
+    buttonNext.setText( "Next Question" );
+    GridDataFactory.fillDefaults().grab( true, true ).align( SWT.END, SWT.END ).applyTo( buttonNext);
+    buttonNext.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        Button widget = ( Button )e.widget;
-        sideLabel.setText( "Arrh, a man from the " + widget.getText() );
-      }
-    };
-    button.addSelectionListener( selectionAdapter );
-  }
-
-  private void createWinterSummerButtons( Display display, Composite parent, GridData layoutData ) {
-    final Label label = new Label( parent, SWT.NONE );
-    label.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    label.setText( "Winter is coming!" );
-    FontData fontData = new FontData();
-    fontData.setStyle( SWT.BOLD );
-    fontData.setHeight( 24 );
-    label.setFont( new Font( display, fontData ) );
-    GridData labelLayoutData = new GridData( SWT.CENTER, SWT.FILL, true, false );
-    labelLayoutData.horizontalSpan = 2;
-    label.setLayoutData( labelLayoutData );
-    final Button winterButton = new Button( parent, SWT.PUSH );
-    winterButton.setBackground( new Color( display, new RGB( 215, 215, 215 ) ) );
-    winterButton.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    winterButton.setText( "Winter" );
-    winterButton.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, false ) );
-    final Button summerButton = new Button( parent, SWT.PUSH );
-    summerButton.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, false ) );
-    summerButton.setBackground( new Color( display, new RGB( 255, 191, 47 ) ) );
-    summerButton.setForeground( display.getSystemColor( SWT.COLOR_WHITE ) );
-    summerButton.setText( "Summer" );
-    winterButton.setEnabled( false );
-    winterButton.addSelectionListener( new SelectionAdapter() {
-
-      @Override
-      public void widgetSelected( SelectionEvent e ) {
-        label.setText( "Winter is coming!" );
-        winterButton.setEnabled( false );
-        summerButton.setEnabled( true );
-        label.getParent().layout( true, true );
-      }
-    } );
-    summerButton.addSelectionListener( new SelectionAdapter() {
-
-      @Override
-      public void widgetSelected( SelectionEvent e ) {
-        label.setText( "And it's summer again..." );
-        winterButton.setEnabled( true );
-        summerButton.setEnabled( false );
-        label.getParent().layout( true, true );
+        next();
       }
     } );
   }
+
+  public void createNavigationPrevious( Composite parent ) {
+    buttonPrevious = new Button( parent, SWT.PUSH );
+    buttonPrevious.setText( "Last Question" );
+    GridDataFactory.fillDefaults().grab( true, true ).align( SWT.BEGINNING, SWT.END ).applyTo( buttonPrevious );
+    buttonPrevious.addSelectionListener( new SelectionAdapter() {
+      @Override
+      public void widgetSelected( SelectionEvent e ) {
+        previous();
+      }
+    } );
+  }
+
+  /**
+   * Update UI state
+   */
+  
+  protected void answerSelected( String answer ) {
+    String currentQuestion = questions.getCurrentQuestion();
+    boolean correct = questions.isCorrect( currentQuestion, answer );
+    if( correct ) {
+      buttonNext.setBackground( buttonNext.getDisplay().getSystemColor( SWT.COLOR_DARK_GREEN ) );
+    } else {
+      buttonNext.setBackground( buttonNext.getDisplay().getSystemColor( SWT.COLOR_DARK_RED ) );
+    }
+    buttonNext.setEnabled( correct && questions.hasNextQuestion() );
+  }
+
+  private void updateUI() {
+    String currentQuestion = questions.getCurrentQuestion();
+    labelQuestion.setText( currentQuestion );
+    labelQuestion.getParent().layout();
+    String[] answers = questions.getAnswers( currentQuestion );
+    buttonA.setText( answers[0] );
+    buttonB.setText( answers[1] );
+    buttonC.setText( answers[2] );
+    buttonA.getParent().layout();
+    buttonPrevious.setEnabled( questions.hasPreviousQuestion() );
+    buttonNext.setEnabled( false );
+    buttonNext.setBackground( buttonNext.getDisplay().getSystemColor( SWT.COLOR_DARK_GRAY ) );
+  }
+
+  /**
+   * Navigate the Questions
+   */
+  
+  private void previous() {
+    questions.getPreviousQuestion();
+    resetButtons();
+    updateUI();
+  }
+  
+  protected void next() {
+    questions.getNextQuestion();
+    resetButtons();
+    updateUI();
+  }
+
+  private void resetButtons() {
+    buttonA.setSelection( false );
+    buttonB.setSelection( false );
+    buttonC.setSelection( false );
+  }
+
+  private void reset() {
+    questions = new Questions();
+    updateUI();
+    resetButtons();
+  }
+  
 }

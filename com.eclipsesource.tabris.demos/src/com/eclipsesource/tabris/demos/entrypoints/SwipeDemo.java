@@ -18,7 +18,6 @@ import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
@@ -26,8 +25,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
-import com.eclipsesource.tabris.TabrisClient;
 import com.eclipsesource.tabris.demos.swipe.DictionarySwipeItemProvider;
+import com.eclipsesource.tabris.device.ClientDevice;
+import com.eclipsesource.tabris.device.ClientDevice.Platform;
 import com.eclipsesource.tabris.widgets.swipe.Swipe;
 
 public class SwipeDemo implements EntryPoint {
@@ -35,7 +35,8 @@ public class SwipeDemo implements EntryPoint {
   public int createUI() {
     Display display = new Display();
     final Shell shell = createShell( display );
-    if( RWT.getClient() instanceof TabrisClient ) {
+    ClientDevice device = RWT.getClient().getService( ClientDevice.class );
+    if( device != null && device.getPlatform() != Platform.WEB ) {
       createToolBar( shell );
       Composite container = createParentComposite( shell );
       createSwipeWidget( container );
@@ -48,11 +49,8 @@ public class SwipeDemo implements EntryPoint {
 
   private Composite createParentComposite( final Shell shell ) {
     Composite comp = new Composite( shell, SWT.NONE );
-    GridLayout compLayout = new GridLayout( 1, false );
-    compLayout.marginWidth = 16;
-    compLayout.horizontalSpacing = 16;
-    comp.setLayout( compLayout );
-    comp.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
+    GridLayoutFactory.fillDefaults().applyTo( comp );
+    GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).applyTo( comp );
     return comp;
   }
 
@@ -65,7 +63,7 @@ public class SwipeDemo implements EntryPoint {
 
   private void createToolBar( final Composite parent ) {
     ToolBar toolBar = new ToolBar( parent, SWT.NONE );
-    toolBar.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
+    GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).applyTo( toolBar );
     ToolItem toolItem = new ToolItem( toolBar, SWT.NONE );
     toolItem.setText( "Klingon Lessons" );
     onToolItem( toolItem ).useAsTitle();

@@ -7,11 +7,11 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import static com.eclipsesource.tabris.ClientDevice.Capability.CAMERA;
-import static com.eclipsesource.tabris.ClientDevice.Capability.LOCATION;
-import static com.eclipsesource.tabris.ClientDevice.Capability.MAPS;
-import static com.eclipsesource.tabris.ClientDevice.Capability.MESSAGE;
-import static com.eclipsesource.tabris.ClientDevice.Capability.PHONE;
+import static com.eclipsesource.tabris.device.ClientDevice.Capability.CAMERA;
+import static com.eclipsesource.tabris.device.ClientDevice.Capability.LOCATION;
+import static com.eclipsesource.tabris.device.ClientDevice.Capability.MAPS;
+import static com.eclipsesource.tabris.device.ClientDevice.Capability.MESSAGE;
+import static com.eclipsesource.tabris.device.ClientDevice.Capability.PHONE;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,8 +35,11 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import com.eclipsesource.tabris.ClientDevice;
-import com.eclipsesource.tabris.ClientDevice.Capability;
+import com.eclipsesource.tabris.device.ClientDevice;
+import com.eclipsesource.tabris.device.ClientDevice.Capability;
+import com.eclipsesource.tabris.device.ClientDevice.ConnectionType;
+import com.eclipsesource.tabris.device.ClientDevice.Orientation;
+import com.eclipsesource.tabris.device.ClientDeviceAdapter;
 
 public class ClientDeviceDemo implements EntryPoint {
 
@@ -49,14 +52,21 @@ public class ClientDeviceDemo implements EntryPoint {
     ScrolledComposite scrolledComposite = createScrolledComposite( shell );
     Composite container = new Composite( scrolledComposite, SWT.NONE );
     addResizeListener( scrolledComposite, container );
-    container.setLayout( GridLayoutFactory.fillDefaults().margins( 0, 0 ).spacing( 0, 0 ).equalWidth( false ).create() );
+    container.setLayout( GridLayoutFactory.fillDefaults()
+      .margins( 0, 0 )
+      .spacing( 0, 0 )
+      .equalWidth( false )
+      .create() );
     createContent( clientDevice, scrolledComposite, container );
     shell.layout( true, true );
     shell.open();
     return 0;
   }
 
-  private void createContent( ClientDevice clientDevice, ScrolledComposite scrolledComposite, Composite container ) {
+  private void createContent( ClientDevice clientDevice,
+                              ScrolledComposite scrolledComposite,
+                              Composite container )
+  {
     createDateTimeGroup( container, clientDevice );
     createCapabilityGroup( container, clientDevice );
     createOrientationGroup( container, clientDevice );
@@ -73,12 +83,12 @@ public class ClientDeviceDemo implements EntryPoint {
 
   private void createDateTimeGroup( Composite parent, ClientDevice clientDevice ) {
     Group group = createGroup( parent, "Timezone Offset" );
-    int timezoneOffset = clientDevice.getTimezoneOffset();
+    int timezone = clientDevice.getTimezoneOffset() * -1;
     SimpleDateFormat formatter = new SimpleDateFormat();
     createLabel( group, "Server Time" ).setText( formatter.format( new Date() ) );
-    formatter.setTimeZone( TimeZone.getTimeZone( TimeZone.getAvailableIDs( timezoneOffset * 1000 * 60 )[ 0 ] ) );
+    formatter.setTimeZone( TimeZone.getTimeZone( TimeZone.getAvailableIDs( timezone * 1000 * 60 )[ 0 ] ) );
     createLabel( group, "Client Time" ).setText( formatter.format( new Date() ) );
-    createLabel( group, "Client UTC Offset" ).setText( timezoneOffset + " Minutes" );
+    createLabel( group, "Client UTC Offset" ).setText( timezone + " Minutes" );
   }
 
   private void createCapabilityGroup( Composite parent, ClientDevice clientDevice ) {
@@ -91,46 +101,79 @@ public class ClientDeviceDemo implements EntryPoint {
   }
 
   private String getHasCapabilityString( ClientDevice clientDevice, Capability capability ) {
-    return clientDevice.hasCapability( capability ) ? "✓" : "-";
+    return clientDevice.hasCapability( capability )
+                                                   ? "✓"
+                                                   : "-";
   }
 
   private void createConnectionTypeGroup( Composite parent, ClientDevice clientDevice ) {
     Group group = createGroup( parent, "Connection Type" );
-    Label labelConnectionType = createLabel( group, "Type" );
-    labelConnectionType.setText( clientDevice.getConnectionType().toString() );
+    final Label label = createLabel( group, "Type" );
+    label.setText( clientDevice.getConnectionType().toString() );
+    clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
 
+      @Override
+      public void connectionTypeChanged( ConnectionType newConnectionType ) {
+        label.setText( newConnectionType.toString() );
+        label.pack();
+      }
+    } );
   }
 
   private void createOrientationGroup( Composite parent, ClientDevice clientDevice ) {
     Group group = createGroup( parent, "Device Orientation" );
-    Label labelOrientation = createLabel( group, "Orientation" );
-    labelOrientation.setText( clientDevice.getOrientation().toString() );
+    final Label label = createLabel( group, "Orientation" );
+    label.setText( clientDevice.getOrientation().toString() );
+    clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
+
+      @Override
+      public void orientationChange( Orientation newOrientation ) {
+        label.setText( newOrientation.toString() );
+        label.pack();
+      }
+    } );
   }
 
   private Label createLabel( Composite parent, String text ) {
     Label label = new Label( parent, SWT.NONE );
     label.setText( text );
-    label.setLayoutData( GridDataFactory.fillDefaults().align( SWT.LEFT, SWT.CENTER ).grab( false, true ).create() );
+    label.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.LEFT, SWT.CENTER )
+      .grab( false, true )
+      .create() );
     Label resultLabel = new Label( parent, SWT.NONE );
-    resultLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
+    resultLabel.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.TOP )
+      .grab( true, false )
+      .create() );
     resultLabel.setFont( new Font( label.getDisplay(), new FontData( "Verdana", 16, SWT.BOLD ) ) );
     return resultLabel;
   }
 
   private Group createGroup( Composite parent, String title ) {
     Group group = new Group( parent, SWT.NONE );
-    GridLayout gridLayout = GridLayoutFactory.fillDefaults().numColumns( 2 ).margins( 0, 0 )
-                            .spacing( 0, 0 ).equalWidth( false ).create();
+    GridLayout gridLayout = GridLayoutFactory.fillDefaults()
+      .numColumns( 2 )
+      .margins( 0, 0 )
+      .spacing( 0, 0 )
+      .equalWidth( false )
+      .create();
     gridLayout.horizontalSpacing = 12;
     gridLayout.verticalSpacing = 4;
     group.setLayout( gridLayout );
-    group.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
+    group.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.TOP )
+      .grab( true, false )
+      .create() );
     group.setText( title );
     return group;
   }
 
-  private void addResizeListener( final ScrolledComposite scrolledComposite, final Composite container ) {
+  private void addResizeListener( final ScrolledComposite scrolledComposite,
+                                  final Composite container )
+  {
     container.addControlListener( new ControlAdapter() {
+
       int storedWidth = 0;
 
       @Override

@@ -17,12 +17,13 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
-import com.eclipsesource.tabris.ui.Page;
-import com.eclipsesource.tabris.ui.UIContext;
+import com.eclipsesource.tabris.ui.AbstractPage;
+import com.eclipsesource.tabris.ui.PageData;
 
-public class SettingsPage implements Page {
+public class SettingsPage extends AbstractPage {
 
-  public void create( Composite parent, UIContext context ) {
+  @Override
+  public void createContent( Composite parent, PageData data ) {
     Composite container = new Composite( parent, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
     Label textLabel = new Label( container, SWT.CENTER );
@@ -31,11 +32,13 @@ public class SettingsPage implements Page {
     textLabel.setText( "Settings" );
   }
 
-  public void activate( UIContext context ) {
-    context.getActionManager().setActionVisible( SettingsAction.class.getName(), false );
+  @Override
+  public void activate() {
+    setActionVisible( SettingsAction.class.getName(), false );
   }
 
-  public void deactivate( UIContext context ) {
-    context.getActionManager().setActionVisible( SettingsAction.class.getName(), true );
+  @Override
+  public void deactivate() {
+    setActionVisible( SettingsAction.class.getName(), true );
   }
 }

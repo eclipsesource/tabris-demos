@@ -32,8 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.swt.graphics.Image;
-
-import com.eclipsesource.tabris.ui.UIContext;
+import org.eclipse.swt.widgets.Display;
 
 
 public class BookProvider {
@@ -67,15 +66,15 @@ public class BookProvider {
     return data;
   }
 
-  public static List<Book> getBooks( UIContext context ) {
+  public static List<Book> getBooks( Display display ) {
     List<Book> books = new ArrayList<Book>();
-    Book bookSchroder = createBook( context, bookData.get( BOOK_GAIGE ) );
-    Book bookAfterVisiting = createBook( context, bookData.get( BOOK_HAINY ) ).setFavourite( true );
-    Book bookVampires = createBook( context, bookData.get( BOOK_RUSSEL ) ).setFavourite( true );
-    Book bookHistory = createBook( context, bookData.get( BOOK_BROOK ) ).setFavourite( true ).setPopular( true );
-    Book bookAutobiography = createBook( context, bookData.get( BOOK_SLOSS ) ).setPopular( true );
-    Book bookLiteratur = createBook( context, bookData.get( BOOK_SHIELDS ) ).setPopular( true );
-    Book bookDinner = createBook( context, bookData.get( BOOK_KOCH ) ).setPopular( true );
+    Book bookSchroder = createBook( display, bookData.get( BOOK_GAIGE ) );
+    Book bookAfterVisiting = createBook( display, bookData.get( BOOK_HAINY ) ).setFavourite( true );
+    Book bookVampires = createBook( display, bookData.get( BOOK_RUSSEL ) ).setFavourite( true );
+    Book bookHistory = createBook( display, bookData.get( BOOK_BROOK ) ).setFavourite( true ).setPopular( true );
+    Book bookAutobiography = createBook( display, bookData.get( BOOK_SLOSS ) ).setPopular( true );
+    Book bookLiteratur = createBook( display, bookData.get( BOOK_SHIELDS ) ).setPopular( true );
+    Book bookDinner = createBook( display, bookData.get( BOOK_KOCH ) ).setPopular( true );
     relate( bookVampires, bookAfterVisiting );
     relate( bookVampires, bookAutobiography );
     relate( bookSchroder, bookAfterVisiting );
@@ -92,8 +91,8 @@ public class BookProvider {
     return books;
   }
 
-  private static Book createBook( UIContext context, BookData data ) {
-    Image image = new Image( context.getDisplay(), BookStoreConfiguration.class.getResourceAsStream( data.imagePath ) );
+  private static Book createBook( Display display, BookData data ) {
+    Image image = new Image( display, BookProvider.class.getResourceAsStream( data.imagePath ) );
     return new Book( data.title, data.author, image );
   }
 

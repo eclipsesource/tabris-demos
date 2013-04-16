@@ -8,6 +8,7 @@
 package com.eclipsesource.tabris.demos.entrypoints;
 
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -24,9 +25,8 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 import com.eclipsesource.tabris.camera.Camera;
-import com.eclipsesource.tabris.camera.CameraCallback;
+import com.eclipsesource.tabris.camera.CameraListener;
 import com.eclipsesource.tabris.camera.CameraOptions;
-import com.eclipsesource.tabris.camera.CameraOptions.SourceType;
 import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class CameraDemo implements EntryPoint {
@@ -40,9 +40,23 @@ public class CameraDemo implements EntryPoint {
     Composite comp = createMainComp( shell );
     createImageLabel( comp );
     createCameraButton( comp, imageLabel );
-    createGalleryButton( comp, imageLabel );
+    initCamera();
     shell.open();
     return 0;
+  }
+
+  private void initCamera() {
+    Camera camera = RWT.getClient().getService( Camera.class );
+    camera.addCameraListener( new CameraListener() {
+
+      public void receivedPicture( Image image ) {
+        if( image == null ) {
+          imageLabel.setText( "Could not provide image from camera" );
+        } else {
+          imageLabel.setImage( image );
+        }
+      }
+    } );
   }
 
   private Shell createShell( Display display ) {
@@ -57,7 +71,10 @@ public class CameraDemo implements EntryPoint {
 
   private void createToolBar( final Composite parent ) {
     ToolBar toolBar = new ToolBar( parent, SWT.NONE );
-    toolBar.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
+    toolBar.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.TOP )
+      .grab( true, false )
+      .create() );
     ToolItem toolItem = new ToolItem( toolBar, SWT.NONE );
     toolItem.setText( "Camera Demo" );
     Widgets.onToolItem( toolItem ).useAsTitle();
@@ -68,75 +85,40 @@ public class CameraDemo implements EntryPoint {
     GridLayout compLayout = new GridLayout( 1, false );
     compLayout.horizontalSpacing = 16;
     comp.setLayout( compLayout );
-    comp.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
+    comp.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.FILL )
+      .grab( true, true )
+      .create() );
     return comp;
   }
 
-  private Camera createGalleryCamera() {
-    CameraOptions galleryOptions = new CameraOptions();
-    galleryOptions.setSourceType( SourceType.PHOTO_LIBRARY );
-    Rectangle bounds = imageLabel.getBounds();
-    galleryOptions.setResolution( bounds.width, bounds.height );
-    return new Camera( galleryOptions );
-  }
-
-  private Camera createPhotoCamera() {
+  private CameraOptions createPhotoCameraOptions() {
     CameraOptions photosOptions = new CameraOptions();
-    photosOptions.setSourceType( SourceType.CAMERA );
     Rectangle bounds = imageLabel.getBounds();
     photosOptions.setResolution( bounds.width, bounds.height );
-    return new Camera( photosOptions );
+    return photosOptions;
   }
 
   private void createImageLabel( Composite comp ) {
     imageLabel = new Label( comp, SWT.NONE );
-    imageLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
+    imageLabel.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.FILL )
+      .grab( true, true )
+      .create() );
   }
 
   private void createCameraButton( Composite comp, final Label imageLabel ) {
     Button cameraButton = new Button( comp, SWT.PUSH );
     cameraButton.setText( "Take photo with camera" );
-    cameraButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
+    cameraButton.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.TOP )
+      .grab( true, false )
+      .create() );
     cameraButton.addListener( SWT.Selection, new Listener() {
 
       public void handleEvent( Event event ) {
-        final Camera photoCamera = createPhotoCamera();
-        photoCamera.takePicture( new CameraCallback() {
-
-          public void onSuccess( Image image ) {
-            imageLabel.setImage( image );
-            photoCamera.dispose();
-          }
-
-          public void onError() {
-            imageLabel.setText( "Could not provide image from camera" );
-            photoCamera.dispose();
-          }
-        } );
-      }
-    } );
-  }
-
-  private void createGalleryButton( Composite comp, final Label imageLabel ) {
-    Button galleryButton = new Button( comp, SWT.PUSH );
-    galleryButton.setText( "Select image from gallery" );
-    galleryButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
-    galleryButton.addListener( SWT.Selection, new Listener() {
-
-      public void handleEvent( Event event ) {
-        final Camera galleryCamera = createGalleryCamera();
-        galleryCamera.takePicture( new CameraCallback() {
-
-          public void onSuccess( Image image ) {
-            imageLabel.setImage( image );
-            galleryCamera.dispose();
-          }
-
-          public void onError() {
-            imageLabel.setText( "Could not provide image from gallery" );
-            galleryCamera.dispose();
-          }
-        } );
+        Camera photoCamera = RWT.getClient().getService( Camera.class );
+        photoCamera.takePicture( createPhotoCameraOptions() );
       }
     } );
   }

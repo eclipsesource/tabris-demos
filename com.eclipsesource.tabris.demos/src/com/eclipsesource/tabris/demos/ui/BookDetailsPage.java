@@ -27,12 +27,11 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 
-import com.eclipsesource.tabris.Store;
-import com.eclipsesource.tabris.ui.Page;
-import com.eclipsesource.tabris.ui.UIContext;
+import com.eclipsesource.tabris.ui.AbstractPage;
+import com.eclipsesource.tabris.ui.PageData;
 
-@SuppressWarnings("serial")
-public class BookDetailsPage implements Page {
+
+public class BookDetailsPage extends AbstractPage {
 
   private Label titleLabel;
   private Label authorLabel;
@@ -40,40 +39,41 @@ public class BookDetailsPage implements Page {
   private TreeViewer relatedTreeViewer;
   private Composite bookDetailsComposite;
 
-  public void create( Composite parent, UIContext context ) {
+  @Override
+  public void createContent( Composite parent, PageData data ) {
     Composite container = new Composite( parent, SWT.NONE );
     container.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
     container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
     createBookDetailsComposite( container );
-    createRelatedBooks( container, context );
-    createRelatedList( container, context );
-    populatePage( context );
+    createRelatedBooks( container );
+    createRelatedList( container );
+    populatePage( data );
   }
 
-  private void populatePage( final UIContext context ) {
-    Book book = context.getPageManager().getPageStore().get( BOOK_ITEM, Book.class );
-    context.setTitle( book.getTitle() );
+  private void populatePage( PageData data ) {
+    Book book = data.get( BOOK_ITEM, Book.class );
+    setTitle( book.getTitle() );
     titleLabel.setText( book.getTitle() );
     authorLabel.setText( book.getAuthor() );
     imageLabel.setImage( book.getImage() );
     relatedTreeViewer.setInput( book.getRelated() );
-    addGroupedEventsListener( context, book );
+    addGroupedEventsListener( book );
   }
 
-  private void addGroupedEventsListener( final UIContext context, final Book book ) {
+  private void addGroupedEventsListener( final Book book ) {
     onComposite( bookDetailsComposite ).addGroupedListener( SWT.MouseUp, new Listener() {
 
       public void handleEvent( Event event ) {
-        Store readStore = new Store();
-        readStore.add( ReadBookPage.BOOK_ITEM, book );
-        context.getPageManager().showPage( ReadBookPage.class.getName(), readStore );
+        PageData readData = new PageData();
+        readData.set( ReadBookPage.BOOK_ITEM, book );
+        openPage( ReadBookPage.class.getName(), readData );
       }
     } );
   }
 
   private void createBookDetailsComposite( Composite parent ) {
     createBookComposite( parent );
-    createBooImage();
+    createBookImage();
     createBookTitle();
     createBookAuthor();
   }
@@ -92,7 +92,7 @@ public class BookDetailsPage implements Page {
     bookDetailsComposite.setLayout( layout );
   }
 
-  private void createBooImage() {
+  private void createBookImage() {
     imageLabel = new Label( bookDetailsComposite, SWT.WRAP );
     imageLabel.setForeground( bookDetailsComposite.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     GridData gridData = new GridData( SWT.FILL, SWT.FILL, false, false );
@@ -113,10 +113,10 @@ public class BookDetailsPage implements Page {
     authorLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
   }
 
-  private void createRelatedBooks( Composite parent, UIContext context ) {
+  private void createRelatedBooks( Composite parent ) {
     Composite relatedBooksComposite = createRelatedTitleComposite( parent );
-    createRelatedBooksTitle( context, relatedBooksComposite );
-    createLine( context, relatedBooksComposite );
+    createRelatedBooksTitle( relatedBooksComposite );
+    createLine( relatedBooksComposite );
   }
 
   private Composite createRelatedTitleComposite( Composite parent ) {
@@ -131,33 +131,35 @@ public class BookDetailsPage implements Page {
     return composite;
   }
 
-  private void createRelatedBooksTitle( UIContext context, Composite composite ) {
+  private void createRelatedBooksTitle( Composite composite ) {
     Label relatedBooksLabel = new Label( composite, SWT.NONE );
     relatedBooksLabel.setText( "Related Books" );
     relatedBooksLabel.setFont( getFontRegistry().get( RELATED_BOOKS_FONT ) );
-    relatedBooksLabel.setForeground( context.getDisplay().getSystemColor( SWT.COLOR_DARK_GRAY ) );
+    relatedBooksLabel.setForeground( composite.getDisplay().getSystemColor( SWT.COLOR_DARK_GRAY ) );
     GridData layoutData = new GridData( SWT.FILL, SWT.TOP, true, false );
     layoutData.horizontalIndent = 6;
     relatedBooksLabel.setLayoutData( layoutData );
   }
 
-  private void createLine( UIContext context, Composite composite ) {
+  private void createLine( Composite composite ) {
     Label line = new Label( composite, SWT.NONE );
-    line.setBackground( context.getDisplay().getSystemColor( SWT.COLOR_GRAY ) );
+    line.setBackground( composite.getDisplay().getSystemColor( SWT.COLOR_GRAY ) );
     GridData layoutData = new GridData( SWT.FILL, SWT.TOP, true, false );
     layoutData.heightHint = 1;
     line.setLayoutData( layoutData );
   }
 
-  private void createRelatedList( Composite parent, UIContext context ) {
-    relatedTreeViewer = BooksListPage.createTreeViewer( context, parent );
+  private void createRelatedList( Composite parent ) {
+    relatedTreeViewer = BooksListPage.createTreeViewer( this, parent );
   }
 
-  public void activate( final UIContext context ) {
+  @Override
+  public void activate() {
     // nothing to do here
   }
 
-  public void deactivate( UIContext context ) {
+  @Override
+  public void deactivate() {
     // nothing to do here
   }
 }
