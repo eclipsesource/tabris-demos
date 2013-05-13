@@ -10,7 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
-import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SEARCH;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SETTINGS;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SHARE;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_THEME;
@@ -25,11 +24,11 @@ import org.eclipse.rap.rwt.application.EntryPointFactory;
 
 import com.eclipsesource.tabris.demos.ui.AllBooksPage;
 import com.eclipsesource.tabris.demos.ui.BookDetailsPage;
+import com.eclipsesource.tabris.demos.ui.BookSearchAction;
 import com.eclipsesource.tabris.demos.ui.ChangeThemeAction;
 import com.eclipsesource.tabris.demos.ui.FavouriteBooksPage;
 import com.eclipsesource.tabris.demos.ui.PopularBooksPage;
 import com.eclipsesource.tabris.demos.ui.ReadBookPage;
-import com.eclipsesource.tabris.demos.ui.SearchAction;
 import com.eclipsesource.tabris.demos.ui.SettingsAction;
 import com.eclipsesource.tabris.demos.ui.SettingsPage;
 import com.eclipsesource.tabris.demos.ui.ShareAction;
@@ -65,9 +64,7 @@ public class UiDemo implements EntryPointFactory {
     page.setTitle( "All Books" );
     page.setImage( getImage( IMAGE_PAGE_ALL_BOOKS ) );
     page.setTopLevel( true );
-    ActionConfiguration action = new ActionConfiguration( SearchAction.class.getName(), SearchAction.class );
-    action.setImage( getImage( IMAGE_ACTION_SEARCH ) );
-    action.setTitle( "Search" );
+    ActionConfiguration action = new ActionConfiguration( BookSearchAction.class.getName(), BookSearchAction.class );
     page.addActionConfiguration( action );
     configuration.addPageConfiguration( page );
   }
