@@ -20,6 +20,8 @@ import java.text.DecimalFormat;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.rap.json.JsonArray;
+import org.eclipse.rap.json.JsonObject;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
@@ -38,9 +40,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.eclipsesource.tabris.geolocation.Geolocation;
 import com.eclipsesource.tabris.geolocation.GeolocationAdapter;
@@ -49,7 +48,7 @@ import com.eclipsesource.tabris.geolocation.GeolocationOptions;
 import com.eclipsesource.tabris.geolocation.Position;
 import com.eclipsesource.tabris.geolocation.PositionError;
 
-@SuppressWarnings("restriction")
+
 public class GeolocationDemo implements EntryPoint {
 
   private static final double SPRINGFIELD_LAT = 44.050953;
@@ -162,17 +161,17 @@ public class GeolocationDemo implements EntryPoint {
     }
   }
 
-  private String processJson( String json ) throws JSONException {
-    JSONObject object = new JSONObject( json );
-    JSONArray resultArray = object.getJSONArray( "results" );
-    for( int i = 0; i < resultArray.length(); i++ ) {
-      JSONObject result = resultArray.getJSONObject( i );
-      JSONArray addressComponents = result.getJSONArray( "address_components" );
-      for( int j = 0; j < addressComponents.length(); j++ ) {
-        JSONObject component = addressComponents.getJSONObject( j );
-        String type = component.getJSONArray( "types" ).getString( 0 );
+  private String processJson( String json ) {
+    JsonObject object = JsonObject.readFrom( json );
+    JsonArray resultArray = object.get( "results" ).asArray();
+    for( int i = 0; i < resultArray.size(); i++ ) {
+      JsonObject result = resultArray.get( i ).asObject();
+      JsonArray addressComponents = result.get( "address_components" ).asArray();
+      for( int j = 0; j < addressComponents.size(); j++ ) {
+        JsonObject component = addressComponents.get( j ).asObject();
+        String type = component.get( "types" ).asArray().get( 0 ).asString();
         if( type.equals( "locality" ) ) {
-          return component.getString( "long_name" );
+          return component.get( "long_name" ).asString();
         }
       }
     }
