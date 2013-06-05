@@ -37,7 +37,7 @@ public class BookSearchAction extends SearchAction {
   }
 
   @Override
-  public void modified( String query, ProposalHandler propoalHandler ) {
+  public void modified( String query, ProposalHandler proposalHandler ) {
     List<Book> books = BookProvider.getBooks( getUI().getDisplay() );
     List<String> proposals = new ArrayList<String>();
     for( Book book : books ) {
@@ -45,6 +45,6 @@ public class BookSearchAction extends SearchAction {
         proposals.add( book.getTitle() );
       }
     }
-    propoalHandler.setProposals( proposals );
+    proposalHandler.setProposals( proposals );
   }
 }
