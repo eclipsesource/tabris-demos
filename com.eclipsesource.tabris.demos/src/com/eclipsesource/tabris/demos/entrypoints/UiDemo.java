@@ -10,6 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SEARCH;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SETTINGS;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SHARE;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_THEME;
@@ -65,6 +66,8 @@ public class UiDemo implements EntryPointFactory {
     page.setImage( getImage( IMAGE_PAGE_ALL_BOOKS ) );
     page.setTopLevel( true );
     ActionConfiguration action = new ActionConfiguration( BookSearchAction.class.getName(), BookSearchAction.class );
+    action.setImage( getImage( IMAGE_ACTION_SEARCH ) );
+    action.setTitle( "Search" );
     page.addActionConfiguration( action );
     configuration.addPageConfiguration( page );
   }
