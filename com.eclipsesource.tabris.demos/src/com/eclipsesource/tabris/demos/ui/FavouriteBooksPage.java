@@ -31,4 +31,10 @@ public class FavouriteBooksPage extends BooksListPage {
   public FavouriteBooksPage() {
     super( new FavouriteBookFilter() );
   }
+
+  @Override
+  public void activate() {
+    super.activate();
+    getViewer().setSelection( null );
+  }
 }

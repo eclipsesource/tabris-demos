@@ -39,6 +39,7 @@ public class BooksListPage extends AbstractPage {
 
   private final BookFilter bookFilter;
   private Composite container;
+  private TreeViewer viewer;
 
   public BooksListPage( BookFilter bookFilter ) {
     this.bookFilter = bookFilter;
@@ -50,7 +51,7 @@ public class BooksListPage extends AbstractPage {
     createBooks();
     container = new Composite( parent, SWT.NONE );
     container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
-    TreeViewer viewer = createTreeViewer( this, container );
+    viewer = createTreeViewer( this, container );
     createViewerInput( viewer );
   }
 
@@ -93,6 +94,10 @@ public class BooksListPage extends AbstractPage {
     List books = ( List )RWT.getUISession().getAttribute( BOOKS );
     List<Book> filteredBooks = bookFilter.filter( books );
     viewer.setInput( filteredBooks );
+  }
+
+  protected TreeViewer getViewer() {
+    return viewer;
   }
 
   private static void addBookSelectionListener( final AbstractPage page, TreeViewer viewer ) {

@@ -31,4 +31,10 @@ public class PopularBooksPage extends BooksListPage {
   public PopularBooksPage() {
     super( new PopularBookFilter() );
   }
+
+  @Override
+  public void activate() {
+    super.activate();
+    getViewer().setSelection( null );
+  }
 }
