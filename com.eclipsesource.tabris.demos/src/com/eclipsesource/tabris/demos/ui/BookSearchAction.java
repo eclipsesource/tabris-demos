@@ -1,22 +1,22 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2013 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 
+import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.action.ProposalHandler;
 import com.eclipsesource.tabris.ui.action.SearchAction;
 
@@ -32,7 +32,7 @@ public class BookSearchAction extends SearchAction {
     BooksListPage page = ( BooksListPage )getCurrentPage();
     MessageBox messageBox = new MessageBox( page.getContainer().getShell(), SWT.ICON_WARNING );
     messageBox.setText( "Search" );
-    messageBox.setMessage( "Search for books with query: " + query );
+    messageBox.setMessage( "Search for book\n" + query );
     DialogUtil.open( messageBox, null );
   }
 
@@ -41,10 +41,16 @@ public class BookSearchAction extends SearchAction {
     List<Book> books = BookProvider.getBooks( getUI().getDisplay() );
     List<String> proposals = new ArrayList<String>();
     for( Book book : books ) {
-      if( book.getTitle().contains( query ) ) {
+      if( contains( book.getTitle(), query ) ) {
         proposals.add( book.getTitle() );
       }
     }
     proposalHandler.setProposals( proposals );
+  }
+
+  private boolean contains( String title, String query ) {
+    return Pattern.compile( Pattern.quote( query ), Pattern.CASE_INSENSITIVE )
+      .matcher( title )
+      .find();
   }
 }
