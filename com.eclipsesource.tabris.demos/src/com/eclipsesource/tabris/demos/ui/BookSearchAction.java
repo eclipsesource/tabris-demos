@@ -11,12 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.eclipse.rap.rwt.widgets.DialogUtil;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
-
-import com.eclipsesource.tabris.ui.UI;
+import com.eclipsesource.tabris.ui.PageData;
 import com.eclipsesource.tabris.ui.action.ProposalHandler;
 import com.eclipsesource.tabris.ui.action.SearchAction;
 
@@ -29,23 +24,32 @@ public class BookSearchAction extends SearchAction {
 
   @Override
   public void search( String query ) {
-    BooksListPage page = ( BooksListPage )getCurrentPage();
-    MessageBox messageBox = new MessageBox( page.getContainer().getShell(), SWT.ICON_WARNING );
-    messageBox.setText( "Search" );
-    messageBox.setMessage( "Search for book\n" + query );
-    DialogUtil.open( messageBox, null );
+    PageData data = new PageData();
+    data.set( SearchResultsPage.SEARCH_QUERY, query );
+    getUI().getPageOperator().openPage( SearchResultsPage.class.getName(), data );
   }
 
   @Override
-  public void modified( String query, ProposalHandler proposalHandler ) {
-    List<Book> books = BookProvider.getBooks( getUI().getDisplay() );
-    List<String> proposals = new ArrayList<String>();
-    for( Book book : books ) {
-      if( contains( book.getTitle(), query ) ) {
-        proposals.add( book.getTitle() );
+  public void modified( final String query, final ProposalHandler proposalHandler ) {
+    // start potentially long running proposal gathering thread
+    new Thread( new Runnable() {
+
+      public void run() {
+        getUI().getDisplay().asyncExec( new Runnable() {
+
+          public void run() {
+            List<Book> books = BookProvider.getBooks( getUI().getDisplay() );
+            final List<String> proposals = new ArrayList<String>();
+            for( Book book : books ) {
+              if( contains( book.getTitle(), query ) ) {
+                proposals.add( book.getTitle() );
+              }
+            }
+            proposalHandler.setProposals( proposals );
+          }
+        } );
       }
-    }
-    proposalHandler.setProposals( proposals );
+    } ).start();
   }
 
   private boolean contains( String title, String query ) {

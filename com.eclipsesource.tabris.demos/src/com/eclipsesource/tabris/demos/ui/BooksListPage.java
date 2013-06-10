@@ -37,11 +37,11 @@ import com.eclipsesource.tabris.ui.PageData;
 
 public class BooksListPage extends AbstractPage {
 
-  private final BookFilter bookFilter;
+  private BookFilter bookFilter;
   private Composite container;
   private TreeViewer viewer;
 
-  public BooksListPage( BookFilter bookFilter ) {
+  public void setBookFilter( BookFilter bookFilter ) {
     this.bookFilter = bookFilter;
   }
 
@@ -96,10 +96,6 @@ public class BooksListPage extends AbstractPage {
     viewer.setInput( filteredBooks );
   }
 
-  protected TreeViewer getViewer() {
-    return viewer;
-  }
-
   private static void addBookSelectionListener( final AbstractPage page, TreeViewer viewer ) {
     viewer.addSelectionChangedListener( new ISelectionChangedListener() {
       public void selectionChanged( SelectionChangedEvent event ) {
@@ -113,4 +109,9 @@ public class BooksListPage extends AbstractPage {
     } );
   }
 
+  @Override
+  public void activate() {
+    super.activate();
+    viewer.setSelection( null );
+  }
 }

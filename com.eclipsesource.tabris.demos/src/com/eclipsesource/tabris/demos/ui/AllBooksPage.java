@@ -19,12 +19,7 @@ public class AllBooksPage extends BooksListPage {
   }
 
   public AllBooksPage() {
-    super( new AllBookFilter() );
+    setBookFilter( new AllBookFilter() );
   }
 
-  @Override
-  public void activate() {
-    super.activate();
-    getViewer().setSelection( null );
-  }
 }

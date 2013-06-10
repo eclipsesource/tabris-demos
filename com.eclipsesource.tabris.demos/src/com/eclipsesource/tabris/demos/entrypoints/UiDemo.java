@@ -30,6 +30,7 @@ import com.eclipsesource.tabris.demos.ui.ChangeThemeAction;
 import com.eclipsesource.tabris.demos.ui.FavouriteBooksPage;
 import com.eclipsesource.tabris.demos.ui.PopularBooksPage;
 import com.eclipsesource.tabris.demos.ui.ReadBookPage;
+import com.eclipsesource.tabris.demos.ui.SearchResultsPage;
 import com.eclipsesource.tabris.demos.ui.SettingsAction;
 import com.eclipsesource.tabris.demos.ui.SettingsPage;
 import com.eclipsesource.tabris.demos.ui.ShareAction;
@@ -58,6 +59,7 @@ public class UiDemo implements EntryPointFactory {
     createFavouriteBooksPage( configuration );
     createBookDetailsPage( configuration );
     createReadBookPage( configuration );
+    createSearchResultsPage( configuration );
   }
 
   private void createAllBooksPage( UIConfiguration configuration ) {
@@ -65,10 +67,6 @@ public class UiDemo implements EntryPointFactory {
     page.setTitle( "All Books" );
     page.setImage( getImage( IMAGE_PAGE_ALL_BOOKS ) );
     page.setTopLevel( true );
-    ActionConfiguration action = new ActionConfiguration( BookSearchAction.class.getName(), BookSearchAction.class );
-    action.setImage( getImage( IMAGE_ACTION_SEARCH ) );
-    action.setTitle( "Search" );
-    page.addActionConfiguration( action );
     configuration.addPageConfiguration( page );
   }
 
@@ -115,8 +113,17 @@ public class UiDemo implements EntryPointFactory {
     configuration.addPageConfiguration( page );
   }
 
+  private void createSearchResultsPage( UIConfiguration configuration ) {
+    PageConfiguration page = new PageConfiguration( SearchResultsPage.class.getName(), SearchResultsPage.class );
+    configuration.addPageConfiguration( page );
+  }
+
   private void createGlobalActions( UIConfiguration configuration ) {
-    ActionConfiguration action = new ActionConfiguration( SettingsAction.class.getName(), SettingsAction.class );
+    ActionConfiguration action = new ActionConfiguration( BookSearchAction.class.getName(), BookSearchAction.class );
+    action.setImage( getImage( IMAGE_ACTION_SEARCH ) );
+    action.setTitle( "Search" );
+    configuration.addActionConfiguration( action );
+    action = new ActionConfiguration( SettingsAction.class.getName(), SettingsAction.class );
     action.setImage( getImage( IMAGE_ACTION_SETTINGS ) );
     action.setTitle( "Settings" );
     configuration.addActionConfiguration( action );
