@@ -10,7 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import static com.eclipsesource.tabris.demos.ui.Constants.BOOK_ITEM;
+import static com.eclipsesource.tabris.demos.ui.BookDetailsPage.BOOK_ITEM;
 import static java.text.MessageFormat.format;
 
 import org.eclipse.rap.rwt.RWT;

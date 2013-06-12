@@ -10,8 +10,8 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
+import static com.eclipsesource.tabris.demos.ui.BookDetailsPage.BOOK_ITEM;
 import static com.eclipsesource.tabris.demos.ui.Constants.BOOKS;
-import static com.eclipsesource.tabris.demos.ui.Constants.BOOK_ITEM;
 import static com.eclipsesource.tabris.demos.ui.Constants.RELATED_BOOKS_FONT;
 import static com.eclipsesource.tabris.demos.ui.Constants.TITLE_FONT;
 

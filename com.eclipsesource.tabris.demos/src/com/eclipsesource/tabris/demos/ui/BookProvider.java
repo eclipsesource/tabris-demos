@@ -1,15 +1,11 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2013 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
-
 
 import static com.eclipsesource.tabris.demos.ui.Constants.BOOK_BROOK;
 import static com.eclipsesource.tabris.demos.ui.Constants.BOOK_GAIGE;
@@ -25,6 +21,9 @@ import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_HOW_LITERATUR;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_SCHRODER;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_THE_DINNER;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_VAMPIRES;
+import static java.util.regex.Pattern.CASE_INSENSITIVE;
+import static java.util.regex.Pattern.compile;
+import static java.util.regex.Pattern.quote;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +32,6 @@ import java.util.Map;
 
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
-
 
 public class BookProvider {
 
@@ -49,7 +47,6 @@ public class BookProvider {
       this.imagePath = imagePath;
     }
   }
-
   private static Map<String, BookData> bookData = createBookData();
 
   private static Map<String, BookData> createBookData() {
@@ -58,10 +55,17 @@ public class BookProvider {
     data.put( BOOK_HAINY, new BookData( "After Visiting Friends: A Son's Story",
                                         "Michael Hainey",
                                         IMAGE_AFTER_VISITING ) );
-    data.put( BOOK_RUSSEL, new BookData( "Vampires in the Lemon Grove: Stories", "Karen Russell", IMAGE_VAMPIRES ) );
-    data.put( BOOK_BROOK, new BookData( "A History of Future Cities", "Daniel Brook", IMAGE_HISTORY ) );
-    data.put( BOOK_SLOSS, new BookData( "Autobiography of Us: A Novel", "Aria Beth Sloss", IMAGE_AUTOBIOGRAFY ) );
-    data.put( BOOK_SHIELDS, new BookData( "How Literature Saved My Life", "David Shields", IMAGE_HOW_LITERATUR ) );
+    data.put( BOOK_RUSSEL, new BookData( "Vampires in the Lemon Grove: Stories",
+                                         "Karen Russell",
+                                         IMAGE_VAMPIRES ) );
+    data.put( BOOK_BROOK,
+              new BookData( "A History of Future Cities", "Daniel Brook", IMAGE_HISTORY ) );
+    data.put( BOOK_SLOSS, new BookData( "Autobiography of Us: A Novel",
+                                        "Aria Beth Sloss",
+                                        IMAGE_AUTOBIOGRAFY ) );
+    data.put( BOOK_SHIELDS, new BookData( "How Literature Saved My Life",
+                                          "David Shields",
+                                          IMAGE_HOW_LITERATUR ) );
     data.put( BOOK_KOCH, new BookData( "The Dinner", "Herman Koch", IMAGE_THE_DINNER ) );
     return data;
   }
@@ -71,7 +75,8 @@ public class BookProvider {
     Book bookSchroder = createBook( display, bookData.get( BOOK_GAIGE ) );
     Book bookAfterVisiting = createBook( display, bookData.get( BOOK_HAINY ) ).setFavourite( true );
     Book bookVampires = createBook( display, bookData.get( BOOK_RUSSEL ) ).setFavourite( true );
-    Book bookHistory = createBook( display, bookData.get( BOOK_BROOK ) ).setFavourite( true ).setPopular( true );
+    Book bookHistory = createBook( display, bookData.get( BOOK_BROOK ) ).setFavourite( true )
+      .setPopular( true );
     Book bookAutobiography = createBook( display, bookData.get( BOOK_SLOSS ) ).setPopular( true );
     Book bookLiteratur = createBook( display, bookData.get( BOOK_SHIELDS ) ).setPopular( true );
     Book bookDinner = createBook( display, bookData.get( BOOK_KOCH ) ).setPopular( true );
@@ -99,6 +104,32 @@ public class BookProvider {
   private static void relate( Book book1, Book book2 ) {
     book1.getRelated().add( book2 );
     book2.getRelated().add( book1 );
+  }
+
+  public static List<String> findBookTitles( Display display, final String query ) {
+    List<Book> books = BookProvider.getBooks( display );
+    final List<String> matches = new ArrayList<String>();
+    for( Book book : books ) {
+      if( contains( book.getTitle(), query ) ) {
+        matches.add( book.getTitle() );
+      }
+    }
+    return matches;
+  }
+
+  public static List<Book> findBooks( Display display, final String query ) {
+    List<Book> books = BookProvider.getBooks( display );
+    final List<Book> matches = new ArrayList<Book>();
+    for( Book book : books ) {
+      if( contains( book.getTitle(), query ) ) {
+        matches.add( book );
+      }
+    }
+    return matches;
+  }
+
+  private static boolean contains( String title, String query ) {
+    return compile( quote( query ), CASE_INSENSITIVE ).matcher( title ).find();
   }
 
   private BookProvider() {

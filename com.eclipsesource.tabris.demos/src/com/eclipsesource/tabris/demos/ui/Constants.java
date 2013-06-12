@@ -39,8 +39,6 @@ public class Constants {
   public static final String IMAGE_PAGE_POPULAR_BOOKS = "/page_popular_books.png";
   public static final String IMAGE_PAGE_ALL_BOOKS = "/page_all_books.png";
 
-  public static final String BOOK_ITEM = "bookItem";
-
   public static final String DUMMY_TEXT = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy "
                                           + "nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. "
                                           + "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper "

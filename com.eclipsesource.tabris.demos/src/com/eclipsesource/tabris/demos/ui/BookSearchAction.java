@@ -7,9 +7,11 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import java.util.ArrayList;
+import static com.eclipsesource.tabris.demos.ui.BookDetailsPage.BOOK_ITEM;
+import static com.eclipsesource.tabris.demos.ui.BookProvider.findBookTitles;
+import static com.eclipsesource.tabris.demos.ui.BookProvider.findBooks;
+
 import java.util.List;
-import java.util.regex.Pattern;
 
 import com.eclipsesource.tabris.ui.PageData;
 import com.eclipsesource.tabris.ui.action.ProposalHandler;
@@ -24,9 +26,27 @@ public class BookSearchAction extends SearchAction {
 
   @Override
   public void search( String query ) {
+    List<Book> books = findBooks( getUI().getDisplay(), query );
+    if( books.size() == 1 ) {
+      showBookDetailsPage( books.get( 0 ) );
+    } else {
+      showSearchResultsPage( query );
+    }
+  }
+
+  private void showBookDetailsPage( Book book ) {
+    PageData data = new PageData();
+    data.set( BOOK_ITEM, book );
+    openPage( BookDetailsPage.class.getName(), data );
+  }
+
+  private void showSearchResultsPage( String query ) {
+    if( getCurrentPage() instanceof SearchResultsPage ) {
+      closeCurrentPage();
+    }
     PageData data = new PageData();
     data.set( SearchResultsPage.SEARCH_QUERY, query );
-    getUI().getPageOperator().openPage( SearchResultsPage.class.getName(), data );
+    openPage( SearchResultsPage.class.getName(), data );
   }
 
   @Override
@@ -38,23 +58,10 @@ public class BookSearchAction extends SearchAction {
         getUI().getDisplay().asyncExec( new Runnable() {
 
           public void run() {
-            List<Book> books = BookProvider.getBooks( getUI().getDisplay() );
-            final List<String> proposals = new ArrayList<String>();
-            for( Book book : books ) {
-              if( contains( book.getTitle(), query ) ) {
-                proposals.add( book.getTitle() );
-              }
-            }
-            proposalHandler.setProposals( proposals );
+            proposalHandler.setProposals( findBookTitles( getUI().getDisplay(), query ) );
           }
         } );
       }
     } ).start();
-  }
-
-  private boolean contains( String title, String query ) {
-    return Pattern.compile( Pattern.quote( query ), Pattern.CASE_INSENSITIVE )
-      .matcher( title )
-      .find();
   }
 }

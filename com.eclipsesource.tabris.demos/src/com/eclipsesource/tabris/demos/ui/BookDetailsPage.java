@@ -10,7 +10,6 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
-import static com.eclipsesource.tabris.demos.ui.Constants.BOOK_ITEM;
 import static com.eclipsesource.tabris.demos.ui.Constants.RELATED_BOOKS_FONT;
 import static com.eclipsesource.tabris.demos.ui.Constants.TITLE_FONT;
 import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onComposite;
@@ -32,6 +31,8 @@ import com.eclipsesource.tabris.ui.PageData;
 
 
 public class BookDetailsPage extends AbstractPage {
+
+  public static final String BOOK_ITEM = "bookItem";
 
   private Label titleLabel;
   private Label authorLabel;
