@@ -19,10 +19,6 @@ import com.eclipsesource.tabris.ui.action.SearchAction;
 
 public class BookSearchAction extends SearchAction {
 
-  @Override
-  public void execute() {
-    // do nothing
-  }
 
   @Override
   public void search( String query ) {
@@ -58,7 +54,9 @@ public class BookSearchAction extends SearchAction {
         getUI().getDisplay().asyncExec( new Runnable() {
 
           public void run() {
-            proposalHandler.setProposals( findBookTitles( getUI().getDisplay(), query ) );
+            // should be performed in the thread not in the async display
+            final List<String> findBookTitles = findBookTitles( getUI().getDisplay(), query );
+            proposalHandler.setProposals( findBookTitles );
           }
         } );
       }
