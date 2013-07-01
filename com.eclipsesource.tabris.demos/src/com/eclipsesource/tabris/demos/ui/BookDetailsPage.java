@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2013 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
 
@@ -29,11 +26,9 @@ import org.eclipse.swt.widgets.Listener;
 import com.eclipsesource.tabris.ui.AbstractPage;
 import com.eclipsesource.tabris.ui.PageData;
 
-
 public class BookDetailsPage extends AbstractPage {
 
   public static final String BOOK_ITEM = "bookItem";
-
   private Label titleLabel;
   private Label authorLabel;
   private Label imageLabel;
@@ -44,7 +39,11 @@ public class BookDetailsPage extends AbstractPage {
   public void createContent( Composite parent, PageData data ) {
     Composite container = new Composite( parent, SWT.NONE );
     container.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
-    container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
+    container.setLayout( GridLayoutFactory.fillDefaults()
+      .spacing( 0, 0 )
+      .numColumns( 1 )
+      .equalWidth( false )
+      .create() );
     createBookDetailsComposite( container );
     createRelatedBooks( container );
     createRelatedList( container );
@@ -82,10 +81,17 @@ public class BookDetailsPage extends AbstractPage {
   private void createBookComposite( Composite parent ) {
     bookDetailsComposite = new Composite( parent, SWT.NONE );
     bookDetailsComposite.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
-    GridData layoutData = GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create();
+    GridData layoutData = GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.TOP )
+      .grab( true, false )
+      .create();
     bookDetailsComposite.setLayoutData( layoutData );
     onComposite( bookDetailsComposite ).showLocalTouch();
-    GridLayout layout = GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 2 ).equalWidth( false ).create();
+    GridLayout layout = GridLayoutFactory.fillDefaults()
+      .spacing( 0, 0 )
+      .numColumns( 2 )
+      .equalWidth( false )
+      .create();
     layout.verticalSpacing = 12;
     layout.horizontalSpacing = 12;
     layout.marginWidth = 12;
@@ -105,13 +111,19 @@ public class BookDetailsPage extends AbstractPage {
     titleLabel = new Label( bookDetailsComposite, SWT.WRAP );
     titleLabel.setForeground( bookDetailsComposite.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     titleLabel.setFont( getFontRegistry().get( TITLE_FONT ) );
-    titleLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
+    titleLabel.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.TOP )
+      .grab( true, false )
+      .create() );
   }
 
   private void createBookAuthor() {
     authorLabel = new Label( bookDetailsComposite, SWT.WRAP );
     authorLabel.setForeground( bookDetailsComposite.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
-    authorLabel.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
+    authorLabel.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.TOP )
+      .grab( true, false )
+      .create() );
   }
 
   private void createRelatedBooks( Composite parent ) {
@@ -122,8 +134,15 @@ public class BookDetailsPage extends AbstractPage {
 
   private Composite createRelatedTitleComposite( Composite parent ) {
     Composite composite = new Composite( parent, SWT.NONE );
-    composite.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false).create() );
-    GridLayout layout = GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create();
+    composite.setLayoutData( GridDataFactory.fillDefaults()
+      .align( SWT.FILL, SWT.TOP )
+      .grab( true, false )
+      .create() );
+    GridLayout layout = GridLayoutFactory.fillDefaults()
+      .spacing( 0, 0 )
+      .numColumns( 1 )
+      .equalWidth( false )
+      .create();
     layout.marginWidth = 6;
     layout.marginTop = 12;
     layout.marginBottom = 6;
@@ -156,7 +175,7 @@ public class BookDetailsPage extends AbstractPage {
 
   @Override
   public void activate() {
-    // nothing to do here
+    relatedTreeViewer.setSelection( null );
   }
 
   @Override
