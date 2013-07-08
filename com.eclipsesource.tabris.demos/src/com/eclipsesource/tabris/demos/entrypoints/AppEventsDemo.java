@@ -42,32 +42,41 @@ public class AppEventsDemo implements EntryPoint {
   }
 
   private void registerAppStateListener() {
-    App app = RWT.getClient().getService( App.class );
+    final App app = RWT.getClient().getService( App.class );
     if( app != null ) {
       app.addEventListener( EventType.PAUSE, new AppListener() {
 
         public void handleEvent( AppEvent event ) {
-          if( event.getType() == EventType.PAUSE ) {
-            Label output = hal.getText();
-            output.setText( "I am going to sleep now.\n" );
-            output.getParent().layout( true, true );
-            sleepMillis = System.currentTimeMillis();
-          }
+          System.out.println("Paused");
+          Label output = hal.getText();
+          output.setText( "I am going to sleep now.\n" );
+          output.getParent().layout( true, true );
+          sleepMillis = System.currentTimeMillis();
         }
       } );
       app.addEventListener( EventType.RESUME, new AppListener() {
 
         public void handleEvent( AppEvent event ) {
-          if( event.getType() == EventType.RESUME ) {
-            long slept = ( System.currentTimeMillis() - sleepMillis ) / 1000;
-            Label output = hal.getText();
-            output.setText( "Good morning Dave!\n\nThank for waking me up again. I was sleeping for "
-                            + slept
-                            + " seconds.\n" );
-            output.getParent().layout( true, true );
-          }
+          System.out.println("Resumed");
+          long slept = ( System.currentTimeMillis() - sleepMillis ) / 1000;
+          Label output = hal.getText();
+          output.setText( "Good morning Dave!\n\nThank for waking me up again. I was sleeping for "
+                          + slept
+                          + " seconds.\n" );
+          output.getParent().layout( true, true );
         }
       } );
+      app.addEventListener( EventType.INACTIVE, new AppListener() {
+
+        public void handleEvent( AppEvent event ) {
+          System.out.println("Inactive");
+          Label output = hal.getText();
+          output.setText( "Dave, did you fall asleep?\nYou haven't touched the screen for over 10 seconds.\n" );
+          output.getParent().layout( true, true );
+        }
+      } );
+      app.startInactivityTimer( 10000 );
+      app.setScreenProtection( true );
     }
   }
 }
