@@ -10,6 +10,7 @@
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SEARCH;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SETTINGS;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SHARE;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_THEME;
@@ -24,6 +25,7 @@ import org.eclipse.rap.rwt.application.EntryPointFactory;
 
 import com.eclipsesource.tabris.demos.ui.AllBooksPage;
 import com.eclipsesource.tabris.demos.ui.BookDetailsPage;
+import com.eclipsesource.tabris.demos.ui.BookSearchAction;
 import com.eclipsesource.tabris.demos.ui.ChangeThemeAction;
 import com.eclipsesource.tabris.demos.ui.FavouriteBooksPage;
 import com.eclipsesource.tabris.demos.ui.PopularBooksPage;
@@ -117,7 +119,12 @@ public class UiDemo implements EntryPointFactory {
   }
 
   private void createGlobalActions( UIConfiguration configuration ) {
-    ActionConfiguration action = new ActionConfiguration( SettingsAction.class.getName(), SettingsAction.class );
+    ActionConfiguration action = new ActionConfiguration( BookSearchAction.class.getName(), BookSearchAction.class );
+    action.setImage( getImage( IMAGE_ACTION_SEARCH ) );
+    action.setTitle( "Search" );
+    configuration.addActionConfiguration( action );
+    action = new ActionConfiguration( SettingsAction.class.getName(), SettingsAction.class );
+    action = new ActionConfiguration( SettingsAction.class.getName(), SettingsAction.class );
     action.setImage( getImage( IMAGE_ACTION_SETTINGS ) );
     action.setTitle( "Settings" );
     configuration.addActionConfiguration( action );
