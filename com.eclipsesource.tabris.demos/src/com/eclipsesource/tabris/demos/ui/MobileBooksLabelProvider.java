@@ -15,7 +15,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 
-public class BooksLabelProvider implements ITableLabelProvider {
+public class MobileBooksLabelProvider implements ITableLabelProvider {
 
   public Image getColumnImage( Object element, int columnIndex ) {
     if( element instanceof Book ) {
