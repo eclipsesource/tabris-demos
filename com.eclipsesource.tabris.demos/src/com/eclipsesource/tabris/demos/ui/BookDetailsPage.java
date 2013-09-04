@@ -61,7 +61,7 @@ public class BookDetailsPage extends AbstractPage {
   }
 
   private void addGroupedEventsListener( final Book book ) {
-    onComposite( bookDetailsComposite ).addGroupedListener( SWT.MouseUp, new Listener() {
+    onComposite( bookDetailsComposite ).addGroupedListener( SWT.MouseDown, new Listener() {
 
       public void handleEvent( Event event ) {
         PageData readData = new PageData();

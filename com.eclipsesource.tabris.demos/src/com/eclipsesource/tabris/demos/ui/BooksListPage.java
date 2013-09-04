@@ -23,15 +23,18 @@ import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
+import com.eclipsesource.tabris.device.ClientDevice;
 import com.eclipsesource.tabris.ui.AbstractPage;
 import com.eclipsesource.tabris.ui.PageData;
 
@@ -78,14 +81,42 @@ public class BooksListPage extends AbstractPage {
   }
 
   public static TreeViewer createTreeViewer( AbstractPage page, Composite container ) {
-    TreeViewer viewer = new TreeViewer( container, SWT.V_SCROLL );
+    TreeViewer viewer = new TreeViewer( container, SWT.V_SCROLL | SWT.FULL_SELECTION );
     viewer.setContentProvider( new BooksContentProvider() );
-    viewer.setLabelProvider( new BooksLabelProvider() );
     addBookSelectionListener( page, viewer );
     Tree tree = viewer.getTree();
+    tree.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
     tree.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
-    new TreeColumn( tree, SWT.LEFT );
-    new TreeColumn( tree, SWT.LEFT );
+    if( RWT.getClient().getService( ClientDevice.class ) != null ) {
+      viewer.setLabelProvider( new BooksLabelProvider() );
+      new TreeColumn( tree, SWT.LEFT ).setWidth( 500 );
+      new TreeColumn( tree, SWT.LEFT ).setWidth( 200 );
+    } else {
+      viewer.setLabelProvider( new LabelProvider() {
+        @Override
+        public String getText( Object element ) {
+          if( element instanceof Book ) {
+            Book book = ( Book )element;
+            return "<b>" + book.getTitle() + "</b><br/>" + book.getAuthor();
+          }
+          return "";
+        }
+
+        @Override
+        public Image getImage( Object element ) {
+          if( element instanceof Book ) {
+            return resizeImageToHeight( ( ( Book )element ).getImage(), 48 );
+          }
+          return null;
+        }
+
+        private Image resizeImageToHeight( Image image, int height ) {
+          float ratio = ( float )image.getBounds().height / ( float )image.getBounds().width;
+          int width = Math.round( height / ratio );
+          return new Image( image.getDevice(), image.getImageData().scaledTo( width, height ) );
+        }
+      });
+    }
     return viewer;
   }
 
