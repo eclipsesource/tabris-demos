@@ -19,6 +19,7 @@ import java.util.TimeZone;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
@@ -26,7 +27,6 @@ import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -83,12 +83,15 @@ public class ClientDeviceDemo implements EntryPoint {
 
   private void createDateTimeGroup( Composite parent, ClientDevice clientDevice ) {
     Group group = createGroup( parent, "Timezone Offset" );
-    int timezone = clientDevice.getTimezoneOffset() * -1;
+    int offset = 0;
+    if( clientDevice != null ) {
+      offset = clientDevice.getTimezoneOffset() * -1;
+    }
     SimpleDateFormat formatter = new SimpleDateFormat();
     createLabel( group, "Server Time" ).setText( formatter.format( new Date() ) );
-    formatter.setTimeZone( TimeZone.getTimeZone( TimeZone.getAvailableIDs( timezone * 1000 * 60 )[ 0 ] ) );
+    formatter.setTimeZone( TimeZone.getTimeZone( TimeZone.getAvailableIDs( offset * 1000 * 60 )[ 0 ] ) );
     createLabel( group, "Client Time" ).setText( formatter.format( new Date() ) );
-    createLabel( group, "Client UTC Offset" ).setText( timezone + " Minutes" );
+    createLabel( group, "Client UTC Offset" ).setText( offset + " Minutes" );
   }
 
   private void createCapabilityGroup( Composite parent, ClientDevice clientDevice ) {
@@ -101,40 +104,46 @@ public class ClientDeviceDemo implements EntryPoint {
   }
 
   private String getHasCapabilityString( ClientDevice clientDevice, Capability capability ) {
-    return clientDevice.hasCapability( capability )
-                                                   ? "✓"
-                                                   : "-";
+    String result = "-"; 
+    if( clientDevice != null && clientDevice.hasCapability( capability ) ) {
+      result = "✓";
+    }
+    return result;
   }
 
   private void createConnectionTypeGroup( Composite parent, ClientDevice clientDevice ) {
     Group group = createGroup( parent, "Connection Type" );
     final Label label = createLabel( group, "Type" );
-    label.setText( clientDevice.getConnectionType().toString() );
-    clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
-
-      @Override
-      public void connectionTypeChanged( ConnectionType newConnectionType ) {
-        label.setText( newConnectionType.toString() );
-        label.pack();
-      }
-    } );
+    if( clientDevice != null ) {
+      label.setText( clientDevice.getConnectionType().toString() );
+      clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
+  
+        @Override
+        public void connectionTypeChanged( ConnectionType newConnectionType ) {
+          label.setText( newConnectionType.toString() );
+          label.pack();
+        }
+      } );
+    }
   }
 
   private void createOrientationGroup( Composite parent, ClientDevice clientDevice ) {
     Group group = createGroup( parent, "Device Orientation" );
     final Label label = createLabel( group, "Orientation" );
-    label.setText( clientDevice.getOrientation().toString() );
-    clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
-
-      @Override
-      public void orientationChange( Orientation newOrientation ) {
-        label.setText( newOrientation.toString() );
-        label.pack();
-      }
-    } );
+    if( clientDevice != null ) {
+      label.setText( clientDevice.getOrientation().toString() );
+      clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
+        
+        @Override
+        public void orientationChange( Orientation newOrientation ) {
+          label.setText( newOrientation.toString() );
+          label.pack();
+        }
+      } );
+    }
   }
 
-  private Label createLabel( Composite parent, String text ) {
+  private Label createLabel( Composite parent, final String text ) {
     Label label = new Label( parent, SWT.NONE );
     label.setText( text );
     label.setLayoutData( GridDataFactory.fillDefaults()
@@ -146,8 +155,14 @@ public class ClientDeviceDemo implements EntryPoint {
       .align( SWT.FILL, SWT.TOP )
       .grab( true, false )
       .create() );
-    resultLabel.setFont( new Font( label.getDisplay(), new FontData( "Verdana", 16, SWT.BOLD ) ) );
+    makeBold( resultLabel );
     return resultLabel;
+  }
+
+  public void makeBold( Label resultLabel ) {
+    FontDescriptor fontDescriptor = FontDescriptor.createFrom( resultLabel.getFont() );
+    Font font = fontDescriptor.setStyle( SWT.BOLD ).createFont( resultLabel.getDisplay() );
+    resultLabel.setFont( font );
   }
 
   private Group createGroup( Composite parent, String title ) {
