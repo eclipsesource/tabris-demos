@@ -43,6 +43,7 @@ import com.eclipsesource.tabris.ui.UIConfiguration;
 
 public class UiDemo implements EntryPointFactory {
 
+  @Override
   public EntryPoint create() {
     return new TabrisUIEntryPoint( createConfiguration() );
   }
@@ -125,6 +126,7 @@ public class UiDemo implements EntryPointFactory {
     ActionConfiguration action = new ActionConfiguration( BookSearchAction.class.getName(), BookSearchAction.class );
     action.setImage( getImage( IMAGE_ACTION_SEARCH ) );
     action.setTitle( "Search" );
+    action.setPlacementPriority( PlacementPriority.HIGH );
     configuration.addActionConfiguration( action );
     action = new ActionConfiguration( SettingsAction.class.getName(), SettingsAction.class );
     action.setPlacementPriority( PlacementPriority.LOW );
