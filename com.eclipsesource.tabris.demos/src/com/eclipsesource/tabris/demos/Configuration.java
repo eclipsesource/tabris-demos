@@ -27,6 +27,7 @@ import com.eclipsesource.tabris.demos.entrypoints.SwipeDemo;
 import com.eclipsesource.tabris.demos.entrypoints.UiDemo;
 import com.eclipsesource.tabris.demos.entrypoints.VideoDemo;
 import com.eclipsesource.tabris.demos.entrypoints.VirtualTreeDemo;
+import com.eclipsesource.tabris.demos.ui.dynamic.DynamicUIDemo;
 
 public class Configuration implements ApplicationConfiguration {
 
@@ -46,6 +47,7 @@ public class Configuration implements ApplicationConfiguration {
     application.addEntryPoint( "/appevents", AppEventsDemo.class, null );
     application.addEntryPoint( "/swipe", SwipeDemo.class, null );
     application.addEntryPoint( "/ui", new UiDemo(), null );
+    application.addEntryPoint( "/dynamic-ui", new DynamicUIDemo(), null );
     application.addEntryPoint( "/device", ClientDeviceDemo.class, null );
     application.addEntryPoint( "/scroll", ScrollDemo.class, null );
   }
