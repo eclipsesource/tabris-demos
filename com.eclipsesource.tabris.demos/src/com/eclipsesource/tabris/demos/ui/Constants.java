@@ -31,6 +31,7 @@ public class Constants {
   public static final String BOOKS = "booksList";
   public static final String TITLE_FONT = "ITEM_TITLE";
   public static final String RELATED_BOOKS_FONT = "RELATED_BOOKS_FONT";
+  public static final String IMAGE_BOOK_STORE_UI = "/book_store_ui.png";
   public static final String IMAGE_ACTION_SETTINGS = "/action_settings.png";
   public static final String IMAGE_ACTION_SEARCH = "/action_search.png";
   public static final String IMAGE_ACTION_SHARE = "/action_share.png";

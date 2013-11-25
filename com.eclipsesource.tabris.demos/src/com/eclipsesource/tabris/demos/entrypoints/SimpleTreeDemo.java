@@ -33,8 +33,9 @@ public class SimpleTreeDemo implements EntryPoint {
   }
 
   private void createContent( Display display, Shell shell ) {
-    final Tree tree = new Tree( shell, SWT.BORDER );
+    Tree tree = new Tree( shell, SWT.BORDER );
     tree.setToolTipText( "Winchester Evangelium" );
+    tree.setLinesVisible( true );
     onTree( tree ).enableBackButtonNavigation();
     for( int i = 0; i < 4; i++ ) {
       TreeItem iItem = new TreeItem( tree, 0 );
@@ -48,9 +49,9 @@ public class SimpleTreeDemo implements EntryPoint {
         }
       }
     }
-    
+
     tree.addListener( SWT.Expand, new Listener() {
-      
+
       public void handleEvent( Event event ) {
         TreeItem item = ( TreeItem )event.item;
         System.out.println( "Item selected: " + item.getText());

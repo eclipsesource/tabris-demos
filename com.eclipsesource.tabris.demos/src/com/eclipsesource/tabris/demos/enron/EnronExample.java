@@ -40,6 +40,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
 import com.eclipsesource.tabris.demos.enron.EnronDataset.Folder;
@@ -71,7 +72,9 @@ public class EnronExample {
     treeColumn.setWidth( 200 );
     TreeColumn treeColumn2 = new TreeColumn( viewer.getTree(), SWT.NONE );
     treeColumn2.setWidth( 200 );
-    viewer.getTree().setToolTipText( "Enron Mailbox" );
+    Tree tree = viewer.getTree();
+    tree.setLinesVisible( true );
+    tree.setToolTipText( "Enron Mailbox" );
     viewer.getControl().setLayoutData( ExampleUtil.createFillData() );
     viewer.setLabelProvider( new EnronLabelProvider( parent.getDisplay() ) );
     viewer.setContentProvider( new EnronLazyContentProvider( viewer ) );

@@ -14,6 +14,7 @@ import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SEARCH;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SETTINGS;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SHARE;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_THEME;
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_BOOK_STORE_UI;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_ALL_BOOKS;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_FAVOURITE_BOOKS;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_POPULAR_BOOKS;
@@ -36,6 +37,7 @@ import com.eclipsesource.tabris.demos.ui.SettingsPage;
 import com.eclipsesource.tabris.demos.ui.ShareAction;
 import com.eclipsesource.tabris.ui.ActionConfiguration;
 import com.eclipsesource.tabris.ui.PageConfiguration;
+import com.eclipsesource.tabris.ui.PlacementPriority;
 import com.eclipsesource.tabris.ui.TabrisUIEntryPoint;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 
@@ -47,6 +49,7 @@ public class UiDemo implements EntryPointFactory {
 
   private UIConfiguration createConfiguration() {
     UIConfiguration configuration = new UIConfiguration();
+    configuration.setImage( getImage( IMAGE_BOOK_STORE_UI ) );
     createPages( configuration);
     createPageSettings( configuration );
     createGlobalActions( configuration );
@@ -124,7 +127,7 @@ public class UiDemo implements EntryPointFactory {
     action.setTitle( "Search" );
     configuration.addActionConfiguration( action );
     action = new ActionConfiguration( SettingsAction.class.getName(), SettingsAction.class );
-    action = new ActionConfiguration( SettingsAction.class.getName(), SettingsAction.class );
+    action.setPlacementPriority( PlacementPriority.LOW );
     action.setImage( getImage( IMAGE_ACTION_SETTINGS ) );
     action.setTitle( "Settings" );
     configuration.addActionConfiguration( action );

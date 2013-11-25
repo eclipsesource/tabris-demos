@@ -83,6 +83,7 @@ public class BooksListPage extends AbstractPage {
     viewer.setContentProvider( new BooksContentProvider() );
     addBookSelectionListener( page, viewer );
     Tree tree = viewer.getTree();
+    tree.setLinesVisible( true );
     tree.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
     tree.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
     if( RWT.getClient().getService( ClientDevice.class ) != null ) {
