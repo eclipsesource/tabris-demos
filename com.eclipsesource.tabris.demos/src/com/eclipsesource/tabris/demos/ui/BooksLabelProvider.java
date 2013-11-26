@@ -15,7 +15,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 
 
-public class MobileBooksLabelProvider implements ITableLabelProvider {
+public class BooksLabelProvider implements ITableLabelProvider {
 
   public Image getColumnImage( Object element, int columnIndex ) {
     if( element instanceof Book ) {
@@ -32,11 +32,11 @@ public class MobileBooksLabelProvider implements ITableLabelProvider {
 
   public String getColumnText( Object element, int columnIndex ) {
     String result = null;
-    if( columnIndex == 0 ) {
+    if( columnIndex == 1 ) {
       if( element instanceof Book ) {
         result = ( ( Book )element ).getTitle();
       }
-    } else if( columnIndex == 1 ) {
+    } else if( columnIndex == 2 ) {
       if( element instanceof Book ) {
         result = ( ( Book )element ).getAuthor();
       }

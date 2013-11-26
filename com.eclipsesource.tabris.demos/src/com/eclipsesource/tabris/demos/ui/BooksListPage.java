@@ -26,21 +26,29 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.template.ImageCell;
+import org.eclipse.rap.rwt.template.Template;
+import org.eclipse.rap.rwt.template.TextCell;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 
-import com.eclipsesource.tabris.device.ClientDevice;
 import com.eclipsesource.tabris.ui.AbstractPage;
 import com.eclipsesource.tabris.ui.PageData;
+import com.eclipsesource.tabris.ui.UI;
 
+@SuppressWarnings( "restriction" )
 public class BooksListPage extends AbstractPage {
 
   private BookFilter bookFilter;
   private Composite container;
   private TreeViewer viewer;
+  private static UI ui;
 
   public void setBookFilter( BookFilter bookFilter ) {
     this.bookFilter = bookFilter;
@@ -48,6 +56,7 @@ public class BooksListPage extends AbstractPage {
 
   @Override
   public void createContent( Composite parent, PageData data ) {
+    ui = getUI();
     registerResources();
     createBooks();
     container = new Composite( parent, SWT.NONE );
@@ -85,18 +94,47 @@ public class BooksListPage extends AbstractPage {
     Tree tree = viewer.getTree();
     tree.setLinesVisible( true );
     tree.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
+    tree.setData( RWT.ROW_TEMPLATE, createRowTemplate() );
+    tree.setData( RWT.CUSTOM_ITEM_HEIGHT, new Integer( 68 ) );
     tree.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
-    if( RWT.getClient().getService( ClientDevice.class ) != null ) {
-      viewer.setLabelProvider( new MobileBooksLabelProvider() );
-      new TreeColumn( tree, SWT.LEFT ).setWidth( 500 );
-      new TreeColumn( tree, SWT.LEFT ).setWidth( 200 );
-    } else {
-      viewer.setLabelProvider( new WebBookLabelProvider() );
-    }
+    viewer.setLabelProvider( new BooksLabelProvider() );
+    new TreeColumn( tree, SWT.LEFT );
+    new TreeColumn( tree, SWT.LEFT );
+    new TreeColumn( tree, SWT.LEFT );
     return viewer;
   }
 
-  @SuppressWarnings("unchecked")
+  private static Template createRowTemplate() {
+    Template template = new Template();
+    addImageCell( template );
+    addTitleCell( template );
+    addAuthorCell( template );
+    return template;
+  }
+
+  private static void addAuthorCell( Template template ) {
+    TextCell authorCell = new TextCell( template );
+    authorCell.setBindingIndex( 2 );
+    authorCell.setLeft( 52 ).setRight( 10 ).setTop( 36 ).setBottom( SWT.DEFAULT );
+    authorCell.setForeground( new Color( ui.getDisplay(), new RGB( 123, 123, 123 ) ) );
+    authorCell.setFont( new Font( ui.getDisplay(), new FontData( "Verdana", 14, SWT.NONE ) ) );
+  }
+
+  private static void addTitleCell( Template template ) {
+    TextCell titleCell = new TextCell( template );
+    titleCell.setBindingIndex( 1 );
+    titleCell.setLeft( 52 ).setRight( 10 ).setTop( 12 ).setBottom( SWT.DEFAULT );
+    titleCell.setFont( new Font( ui.getDisplay(), new FontData( "Verdana", 18, SWT.NONE ) ) );
+    titleCell.setForeground( new Color( ui.getDisplay(), new RGB( 74, 74, 74 ) ) );
+  }
+
+  private static void addImageCell( Template template ) {
+    ImageCell imageCell = new ImageCell( template );
+    imageCell.setBindingIndex( 0 );
+    imageCell.setLeft( 10 ).setWidth( 32 ).setTop( 10 ).setHeight( 48 );
+  }
+
+  @SuppressWarnings( "unchecked" )
   private void createViewerInput( TreeViewer viewer ) {
     List books = ( List )RWT.getUISession().getAttribute( BOOKS );
     List<Book> filteredBooks = bookFilter.filter( books );
