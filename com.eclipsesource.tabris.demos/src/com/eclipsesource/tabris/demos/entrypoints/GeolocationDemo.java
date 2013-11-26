@@ -289,15 +289,15 @@ public class GeolocationDemo implements EntryPoint {
 
   private void setBrowserUrl( double lat, double lon ) {
     StringBuilder builder = new StringBuilder();
-    builder.append( "http://open.mapquestapi.com/staticmap/v4/getmap" );
-    builder.append( "?size=" + shell.getSize().x + "," + shell.getSize().y );
+    builder.append( "http://maps.googleapis.com/maps/api/staticmap" );
+    builder.append( "?size=" + shell.getSize().x + "x" + shell.getSize().y );
     builder.append( "&zoom=16" );
     lastLat = lat;
     lastLon = lon;
     builder.append( "&center=" + lat + "," + lon );
-    builder.append( "&imageType=png" );
+    builder.append( "&sensor=false" );
     if( lastLabel != null ) {
-      builder.append( "&pois=" + lastLabel + "," + lat + "," + lon + ",0,0" );
+      builder.append( "&markers=color:yellow%7Clabel:Location%7C" + lat + "," + lon );
     }
     browser.setUrl( builder.toString() );
   }
