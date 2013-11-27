@@ -91,7 +91,7 @@ public class DynamicPage extends AbstractPage {
     addRootPageButton.setBackground( COLOR_RED );
     addRootPageButton.setForeground( COLOR_WHITE );
     addRootPageButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
-    applyImage( "/add-root-page.png", addRootPageButton );
+    applyImage( "/add_root_page.png", addRootPageButton );
     addRootPageButton.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
@@ -115,7 +115,7 @@ public class DynamicPage extends AbstractPage {
     removeRootPageButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     removeRootPageButton.setBackground( COLOR_GRAY );
     removeRootPageButton.setForeground( COLOR_WHITE );
-    applyImage( "/remove-root-page.png", removeRootPageButton );
+    applyImage( "/remove_root_page.png", removeRootPageButton );
     removeRootPageButton.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
@@ -141,7 +141,7 @@ public class DynamicPage extends AbstractPage {
     addPageButton.setBackground( COLOR_RED );
     addPageButton.setForeground( COLOR_WHITE );
     addPageButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
-    applyImage( "/add-page.png", addPageButton );
+    applyImage( "/add_page.png", addPageButton );
     addPageButton.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
@@ -164,7 +164,7 @@ public class DynamicPage extends AbstractPage {
     addActionButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     addActionButton.setForeground( COLOR_WHITE );
     addActionButton.setBackground( COLOR_GRAY );
-    applyImage( "/add-action.png", addActionButton );
+    applyImage( "/action.png", addActionButton );
     addActionButton.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
@@ -183,7 +183,7 @@ public class DynamicPage extends AbstractPage {
     removeLastActionButton.setBackground( COLOR_RED );
     removeLastActionButton.setForeground( COLOR_WHITE );
     removeLastActionButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
-    applyImage( "/remove-action.png", removeLastActionButton );
+    applyImage( "/action.png", removeLastActionButton );
     removeLastActionButton.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
@@ -202,7 +202,7 @@ public class DynamicPage extends AbstractPage {
     addGlobalActionButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     addGlobalActionButton.setForeground( COLOR_WHITE );
     addGlobalActionButton.setBackground( COLOR_GRAY );
-    applyImage( "/add-global-action.png", addGlobalActionButton );
+    applyImage( "/global_action.png", addGlobalActionButton );
     addGlobalActionButton.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
@@ -221,7 +221,7 @@ public class DynamicPage extends AbstractPage {
     removeLastGlobalActionButton.setForeground( COLOR_WHITE );
     removeLastGlobalActionButton.setBackground( COLOR_RED );
     removeLastGlobalActionButton.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
-    applyImage( "/remove-global-action.png", removeLastGlobalActionButton );
+    applyImage( "/global_action.png", removeLastGlobalActionButton );
     removeLastGlobalActionButton.addSelectionListener( new SelectionAdapter() {
       @Override
       public void widgetSelected( SelectionEvent e ) {
