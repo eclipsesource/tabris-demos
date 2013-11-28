@@ -33,6 +33,8 @@ import java.util.Map;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 
+import com.eclipsesource.tabris.ui.action.Proposal;
+
 public class BookProvider {
 
   private static class BookData {
@@ -106,12 +108,12 @@ public class BookProvider {
     book2.getRelated().add( book1 );
   }
 
-  public static List<String> findBookTitles( Display display, final String query ) {
+  public static List<Proposal> findBookTitles( Display display, final String query ) {
     List<Book> books = BookProvider.getBooks( display );
-    final List<String> matches = new ArrayList<String>();
+    final List<Proposal> matches = new ArrayList<Proposal>();
     for( Book book : books ) {
       if( contains( book.getTitle(), query ) ) {
-        matches.add( book.getTitle() );
+        matches.add( new Proposal( book.getTitle() ) );
       }
     }
     return matches;

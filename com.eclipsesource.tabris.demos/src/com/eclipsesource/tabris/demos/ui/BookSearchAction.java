@@ -14,6 +14,7 @@ import static com.eclipsesource.tabris.demos.ui.BookProvider.findBooks;
 import java.util.List;
 
 import com.eclipsesource.tabris.ui.PageData;
+import com.eclipsesource.tabris.ui.action.Proposal;
 import com.eclipsesource.tabris.ui.action.ProposalHandler;
 import com.eclipsesource.tabris.ui.action.SearchAction;
 
@@ -49,13 +50,15 @@ public class BookSearchAction extends SearchAction {
     // start potentially long running proposal gathering thread
     new Thread( new Runnable() {
 
+      @Override
       public void run() {
         getUI().getDisplay().asyncExec( new Runnable() {
 
+          @Override
           public void run() {
             // should be performed in the thread not in the async display
-            final List<String> findBookTitles = findBookTitles( getUI().getDisplay(), query );
-            proposalHandler.setProposals( findBookTitles );
+            final List<Proposal> bookTitles = findBookTitles( getUI().getDisplay(), query );
+            proposalHandler.setProposals( bookTitles );
           }
         } );
       }
