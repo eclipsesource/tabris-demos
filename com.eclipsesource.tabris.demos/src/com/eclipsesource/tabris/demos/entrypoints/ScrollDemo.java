@@ -49,6 +49,7 @@ public class ScrollDemo implements EntryPoint {
     controls = new ArrayList<Control>();
   }
 
+  @Override
   public int createUI() {
     Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
@@ -137,7 +138,7 @@ public class ScrollDemo implements EntryPoint {
         String number = jumpTo.getText();
         try {
           int index = Integer.parseInt( number );
-          Control control = controls.get( index - 1 );
+          Control control = controls.get( index );
           scrollableParent.reveal( control );
         } catch( NumberFormatException nfe ) {
           handleWrongNumber( jumpTo );
@@ -217,7 +218,7 @@ public class ScrollDemo implements EntryPoint {
     Label label = new Label( content, SWT.NONE );
     label.setLayoutData( GridDataFactory.fillDefaults().align( SWT.CENTER, SWT.CENTER ).create() );
     label.setForeground( new Color( content.getDisplay(), 255, 255, 255 ) );
-    label.setText( "# " + ( controls.indexOf( content ) + 1 ) + " " + name );
+    label.setText( "# " + ( controls.indexOf( content ) ) + " " + name );
     label.setLayoutData( GridDataFactory.fillDefaults().grab( true, true ).align( SWT.CENTER, SWT.CENTER ).create() );
     return content;
   }
