@@ -37,19 +37,9 @@
 
 	<repositories>
 		<repository>
-			<id>tabris-staging</id>
-			<layout>p2</layout>
-			<url>http://download.eclipsesource.com/technology/tabris/downloads/nightly</url>
-		</repository>
-		<repository>
 			<id>eclipse-milestones</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/eclipse/updates/4.2</url>
-		</repository>
-		<repository>
-			<id>eclipse-orbit</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/</url>
 		</repository>
 	</repositories>
 
@@ -74,27 +64,34 @@
 			</plugin>
 
 			<!-- Configure tycho to use p2 to get the target -->
-			<plugin>
-				<groupId>${tycho-groupid}</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho-version}</version>
-				<configuration>
-					<resolver>p2</resolver>
-					<ignoreTychoRepositories>true</ignoreTychoRepositories>
-					<target>
-						<dependency-resolution>
-							<optionalDependencies>ignore</optionalDependencies>
-						</dependency-resolution>
-					</target>
-					<environments>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>
-					</environments>
-				</configuration>
-			</plugin>
+      <plugin>
+        <groupId>${tycho-groupid}</groupId>
+        <artifactId>target-platform-configuration</artifactId>
+        <version>${tycho-version}</version>
+        <configuration>
+          <resolver>p2</resolver>
+          <pomDependencies>consider</pomDependencies>
+          <ignoreTychoRepositories>true</ignoreTychoRepositories>
+          <target>
+            <artifact>
+              <groupId>${project.groupId}</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <version>${project.version}</version>
+              <classifier>${project.parent.relativePath}/../../com.eclipsesource.tabris.demos/tabris</classifier>
+            </artifact>
+            <dependency-resolution>
+              <optionalDependencies>ignore</optionalDependencies>
+            </dependency-resolution>
+          </target>
+          <environments>
+            <environment>
+              <os>linux</os>
+              <ws>gtk</ws>
+              <arch>x86</arch>
+            </environment>
+          </environments>
+        </configuration>
+      </plugin>
 
 			<!-- Configure qualifier replacement -->
 			<plugin>

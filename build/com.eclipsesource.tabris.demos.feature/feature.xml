@@ -5,16 +5,23 @@
       version="1.2.0.qualifier"
       provider-name="EclipseSource">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="https://github.com/eclipsesource/tabris-demos">
+      Official Tabris Demos
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
+   <copyright url="http://www.eclipse.org/legal/epl-v10.html">
+      Copyright (c) 2012,2013 EclipseSource and others.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors:
+   EclipseSource - initial API and implementation
    </copyright>
 
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
+      EPL v1.0
    </license>
 
    <plugin
@@ -132,13 +139,6 @@
 
    <plugin
          id="com.eclipsesource.tabris"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.json"
          download-size="0"
          install-size="0"
          version="0.0.0"

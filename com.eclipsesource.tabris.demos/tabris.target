@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="Tabris with RAP 2.0" sequenceNumber="34">
+<locations>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.rap.feature.feature.group" version="2.2.0.20131127-1035"/>
+<unit id="com.eclipsesource.tabris.feature.feature.group" version="1.2.0.201312041342"/>
+<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="2.2.0.20131110-1237"/>
+<repository location="http://download.eclipsesource.com/technology/tabris/downloads/nightly"/>
+</location>
+</locations>
+</target>
