@@ -54,6 +54,7 @@ public class GalleryDemo implements EntryPoint {
   private boolean thumbnailsVisible;
   private ToolItem overviewItem;
 
+  @Override
   public int createUI() {
     Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
@@ -211,7 +212,7 @@ public class GalleryDemo implements EntryPoint {
               + imageName + "_thumb.jpg"));
       final Label thumbLabel = new Label(thumbnailsComposite, SWT.NONE);
       thumbLabel.setImage(thumbImage);
-      onLabel( thumbLabel ).showLocalTouch();
+      onLabel( thumbLabel ).showLocalTouch( true );
       thumbLabel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseUp(MouseEvent e) {

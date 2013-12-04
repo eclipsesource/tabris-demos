@@ -63,6 +63,7 @@ public class BookDetailsPage extends AbstractPage {
   private void addGroupedEventsListener( final Book book ) {
     onComposite( bookDetailsComposite ).addGroupedListener( SWT.MouseDown, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         PageData readData = new PageData();
         readData.set( ReadBookPage.BOOK_ITEM, book );
@@ -86,7 +87,7 @@ public class BookDetailsPage extends AbstractPage {
       .grab( true, false )
       .create();
     bookDetailsComposite.setLayoutData( layoutData );
-    onComposite( bookDetailsComposite ).showLocalTouch();
+    onComposite( bookDetailsComposite ).showLocalTouch( true );
     GridLayout layout = GridLayoutFactory.fillDefaults()
       .spacing( 0, 0 )
       .numColumns( 2 )
