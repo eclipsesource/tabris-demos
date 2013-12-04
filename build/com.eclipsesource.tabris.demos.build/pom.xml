@@ -36,7 +36,7 @@
 		<repository>
 			<id>tabris-staging</id>
 			<layout>p2</layout>
-			<url>http://download.eclipsesource.com/technology/tabris/downloads/staging</url>
+			<url>http://download.eclipsesource.com/technology/tabris/downloads/nightly</url>
 		</repository>
 		<repository>
 			<id>eclipse-milestones</id>
