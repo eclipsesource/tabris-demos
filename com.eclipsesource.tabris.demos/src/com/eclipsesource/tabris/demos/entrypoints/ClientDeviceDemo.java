@@ -43,6 +43,7 @@ import com.eclipsesource.tabris.device.ClientDeviceAdapter;
 
 public class ClientDeviceDemo implements EntryPoint {
 
+  @Override
   public int createUI() {
     final Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
@@ -71,6 +72,7 @@ public class ClientDeviceDemo implements EntryPoint {
     createCapabilityGroup( container, clientDevice );
     createOrientationGroup( container, clientDevice );
     createConnectionTypeGroup( container, clientDevice );
+    createLocaleGroup( container, clientDevice );
     scrolledComposite.setContent( container );
   }
 
@@ -103,8 +105,13 @@ public class ClientDeviceDemo implements EntryPoint {
     createLabel( group, "Maps" ).setText( getHasCapabilityString( clientDevice, MAPS ) );
   }
 
+  private void createLocaleGroup( Composite parent, ClientDevice clientDevice ) {
+    Group group = createGroup( parent, "Locale" );
+    createLabel( group, "Transmitted Locale" ).setText( clientDevice.getLocale().toString() );
+  }
+
   private String getHasCapabilityString( ClientDevice clientDevice, Capability capability ) {
-    String result = "-"; 
+    String result = "-";
     if( clientDevice != null && clientDevice.hasCapability( capability ) ) {
       result = "✓";
     }
@@ -117,7 +124,7 @@ public class ClientDeviceDemo implements EntryPoint {
     if( clientDevice != null ) {
       label.setText( clientDevice.getConnectionType().toString() );
       clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
-  
+
         @Override
         public void connectionTypeChanged( ConnectionType newConnectionType ) {
           label.setText( newConnectionType.toString() );
@@ -133,7 +140,7 @@ public class ClientDeviceDemo implements EntryPoint {
     if( clientDevice != null ) {
       label.setText( clientDevice.getOrientation().toString() );
       clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
-        
+
         @Override
         public void orientationChange( Orientation newOrientation ) {
           label.setText( newOrientation.toString() );
