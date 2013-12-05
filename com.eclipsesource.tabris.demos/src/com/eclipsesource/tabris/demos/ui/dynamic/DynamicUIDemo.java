@@ -20,6 +20,7 @@ import com.eclipsesource.tabris.ui.UIConfiguration;
 
 public class DynamicUIDemo implements EntryPointFactory {
 
+  @Override
   public EntryPoint create() {
     return new TabrisUIEntryPoint( createConfig() );
   }
@@ -28,7 +29,7 @@ public class DynamicUIDemo implements EntryPointFactory {
     UIConfiguration configuration = new UIConfiguration();
     configuration.addPageConfiguration( new PageConfiguration( "root", DynamicPage.class )
                                           .setTopLevel( true )
-                                          .setTitle( "Root" ) );
+                                          .setTitle( "Dynamic UI Start" ) );
     return configuration;
   }
 }
