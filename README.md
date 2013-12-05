@@ -17,6 +17,7 @@ This repository contains a single Eclipse project that is used within the [Tabri
 * http://SERVER:9090/swipe 
 * http://SERVER:9090/appevents
 * http://SERVER:9090/ui
+* http://SERVER:9090/dynamic-ui
 * http://SERVER:9090/device 
 
 To list all available Entrypoints: http://SERVER:9090/index.json
