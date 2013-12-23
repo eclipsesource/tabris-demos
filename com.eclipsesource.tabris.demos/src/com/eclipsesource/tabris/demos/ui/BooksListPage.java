@@ -42,7 +42,6 @@ import com.eclipsesource.tabris.ui.AbstractPage;
 import com.eclipsesource.tabris.ui.PageData;
 import com.eclipsesource.tabris.ui.UI;
 
-@SuppressWarnings( "restriction" )
 public class BooksListPage extends AbstractPage {
 
   private BookFilter bookFilter;
@@ -143,6 +142,7 @@ public class BooksListPage extends AbstractPage {
 
   private static void addBookSelectionListener( final AbstractPage page, TreeViewer viewer ) {
     viewer.addSelectionChangedListener( new ISelectionChangedListener() {
+      @Override
       public void selectionChanged( SelectionChangedEvent event ) {
         Object book = ( ( IStructuredSelection )event.getSelection() ).getFirstElement();
         if( book != null ) {
