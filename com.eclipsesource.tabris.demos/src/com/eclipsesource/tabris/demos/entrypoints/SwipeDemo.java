@@ -25,18 +25,21 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import com.eclipsesource.tabris.TabrisClient;
 import com.eclipsesource.tabris.demos.swipe.DictionarySwipeItemProvider;
-import com.eclipsesource.tabris.device.ClientDevice;
-import com.eclipsesource.tabris.device.ClientDevice.Platform;
+import com.eclipsesource.tabris.widgets.PagingIndicator;
 import com.eclipsesource.tabris.widgets.swipe.Swipe;
+import com.eclipsesource.tabris.widgets.swipe.SwipeAdapter;
+import com.eclipsesource.tabris.widgets.swipe.SwipeContext;
+import com.eclipsesource.tabris.widgets.swipe.SwipeItem;
 
 public class SwipeDemo implements EntryPoint {
 
+  @Override
   public int createUI() {
     Display display = new Display();
     final Shell shell = createShell( display );
-    ClientDevice device = RWT.getClient().getService( ClientDevice.class );
-    if( device != null && device.getPlatform() != Platform.WEB ) {
+    if( RWT.getClient() instanceof TabrisClient ) {
       createToolBar( shell );
       Composite container = createParentComposite( shell );
       createSwipeWidget( container );
@@ -49,7 +52,7 @@ public class SwipeDemo implements EntryPoint {
 
   private Composite createParentComposite( final Shell shell ) {
     Composite comp = new Composite( shell, SWT.NONE );
-    GridLayoutFactory.fillDefaults().applyTo( comp );
+    GridLayoutFactory.fillDefaults().margins( 0, 5 ).applyTo( comp );
     GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).applyTo( comp );
     return comp;
   }
@@ -70,12 +73,30 @@ public class SwipeDemo implements EntryPoint {
   }
 
   private void createSwipeWidget( Composite parent ) {
-    Swipe result = new Swipe( parent, new DictionarySwipeItemProvider() );
+    DictionarySwipeItemProvider itemProvider = new DictionarySwipeItemProvider();
+    Swipe result = new Swipe( parent, itemProvider );
     GridDataFactory.fillDefaults()
       .grab( true, true )
       .align( SWT.FILL, SWT.FILL )
       .applyTo( result.getControl() );
     result.show( 0 );
+    createPagingIndicator( parent, result, itemProvider.getItemCount() );
+  }
+
+  private void createPagingIndicator( Composite parent, Swipe swipe, int itemCount ) {
+    final PagingIndicator pagingIndicator = new PagingIndicator( parent );
+    pagingIndicator.setSpacing( 5 );
+    pagingIndicator.setCount( itemCount );
+    swipe.addSwipeListener( new SwipeAdapter() {
+      @Override
+      public void itemActivated(SwipeItem item, int index, SwipeContext context) {
+        pagingIndicator.setActive( index );
+      }
+    } );
+    GridDataFactory.fillDefaults()
+      .grab( true, false )
+      .align( SWT.FILL, SWT.FILL )
+      .applyTo( pagingIndicator );
   }
 
   private void createWebClientContent( final Shell shell ) {
