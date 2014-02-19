@@ -17,6 +17,7 @@ public class FavoriteBooksPage extends BooksListPage {
 
   private static class FavoriteBookFilter implements BookFilter {
 
+    @Override
     public List<Book> filter( List<Book> books ) {
       List<Book> result = new ArrayList<Book>();
       for( Book book : books ) {
@@ -29,7 +30,6 @@ public class FavoriteBooksPage extends BooksListPage {
   }
 
   public FavoriteBooksPage() {
-    setBookFilter(  new FavoriteBookFilter() );
+    setBookFilter( new FavoriteBookFilter() );
   }
-
 }
