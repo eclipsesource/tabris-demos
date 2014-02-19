@@ -258,6 +258,7 @@ public class DrawDemo implements EntryPoint {
   private ToolItem undoToolItem;
   private ToolItem clearToolItem;
 
+  @Override
   public int createUI() {
     final Display display = new Display();
     if( SHOW_BLUE_PRINT ) {
@@ -316,6 +317,7 @@ public class DrawDemo implements EntryPoint {
     }
     canvas.addPaintListener( new PaintListener() {
 
+      @Override
       public void paintControl( PaintEvent e ) {
         e.gc.setLineWidth( currentLineWidth );
         e.gc.setLineCap( SWT.CAP_ROUND );
@@ -326,6 +328,7 @@ public class DrawDemo implements EntryPoint {
     } );
     canvas.addClientDrawListener( new ClientDrawListener() {
 
+      @Override
       public void receivedDrawing() {
         redoToolItem.setEnabled( canvas.hasRedo() );
         undoToolItem.setEnabled( canvas.hasUndo() );
@@ -335,13 +338,14 @@ public class DrawDemo implements EntryPoint {
     canvas.redraw();
     canvas.addPaintListener( new PaintListener() {
 
+      @Override
       public void paintControl( PaintEvent event ) {
         GC gc = event.gc;
         Color oldForeground = gc.getForeground();
         Color oldBackground = gc.getBackground();
         gc.setForeground( event.display.getSystemColor( SWT.COLOR_BLACK ) );
         gc.setBackground( event.display.getSystemColor( SWT.COLOR_BLACK ) );
-        drawErnie( gc );
+        // drawErnie( gc );
         gc.setForeground( oldForeground );
         gc.setBackground( oldBackground );
       }
@@ -530,6 +534,7 @@ public class DrawDemo implements EntryPoint {
                                            DrawDemo.class.getResourceAsStream( "/line-width-thin.png" ) ) );
     widthThinToolItem.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         currentLineWidth = 1;
         canvas.redraw();
@@ -540,6 +545,7 @@ public class DrawDemo implements EntryPoint {
                                              DrawDemo.class.getResourceAsStream( "/line-width-medium.png" ) ) );
     widthMediumToolItem.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         currentLineWidth = 8;
         canvas.redraw();
@@ -550,6 +556,7 @@ public class DrawDemo implements EntryPoint {
                                             DrawDemo.class.getResourceAsStream( "/line-width-thick.png" ) ) );
     widthThickToolItem.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         currentLineWidth = 16;
         canvas.redraw();
@@ -560,6 +567,7 @@ public class DrawDemo implements EntryPoint {
     opacityToolItem.setText( "Opaque" );
     opacityToolItem.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         if( alpha == 255 ) {
           alpha = 128;
@@ -576,6 +584,7 @@ public class DrawDemo implements EntryPoint {
     colorRedToolItem.setText( "Red" );
     colorRedToolItem.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         currentColor = SWT.COLOR_DARK_RED;
         canvas.redraw();
@@ -585,6 +594,7 @@ public class DrawDemo implements EntryPoint {
     colorGreenToolItem.setText( "Green" );
     colorGreenToolItem.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         currentColor = SWT.COLOR_DARK_GREEN;
         canvas.redraw();
@@ -594,6 +604,7 @@ public class DrawDemo implements EntryPoint {
     colorBlueToolItem.setText( "Blue" );
     colorBlueToolItem.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         currentColor = SWT.COLOR_DARK_BLUE;
         canvas.redraw();
@@ -606,6 +617,7 @@ public class DrawDemo implements EntryPoint {
     undoToolItem.setEnabled( false );
     undoToolItem.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         canvas.undo();
         undoToolItem.setEnabled( canvas.hasUndo() );
@@ -618,6 +630,7 @@ public class DrawDemo implements EntryPoint {
     redoToolItem.setEnabled( false );
     redoToolItem.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         canvas.redo();
         redoToolItem.setEnabled( canvas.hasRedo() );
@@ -628,6 +641,7 @@ public class DrawDemo implements EntryPoint {
     clearToolItem.setText( "Clear" );
     clearToolItem.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         canvas.clear();
       }

@@ -75,9 +75,9 @@ public class BookProvider {
   public static List<Book> getBooks( Display display ) {
     List<Book> books = new ArrayList<Book>();
     Book bookSchroder = createBook( display, bookData.get( BOOK_GAIGE ) );
-    Book bookAfterVisiting = createBook( display, bookData.get( BOOK_HAINY ) ).setFavourite( true );
-    Book bookVampires = createBook( display, bookData.get( BOOK_RUSSEL ) ).setFavourite( true );
-    Book bookHistory = createBook( display, bookData.get( BOOK_BROOK ) ).setFavourite( true )
+    Book bookAfterVisiting = createBook( display, bookData.get( BOOK_HAINY ) ).setFavorite( true );
+    Book bookVampires = createBook( display, bookData.get( BOOK_RUSSEL ) ).setFavorite( true );
+    Book bookHistory = createBook( display, bookData.get( BOOK_BROOK ) ).setFavorite( true )
       .setPopular( true );
     Book bookAutobiography = createBook( display, bookData.get( BOOK_SLOSS ) ).setPopular( true );
     Book bookLiteratur = createBook( display, bookData.get( BOOK_SHIELDS ) ).setPopular( true );

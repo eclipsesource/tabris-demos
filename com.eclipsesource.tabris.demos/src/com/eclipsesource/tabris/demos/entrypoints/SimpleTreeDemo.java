@@ -11,6 +11,7 @@ import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onTree;
 
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
@@ -21,11 +22,15 @@ import org.eclipse.swt.widgets.TreeItem;
 
 public class SimpleTreeDemo implements EntryPoint {
 
+  private Image image;
+
+  @Override
   public int createUI() {
     Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized( true );
     shell.setLayout( new FillLayout() );
+    image = new Image( display, SimpleTreeDemo.class.getResourceAsStream( "/images/add_page.png" ) );
     createContent( display, shell );
     shell.open();
     shell.setVisible( true );
@@ -40,21 +45,22 @@ public class SimpleTreeDemo implements EntryPoint {
     for( int i = 0; i < 4; i++ ) {
       TreeItem iItem = new TreeItem( tree, 0 );
       iItem.setText( getMainCharacterName( i ) );
+      // iItem.setImage( image );
       for( int j = 0; j < 8; j++ ) {
         TreeItem jItem = new TreeItem( iItem, 0 );
-        jItem.setText( getSideCharacterName( j ));
+        jItem.setText( getSideCharacterName( j ) );
         for( int k = 0; k < 30; k++ ) {
           TreeItem kItem = new TreeItem( jItem, 0 );
           kItem.setText( "Season 5, Episode " + k );
         }
       }
     }
-
     tree.addListener( SWT.Expand, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         TreeItem item = ( TreeItem )event.item;
-        System.out.println( "Item selected: " + item.getText());
+        System.out.println( "Item selected: " + item.getText() );
       }
     } );
   }

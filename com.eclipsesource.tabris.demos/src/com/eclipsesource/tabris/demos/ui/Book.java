@@ -21,7 +21,7 @@ public class Book {
   private final String author;
   private final Image image;
   private final List<Book> related;
-  private boolean favourite;
+  private boolean favorite;
   private boolean popular;
 
   public Book( String title, String author, Image image ) {
@@ -31,12 +31,12 @@ public class Book {
     this.related = new ArrayList<Book>();
   }
 
-  public boolean isFavourite() {
-    return favourite;
+  public boolean isFavorite() {
+    return favorite;
   }
 
-  public Book setFavourite( boolean favourite ) {
-    this.favourite = favourite;
+  public Book setFavorite( boolean favorite ) {
+    this.favorite = favorite;
     return this;
   }
 

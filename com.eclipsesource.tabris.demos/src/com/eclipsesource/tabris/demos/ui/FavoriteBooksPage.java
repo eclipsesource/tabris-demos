@@ -13,9 +13,9 @@ package com.eclipsesource.tabris.demos.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouriteBooksPage extends BooksListPage {
+public class FavoriteBooksPage extends BooksListPage {
 
-  private static class FavouriteBookFilter implements BookFilter {
+  private static class FavoriteBookFilter implements BookFilter {
 
     public List<Book> filter( List<Book> books ) {
       List<Book> result = new ArrayList<Book>();
@@ -28,8 +28,8 @@ public class FavouriteBooksPage extends BooksListPage {
     }
   }
 
-  public FavouriteBooksPage() {
-    setBookFilter(  new FavouriteBookFilter() );
+  public FavoriteBooksPage() {
+    setBookFilter(  new FavoriteBookFilter() );
   }
 
 }

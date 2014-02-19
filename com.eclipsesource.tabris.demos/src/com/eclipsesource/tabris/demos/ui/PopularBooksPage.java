@@ -20,7 +20,7 @@ public class PopularBooksPage extends BooksListPage {
     public List<Book> filter( List<Book> books ) {
       List<Book> result = new ArrayList<Book>();
       for( Book book : books ) {
-        if( book.isFavourite() ) {
+        if( book.isFavorite() ) {
           result.add( book );
         }
       }

@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2013 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
@@ -14,9 +11,8 @@ import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SEARCH;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SETTINGS;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_SHARE;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_ACTION_THEME;
-import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_BOOK_STORE_UI;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_ALL_BOOKS;
-import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_FAVOURITE_BOOKS;
+import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_FAVORITE_BOOKS;
 import static com.eclipsesource.tabris.demos.ui.Constants.IMAGE_PAGE_POPULAR_BOOKS;
 
 import java.io.InputStream;
@@ -28,7 +24,7 @@ import com.eclipsesource.tabris.demos.ui.AllBooksPage;
 import com.eclipsesource.tabris.demos.ui.BookDetailsPage;
 import com.eclipsesource.tabris.demos.ui.BookSearchAction;
 import com.eclipsesource.tabris.demos.ui.ChangeThemeAction;
-import com.eclipsesource.tabris.demos.ui.FavouriteBooksPage;
+import com.eclipsesource.tabris.demos.ui.FavoriteBooksPage;
 import com.eclipsesource.tabris.demos.ui.PopularBooksPage;
 import com.eclipsesource.tabris.demos.ui.ReadBookPage;
 import com.eclipsesource.tabris.demos.ui.SearchResultsPage;
@@ -50,8 +46,8 @@ public class UiDemo implements EntryPointFactory {
 
   private UIConfiguration createConfiguration() {
     UIConfiguration configuration = new UIConfiguration();
-    configuration.setImage( getImage( IMAGE_BOOK_STORE_UI ) );
-    createPages( configuration);
+    // configuration.setImage( getImage( IMAGE_BOOK_STORE_UI ) );
+    createPages( configuration );
     createPageSettings( configuration );
     createGlobalActions( configuration );
     return configuration;
@@ -60,14 +56,15 @@ public class UiDemo implements EntryPointFactory {
   private void createPages( UIConfiguration configuration ) {
     createAllBooksPage( configuration );
     createPopularBooksPage( configuration );
-    createFavouriteBooksPage( configuration );
+    createFavoriteBooksPage( configuration );
     createBookDetailsPage( configuration );
     createReadBookPage( configuration );
     createSearchResultsPage( configuration );
   }
 
   private void createAllBooksPage( UIConfiguration configuration ) {
-    PageConfiguration page = new PageConfiguration( AllBooksPage.class.getName(), AllBooksPage.class );
+    PageConfiguration page = new PageConfiguration( AllBooksPage.class.getName(),
+                                                    AllBooksPage.class );
     page.setTitle( "All Books" );
     page.setImage( getImage( IMAGE_PAGE_ALL_BOOKS ) );
     page.setTopLevel( true );
@@ -75,25 +72,29 @@ public class UiDemo implements EntryPointFactory {
   }
 
   private void createPopularBooksPage( UIConfiguration configuration ) {
-    PageConfiguration page = new PageConfiguration( PopularBooksPage.class.getName(), PopularBooksPage.class );
+    PageConfiguration page = new PageConfiguration( PopularBooksPage.class.getName(),
+                                                    PopularBooksPage.class );
     page.setTitle( "Popular" );
     page.setImage( getImage( IMAGE_PAGE_POPULAR_BOOKS ) );
     page.setTopLevel( true );
     configuration.addPageConfiguration( page );
   }
 
-  private void createFavouriteBooksPage( UIConfiguration configuration ) {
-    PageConfiguration page = new PageConfiguration( FavouriteBooksPage.class.getName(), FavouriteBooksPage.class );
-    page.setTitle( "Favourite" );
-    page.setImage( getImage( IMAGE_PAGE_FAVOURITE_BOOKS ) );
+  private void createFavoriteBooksPage( UIConfiguration configuration ) {
+    PageConfiguration page = new PageConfiguration( FavoriteBooksPage.class.getName(),
+                                                    FavoriteBooksPage.class );
+    page.setTitle( "Favorite" );
+    page.setImage( getImage( IMAGE_PAGE_FAVORITE_BOOKS ) );
     page.setTopLevel( true );
     configuration.addPageConfiguration( page );
   }
 
   private void createBookDetailsPage( UIConfiguration configuration ) {
-    PageConfiguration page = new PageConfiguration( BookDetailsPage.class.getName(), BookDetailsPage.class );
+    PageConfiguration page = new PageConfiguration( BookDetailsPage.class.getName(),
+                                                    BookDetailsPage.class );
     page.setTitle( "Book" );
-    ActionConfiguration action = new ActionConfiguration( ShareAction.class.getName(), ShareAction.class );
+    ActionConfiguration action = new ActionConfiguration( ShareAction.class.getName(),
+                                                          ShareAction.class );
     action.setImage( getImage( IMAGE_ACTION_SHARE ) );
     action.setTitle( "Share" );
     page.addActionConfiguration( action );
@@ -101,7 +102,8 @@ public class UiDemo implements EntryPointFactory {
   }
 
   private void createReadBookPage( UIConfiguration configuration ) {
-    PageConfiguration page = new PageConfiguration( ReadBookPage.class.getName(), ReadBookPage.class );
+    PageConfiguration page = new PageConfiguration( ReadBookPage.class.getName(),
+                                                    ReadBookPage.class );
     page.setTitle( "Book" );
     ActionConfiguration action = new ActionConfiguration( ChangeThemeAction.class.getName(),
                                                           ChangeThemeAction.class );
@@ -112,18 +114,21 @@ public class UiDemo implements EntryPointFactory {
   }
 
   private void createPageSettings( UIConfiguration configuration ) {
-    PageConfiguration page = new PageConfiguration( SettingsPage.class.getName(), SettingsPage.class );
+    PageConfiguration page = new PageConfiguration( SettingsPage.class.getName(),
+                                                    SettingsPage.class );
     page.setTitle( "Settings" );
     configuration.addPageConfiguration( page );
   }
 
   private void createSearchResultsPage( UIConfiguration configuration ) {
-    PageConfiguration page = new PageConfiguration( SearchResultsPage.class.getName(), SearchResultsPage.class );
+    PageConfiguration page = new PageConfiguration( SearchResultsPage.class.getName(),
+                                                    SearchResultsPage.class );
     configuration.addPageConfiguration( page );
   }
 
   private void createGlobalActions( UIConfiguration configuration ) {
-    ActionConfiguration action = new ActionConfiguration( BookSearchAction.class.getName(), BookSearchAction.class );
+    ActionConfiguration action = new ActionConfiguration( BookSearchAction.class.getName(),
+                                                          BookSearchAction.class );
     action.setImage( getImage( IMAGE_ACTION_SEARCH ) );
     action.setTitle( "Search" );
     action.setPlacementPriority( PlacementPriority.HIGH );
@@ -138,5 +143,4 @@ public class UiDemo implements EntryPointFactory {
   private InputStream getImage( String path ) {
     return UiDemo.class.getResourceAsStream( path );
   }
-
 }

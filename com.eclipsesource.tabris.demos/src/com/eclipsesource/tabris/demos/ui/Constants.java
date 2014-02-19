@@ -1,15 +1,11 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    EclipseSource - initial API and implementation
+ * Copyright (c) 2013 EclipseSource and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
+ * EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.ui;
-
 
 public class Constants {
 
@@ -27,7 +23,6 @@ public class Constants {
   public static final String IMAGE_HOW_LITERATUR = "/book_how_literature.jpg";
   public static final String IMAGE_THE_DINNER = "/book_the_dinner.jpg";
   public static final String IMAGE_VAMPIRES = "/book_vampires.jpg";
-
   public static final String BOOKS = "booksList";
   public static final String TITLE_FONT = "ITEM_TITLE";
   public static final String RELATED_BOOKS_FONT = "RELATED_BOOKS_FONT";
@@ -36,10 +31,9 @@ public class Constants {
   public static final String IMAGE_ACTION_SEARCH = "/action_search.png";
   public static final String IMAGE_ACTION_SHARE = "/action_share.png";
   public static final String IMAGE_ACTION_THEME = "/action_theme.png";
-  public static final String IMAGE_PAGE_FAVOURITE_BOOKS = "/page_favourite_books.png";
+  public static final String IMAGE_PAGE_FAVORITE_BOOKS = "/page_favorite_books.png";
   public static final String IMAGE_PAGE_POPULAR_BOOKS = "/page_popular_books.png";
   public static final String IMAGE_PAGE_ALL_BOOKS = "/page_all_books.png";
-
   public static final String DUMMY_TEXT = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy "
                                           + "nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. "
                                           + "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper "
@@ -57,7 +51,6 @@ public class Constants {
                                           + "litterarum formas humanitatis per seacula quarta decima et quinta decima. "
                                           + "Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes "
                                           + "in futurum.";
-
 
   private Constants() {
     // prevent instantiation
