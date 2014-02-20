@@ -87,7 +87,7 @@ public class BooksListPage extends AbstractPage {
   }
 
   public static TreeViewer createTreeViewer( AbstractPage page, Composite container ) {
-    TreeViewer viewer = new TreeViewer( container, SWT.V_SCROLL | SWT.FULL_SELECTION );
+    TreeViewer viewer = new TreeViewer( container, SWT.V_SCROLL );
     viewer.setContentProvider( new BooksContentProvider() );
     addBookSelectionListener( page, viewer );
     Tree tree = viewer.getTree();
