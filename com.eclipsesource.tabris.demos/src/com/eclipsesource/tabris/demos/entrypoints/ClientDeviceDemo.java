@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
+import com.eclipsesource.tabris.app.App;
 import com.eclipsesource.tabris.device.ClientDevice;
 import com.eclipsesource.tabris.device.ClientDevice.Capability;
 import com.eclipsesource.tabris.device.ClientDevice.ConnectionType;
@@ -50,6 +51,7 @@ public class ClientDeviceDemo implements EntryPoint {
     shell.setMaximized( true );
     shell.setLayout( new FillLayout() );
     ClientDevice clientDevice = RWT.getClient().getService( ClientDevice.class );
+    App app = RWT.getClient().getService( App.class );
     ScrolledComposite scrolledComposite = createScrolledComposite( shell );
     Composite container = new Composite( scrolledComposite, SWT.NONE );
     addResizeListener( scrolledComposite, container );
@@ -58,13 +60,14 @@ public class ClientDeviceDemo implements EntryPoint {
       .spacing( 0, 0 )
       .equalWidth( false )
       .create() );
-    createContent( clientDevice, scrolledComposite, container );
+    createContent( clientDevice, app, scrolledComposite, container );
     shell.layout( true, true );
     shell.open();
     return 0;
   }
 
   private void createContent( ClientDevice clientDevice,
+                              App app,
                               ScrolledComposite scrolledComposite,
                               Composite container )
   {
@@ -73,7 +76,23 @@ public class ClientDeviceDemo implements EntryPoint {
     createOrientationGroup( container, clientDevice );
     createConnectionTypeGroup( container, clientDevice );
     createLocaleGroup( container, clientDevice );
+    createHardwareGroup( container, clientDevice );
+    createAppGroup( container, app );
     scrolledComposite.setContent( container );
+  }
+
+  private void createHardwareGroup( Composite parent, ClientDevice clientDevice ) {
+    Group group = createGroup( parent, "Hardware" );
+    createLabel( group, "Model" ).setText( clientDevice.getModel() );
+    createLabel( group, "Vendor" ).setText( clientDevice.getVendor() );
+    createLabel( group, "OS Version" ).setText( clientDevice.getOSVersion() );
+  }
+
+  private void createAppGroup( Composite parent, App app ) {
+    Group group = createGroup( parent, "App" );
+    createLabel( group, "Id" ).setText( app.getId() );
+    createLabel( group, "Version" ).setText( app.getVersion() );
+    createLabel( group, "Tabris Version" ).setText( app.getTabrisVersion() );
   }
 
   private ScrolledComposite createScrolledComposite( Composite parent ) {
@@ -135,7 +154,7 @@ public class ClientDeviceDemo implements EntryPoint {
   }
 
   private void createOrientationGroup( Composite parent, ClientDevice clientDevice ) {
-    Group group = createGroup( parent, "Device Orientation" );
+    Group group = createGroup( parent, "Display" );
     final Label label = createLabel( group, "Orientation" );
     if( clientDevice != null ) {
       label.setText( clientDevice.getOrientation().toString() );
@@ -148,6 +167,7 @@ public class ClientDeviceDemo implements EntryPoint {
         }
       } );
     }
+    createLabel( group, "Scale Factor" ).setText( Float.toString( clientDevice.getScaleFactor() ) );
   }
 
   private Label createLabel( Composite parent, final String text ) {
