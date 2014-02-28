@@ -345,7 +345,7 @@ public class DrawDemo implements EntryPoint {
         Color oldBackground = gc.getBackground();
         gc.setForeground( event.display.getSystemColor( SWT.COLOR_BLACK ) );
         gc.setBackground( event.display.getSystemColor( SWT.COLOR_BLACK ) );
-        // drawErnie( gc );
+        drawErnie( gc );
         gc.setForeground( oldForeground );
         gc.setBackground( oldBackground );
       }

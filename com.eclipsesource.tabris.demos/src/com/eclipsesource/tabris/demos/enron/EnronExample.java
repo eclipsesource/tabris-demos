@@ -67,7 +67,7 @@ public class EnronExample {
     composite.setLayout( layout );
     viewer = new TreeViewer( composite, SWT.SINGLE | SWT.VIRTUAL );
     viewer.setUseHashlookup( true );
-    onTree( viewer.getTree() ).enableBackButtonNavigation();
+    onTree( viewer.getTree() ).setBackButtonNavigationEnabled( true );
     TreeColumn treeColumn = new TreeColumn( viewer.getTree(), SWT.NONE );
     treeColumn.setWidth( 200 );
     TreeColumn treeColumn2 = new TreeColumn( viewer.getTree(), SWT.NONE );
@@ -81,6 +81,7 @@ public class EnronExample {
     viewer.setInput( getDataSet() );
     viewer.addSelectionChangedListener( new ISelectionChangedListener() {
 
+      @Override
       public void selectionChanged( SelectionChangedEvent event ) {
         IStructuredSelection selection = ( IStructuredSelection )event.getSelection();
         Object firstElement = selection.getFirstElement();
@@ -308,6 +309,7 @@ public class EnronExample {
       this.viewer = viewer;
     }
 
+    @Override
     public Object getParent( Object element ) {
       Object result = null;
       if( element instanceof Node ) {
@@ -316,6 +318,7 @@ public class EnronExample {
       return result;
     }
 
+    @Override
     public void updateElement( Object parent, int index ) {
       if( parent instanceof Folder ) {
         Folder folder = ( Folder )parent;
@@ -327,6 +330,7 @@ public class EnronExample {
       }
     }
 
+    @Override
     public void updateChildCount( Object element, int currentChildCount ) {
       if( element instanceof Node ) {
         Node node = ( Node )element;
@@ -337,10 +341,12 @@ public class EnronExample {
       }
     }
 
+    @Override
     public void inputChanged( Viewer viewer, Object oldInput, Object newInput ) {
       // nothing
     }
 
+    @Override
     public void dispose() {
       // nothing
     }

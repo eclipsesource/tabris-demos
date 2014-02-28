@@ -41,11 +41,11 @@ public class SimpleTreeDemo implements EntryPoint {
     Tree tree = new Tree( shell, SWT.BORDER );
     tree.setToolTipText( "Winchester Evangelium" );
     tree.setLinesVisible( true );
-    onTree( tree ).enableBackButtonNavigation();
+    onTree( tree ).setBackButtonNavigationEnabled( true );
     for( int i = 0; i < 4; i++ ) {
       TreeItem iItem = new TreeItem( tree, 0 );
       iItem.setText( getMainCharacterName( i ) );
-      // iItem.setImage( image );
+      iItem.setImage( image );
       for( int j = 0; j < 8; j++ ) {
         TreeItem jItem = new TreeItem( iItem, 0 );
         jItem.setText( getSideCharacterName( j ) );
