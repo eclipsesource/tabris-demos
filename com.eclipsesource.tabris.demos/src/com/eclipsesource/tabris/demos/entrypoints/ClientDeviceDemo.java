@@ -23,12 +23,8 @@ import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
@@ -41,78 +37,73 @@ import com.eclipsesource.tabris.device.ClientDevice.Capability;
 import com.eclipsesource.tabris.device.ClientDevice.ConnectionType;
 import com.eclipsesource.tabris.device.ClientDevice.Orientation;
 import com.eclipsesource.tabris.device.ClientDeviceAdapter;
+import com.eclipsesource.tabris.widgets.ScrollingComposite;
 
 public class ClientDeviceDemo implements EntryPoint {
 
+  private static final String CHECK_MARK = "\u2713";
+
   @Override
   public int createUI() {
-    final Display display = new Display();
+    Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized( true );
     shell.setLayout( new FillLayout() );
     ClientDevice clientDevice = RWT.getClient().getService( ClientDevice.class );
     App app = RWT.getClient().getService( App.class );
-    ScrolledComposite scrolledComposite = createScrolledComposite( shell );
-    Composite container = new Composite( scrolledComposite, SWT.NONE );
-    addResizeListener( scrolledComposite, container );
-    container.setLayout( GridLayoutFactory.fillDefaults()
-      .margins( 0, 0 )
-      .spacing( 0, 0 )
-      .equalWidth( false )
-      .create() );
-    createContent( clientDevice, app, scrolledComposite, container );
-    shell.layout( true, true );
+    ScrollingComposite scrollingComposite = new ScrollingComposite( shell, SWT.V_SCROLL );
+    scrollingComposite.setLayout( new FillLayout() );
+    createContent( clientDevice, app, scrollingComposite );
     shell.open();
     return 0;
   }
 
-  private void createContent( ClientDevice clientDevice,
-                              App app,
-                              ScrolledComposite scrolledComposite,
-                              Composite container )
-  {
-    createDateTimeGroup( container, clientDevice );
-    createCapabilityGroup( container, clientDevice );
-    createOrientationGroup( container, clientDevice );
-    createConnectionTypeGroup( container, clientDevice );
-    createLocaleGroup( container, clientDevice );
-    createHardwareGroup( container, clientDevice );
-    createAppGroup( container, app );
-    scrolledComposite.setContent( container );
-  }
-
-  private void createHardwareGroup( Composite parent, ClientDevice clientDevice ) {
-    Group group = createGroup( parent, "Hardware" );
-    createLabel( group, "Model" ).setText( clientDevice.getModel() );
-    createLabel( group, "Vendor" ).setText( clientDevice.getVendor() );
-    createLabel( group, "OS Version" ).setText( clientDevice.getOSVersion() );
+  private void createContent( ClientDevice clientDevice, App app, Composite parent ) {
+    Composite content = new Composite( parent, SWT.NONE );
+    GridLayoutFactory.fillDefaults().spacing( 0, 0 ).applyTo( content );
+    createAppGroup( content, app );
+    createDeviceGroup( content, clientDevice );
+    createDisplayGroup( content, clientDevice );
+    createCapabilityGroup( content, clientDevice );
+    createConnectionGroup( content, clientDevice );
+    createTimeGroup( content, clientDevice );
   }
 
   private void createAppGroup( Composite parent, App app ) {
     Group group = createGroup( parent, "App" );
-    createLabel( group, "Id" ).setText( app.getId() );
-    createLabel( group, "Version" ).setText( app.getVersion() );
-    createLabel( group, "Tabris Version" ).setText( app.getTabrisVersion() );
-  }
-
-  private ScrolledComposite createScrolledComposite( Composite parent ) {
-    final ScrolledComposite scrolledComposite = new ScrolledComposite( parent, SWT.V_SCROLL );
-    scrolledComposite.setExpandHorizontal( true );
-    scrolledComposite.setExpandVertical( true );
-    return scrolledComposite;
-  }
-
-  private void createDateTimeGroup( Composite parent, ClientDevice clientDevice ) {
-    Group group = createGroup( parent, "Timezone Offset" );
-    int offset = 0;
-    if( clientDevice != null ) {
-      offset = clientDevice.getTimezoneOffset() * -1;
+    if( app != null ) {
+      createLabel( group, "Id" ).setText( stringForText( app.getId() ) );
+      createLabel( group, "Version" ).setText( stringForText( app.getVersion() ) );
+      createLabel( group, "Tabris Version" ).setText( stringForText( app.getTabrisVersion() ) );
     }
-    SimpleDateFormat formatter = new SimpleDateFormat();
-    createLabel( group, "Server Time" ).setText( formatter.format( new Date() ) );
-    formatter.setTimeZone( TimeZone.getTimeZone( TimeZone.getAvailableIDs( offset * 1000 * 60 )[ 0 ] ) );
-    createLabel( group, "Client Time" ).setText( formatter.format( new Date() ) );
-    createLabel( group, "Client UTC Offset" ).setText( offset + " Minutes" );
+  }
+
+  private void createDeviceGroup( Composite parent, ClientDevice clientDevice ) {
+    Group group = createGroup( parent, "Device" );
+    if( clientDevice != null ) {
+      createLabel( group, "Model" ).setText( stringForText( clientDevice.getModel() ) );
+      createLabel( group, "Vendor" ).setText( stringForText( clientDevice.getVendor() ) );
+      createLabel( group, "OS Version" ).setText( stringForText( clientDevice.getOSVersion() ) );
+      createLabel( group, "Locale" ).setText( stringForText( clientDevice.getLocale().toString() ) );
+    }
+  }
+
+  private void createDisplayGroup( Composite parent, ClientDevice clientDevice ) {
+    Group group = createGroup( parent, "Display" );
+    final Label label = createLabel( group, "Orientation" );
+    if( clientDevice != null ) {
+      label.setText( clientDevice.getOrientation().toString() );
+      clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
+  
+        @Override
+        public void orientationChange( Orientation newOrientation ) {
+          label.setText( newOrientation.toString() );
+          label.pack();
+        }
+      } );
+      String scaleFactor = Float.toString( clientDevice.getScaleFactor() );
+      createLabel( group, "Scale Factor" ).setText( scaleFactor );
+    }
   }
 
   private void createCapabilityGroup( Composite parent, ClientDevice clientDevice ) {
@@ -124,26 +115,13 @@ public class ClientDeviceDemo implements EntryPoint {
     createLabel( group, "Maps" ).setText( getHasCapabilityString( clientDevice, MAPS ) );
   }
 
-  private void createLocaleGroup( Composite parent, ClientDevice clientDevice ) {
-    Group group = createGroup( parent, "Locale" );
-    createLabel( group, "Transmitted Locale" ).setText( clientDevice.getLocale().toString() );
-  }
-
-  private String getHasCapabilityString( ClientDevice clientDevice, Capability capability ) {
-    String result = "-";
-    if( clientDevice != null && clientDevice.hasCapability( capability ) ) {
-      result = "✓";
-    }
-    return result;
-  }
-
-  private void createConnectionTypeGroup( Composite parent, ClientDevice clientDevice ) {
-    Group group = createGroup( parent, "Connection Type" );
+  private void createConnectionGroup( Composite parent, ClientDevice clientDevice ) {
+    Group group = createGroup( parent, "Connection" );
     final Label label = createLabel( group, "Type" );
     if( clientDevice != null ) {
       label.setText( clientDevice.getConnectionType().toString() );
       clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
-
+  
         @Override
         public void connectionTypeChanged( ConnectionType newConnectionType ) {
           label.setText( newConnectionType.toString() );
@@ -153,84 +131,52 @@ public class ClientDeviceDemo implements EntryPoint {
     }
   }
 
-  private void createOrientationGroup( Composite parent, ClientDevice clientDevice ) {
-    Group group = createGroup( parent, "Display" );
-    final Label label = createLabel( group, "Orientation" );
+  private void createTimeGroup( Composite parent, ClientDevice clientDevice ) {
+    Group group = createGroup( parent, "Time" );
+    int offset = 0;
     if( clientDevice != null ) {
-      label.setText( clientDevice.getOrientation().toString() );
-      clientDevice.addClientDeviceListener( new ClientDeviceAdapter() {
-
-        @Override
-        public void orientationChange( Orientation newOrientation ) {
-          label.setText( newOrientation.toString() );
-          label.pack();
-        }
-      } );
+      offset = clientDevice.getTimezoneOffset() * -1;
     }
-    createLabel( group, "Scale Factor" ).setText( Float.toString( clientDevice.getScaleFactor() ) );
+    SimpleDateFormat formatter = new SimpleDateFormat();
+    createLabel( group, "Server Time" ).setText( formatter.format( new Date() ) );
+    formatter.setTimeZone( TimeZone.getTimeZone( TimeZone.getAvailableIDs( offset * 1000 * 60 )[ 0 ] ) );
+    createLabel( group, "Client Time" ).setText( formatter.format( new Date() ) );
+    createLabel( group, "Client UTC Offset" ).setText( offset + " Minutes" );
   }
 
+  private String stringForText( String value ) {
+    return ( value == null ) ? "" : value;
+  }
+
+  private String getHasCapabilityString( ClientDevice clientDevice, Capability capability ) {
+    String result = "-";
+    if( clientDevice != null && clientDevice.hasCapability( capability ) ) {
+      result = CHECK_MARK;
+    }
+    return result;
+  }
+
+  private Group createGroup( Composite parent, String title ) {
+    Group group = new Group( parent, SWT.NONE );
+    GridLayoutFactory.fillDefaults().numColumns( 2 ).spacing( 12, 4 ).applyTo( group );
+    GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).applyTo( group );
+    group.setText( title );
+    return group;
+  }
   private Label createLabel( Composite parent, final String text ) {
     Label label = new Label( parent, SWT.NONE );
     label.setText( text );
-    label.setLayoutData( GridDataFactory.fillDefaults()
-      .align( SWT.LEFT, SWT.CENTER )
-      .grab( false, true )
-      .create() );
+    GridDataFactory.fillDefaults().align( SWT.LEFT, SWT.CENTER ).grab( false, true ).applyTo( label );
     Label resultLabel = new Label( parent, SWT.NONE );
-    resultLabel.setLayoutData( GridDataFactory.fillDefaults()
-      .align( SWT.FILL, SWT.TOP )
-      .grab( true, false )
-      .create() );
+    GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).applyTo( resultLabel );
     makeBold( resultLabel );
     return resultLabel;
   }
 
-  public void makeBold( Label resultLabel ) {
+  private void makeBold( Label resultLabel ) {
     FontDescriptor fontDescriptor = FontDescriptor.createFrom( resultLabel.getFont() );
     Font font = fontDescriptor.setStyle( SWT.BOLD ).createFont( resultLabel.getDisplay() );
     resultLabel.setFont( font );
   }
 
-  private Group createGroup( Composite parent, String title ) {
-    Group group = new Group( parent, SWT.NONE );
-    GridLayout gridLayout = GridLayoutFactory.fillDefaults()
-      .numColumns( 2 )
-      .margins( 0, 0 )
-      .spacing( 0, 0 )
-      .equalWidth( false )
-      .create();
-    gridLayout.horizontalSpacing = 12;
-    gridLayout.verticalSpacing = 4;
-    group.setLayout( gridLayout );
-    group.setLayoutData( GridDataFactory.fillDefaults()
-      .align( SWT.FILL, SWT.TOP )
-      .grab( true, false )
-      .create() );
-    group.setText( title );
-    return group;
-  }
-
-  private void addResizeListener( final ScrolledComposite scrolledComposite,
-                                  final Composite container )
-  {
-    container.addControlListener( new ControlAdapter() {
-
-      int storedWidth = 0;
-
-      @Override
-      public void controlResized( final ControlEvent e ) {
-        updateHeight( scrolledComposite, container );
-        container.getShell().layout( true, true );
-      }
-
-      private void updateHeight( final ScrolledComposite scrolledComposite, Composite composite ) {
-        int newWidth = composite.getSize().x;
-        if( newWidth != storedWidth ) {
-          scrolledComposite.setMinHeight( composite.computeSize( newWidth, SWT.DEFAULT ).y );
-          storedWidth = newWidth;
-        }
-      }
-    } );
-  }
 }
