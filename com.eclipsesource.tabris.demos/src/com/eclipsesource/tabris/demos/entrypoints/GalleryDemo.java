@@ -39,7 +39,9 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -65,9 +67,14 @@ public class GalleryDemo implements EntryPoint {
     shell.open();
     thumbnailsArea.open();
     showThumbnails();
-    shell.addControlListener( new ControlAdapter() {
+    registerResizeListener( display );
+    return 0;
+  }
+
+  public void registerResizeListener( Display display ) {
+    display.addListener( SWT.Resize, new Listener() {
       @Override
-      public void controlResized( ControlEvent e ) {
+      public void handleEvent( Event event ) {
         if( thumbnailsVisible ) {
           showThumbnails();
         } else {
@@ -75,7 +82,6 @@ public class GalleryDemo implements EntryPoint {
         }
       }
     } );
-    return 0;
   }
 
   private void createContent(Shell shell ) {

@@ -14,6 +14,7 @@ import static com.eclipsesource.tabris.demos.ui.BookDetailsPage.BOOK_ITEM;
 import static com.eclipsesource.tabris.demos.ui.Constants.BOOKS;
 import static com.eclipsesource.tabris.demos.ui.Constants.RELATED_BOOKS_FONT;
 import static com.eclipsesource.tabris.demos.ui.Constants.TITLE_FONT;
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.*;
 
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class BooksListPage extends AbstractPage {
     registerResources();
     createBooks();
     container = new Composite( parent, SWT.NONE );
-    container.setLayout( GridLayoutFactory.fillDefaults().spacing( 0, 0 ).numColumns( 1 ).equalWidth( false ).create() );
+    GridLayoutFactory.fillDefaults().spacing( 0, 0 ).applyTo( container );
     viewer = createTreeViewer( this, container );
     createViewerInput( viewer );
   }
@@ -93,9 +94,9 @@ public class BooksListPage extends AbstractPage {
     Tree tree = viewer.getTree();
     tree.setLinesVisible( true );
     tree.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
-    tree.setData( RWT.ROW_TEMPLATE, createRowTemplate() );
-    tree.setData( RWT.CUSTOM_ITEM_HEIGHT, new Integer( 68 ) );
-    tree.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
+    onTree( tree ).setTemplate( createRowTemplate() );
+    onTree( tree ).setItemHeight( 68 );
+    GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).applyTo( tree );
     viewer.setLabelProvider( new BooksLabelProvider() );
     new TreeColumn( tree, SWT.LEFT );
     new TreeColumn( tree, SWT.LEFT );
