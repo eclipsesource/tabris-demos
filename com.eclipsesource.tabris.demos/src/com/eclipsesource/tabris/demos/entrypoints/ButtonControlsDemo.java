@@ -42,6 +42,7 @@ public class ButtonControlsDemo implements EntryPoint {
     Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
     shell.setMaximized( true );
+    shell.setBackground( display.getSystemColor( SWT.COLOR_WHITE ) );
     GridLayoutFactory.fillDefaults().applyTo( shell );
     createToolbar( shell );
     createContent( shell );
