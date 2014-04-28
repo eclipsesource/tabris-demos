@@ -22,5 +22,5 @@
 <booleanAttribute key="tracing" value="false"/>
 <booleanAttribute key="useCustomFeatures" value="false"/>
 <booleanAttribute key="useDefaultConfigArea" value="true"/>
-<stringAttribute key="workspace_bundles" value="com.eclipsesource.tabris.demos@default:default,com.eclipsesource.tabris.tracking@default:default,com.eclipsesource.tabris.widget.pdf@default:default,com.eclipsesource.tabris@default:default"/>
+<stringAttribute key="workspace_bundles" value="com.eclipsesource.tabris.demos@default:default,com.eclipsesource.tabris.scanner@default:default,com.eclipsesource.tabris.tracking@default:default,com.eclipsesource.tabris.widget.pdf@default:default,com.eclipsesource.tabris@default:default"/>
 </launchConfiguration>

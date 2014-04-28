@@ -55,7 +55,7 @@ public class PDFAnnotatePage extends AbstractPage {
       }
 
     } );
-    pdf.setUrl( "http://marvin.local/book.pdf" );
+    pdf.setUrl( "http://marvin.local/contract.pdf" );
   }
 
   public PDF getPDF() {

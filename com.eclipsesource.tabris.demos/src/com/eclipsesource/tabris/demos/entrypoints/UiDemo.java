@@ -31,6 +31,7 @@ import com.eclipsesource.tabris.demos.ui.PopularBooksPage;
 import com.eclipsesource.tabris.demos.ui.ReadBookPage;
 import com.eclipsesource.tabris.demos.ui.SaveAnnotatedPDFAction;
 import com.eclipsesource.tabris.demos.ui.SaveSignedPDFAction;
+import com.eclipsesource.tabris.demos.ui.ScanPage;
 import com.eclipsesource.tabris.demos.ui.SearchResultsPage;
 import com.eclipsesource.tabris.demos.ui.SettingsAction;
 import com.eclipsesource.tabris.demos.ui.SettingsPage;
@@ -66,6 +67,7 @@ public class UiDemo implements EntryPointFactory {
     createSearchResultsPage( configuration );
     createAnnotatePDFPage( configuration );
     createSignPDFPage( configuration );
+    createScannerPage( configuration );
   }
 
   private void createSignPDFPage( UIConfiguration configuration ) {
@@ -93,6 +95,15 @@ public class UiDemo implements EntryPointFactory {
     action.setTitle( "Save" );
     action.setImage( getImage( "/save.png" ) );
     page.addActionConfiguration( action );
+    configuration.addPageConfiguration( page );
+  }
+
+  private void createScannerPage( UIConfiguration configuration ) {
+    PageConfiguration page = new PageConfiguration( ScanPage.class.getName(),
+                                                    ScanPage.class );
+    page.setTitle( "Scan a Book Code" );
+    page.setImage( getImage( "/camera.png" ) );
+    page.setTopLevel( true );
     configuration.addPageConfiguration( page );
   }
 
