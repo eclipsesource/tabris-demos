@@ -25,8 +25,12 @@ import com.eclipsesource.tabris.demos.ui.BookDetailsPage;
 import com.eclipsesource.tabris.demos.ui.BookSearchAction;
 import com.eclipsesource.tabris.demos.ui.ChangeThemeAction;
 import com.eclipsesource.tabris.demos.ui.FavoriteBooksPage;
+import com.eclipsesource.tabris.demos.ui.PDFAnnotatePage;
+import com.eclipsesource.tabris.demos.ui.PDFSignPage;
 import com.eclipsesource.tabris.demos.ui.PopularBooksPage;
 import com.eclipsesource.tabris.demos.ui.ReadBookPage;
+import com.eclipsesource.tabris.demos.ui.SaveAnnotatedPDFAction;
+import com.eclipsesource.tabris.demos.ui.SaveSignedPDFAction;
 import com.eclipsesource.tabris.demos.ui.SearchResultsPage;
 import com.eclipsesource.tabris.demos.ui.SettingsAction;
 import com.eclipsesource.tabris.demos.ui.SettingsPage;
@@ -60,6 +64,36 @@ public class UiDemo implements EntryPointFactory {
     createBookDetailsPage( configuration );
     createReadBookPage( configuration );
     createSearchResultsPage( configuration );
+    createAnnotatePDFPage( configuration );
+    createSignPDFPage( configuration );
+  }
+
+  private void createSignPDFPage( UIConfiguration configuration ) {
+    PageConfiguration page = new PageConfiguration( PDFSignPage.class.getName(),
+                                                    PDFSignPage.class );
+    page.setTitle( "Sign a Contract" );
+    page.setImage( getImage( "/contract.png" ) );
+    page.setTopLevel( true );
+
+    ActionConfiguration action = new ActionConfiguration( SaveSignedPDFAction.class.getName(), SaveSignedPDFAction.class );
+    action.setTitle( "Save" );
+    action.setImage( getImage( "/save.png" ) );
+    page.addActionConfiguration( action );
+    configuration.addPageConfiguration( page );
+  }
+
+  private void createAnnotatePDFPage( UIConfiguration configuration ) {
+    PageConfiguration page = new PageConfiguration( PDFAnnotatePage.class.getName(),
+                                                    PDFAnnotatePage.class );
+    page.setTitle( "Look Inside" );
+    page.setImage( getImage( "/look.png" ) );
+    page.setTopLevel( true );
+
+    ActionConfiguration action = new ActionConfiguration( SaveAnnotatedPDFAction.class.getName(), SaveAnnotatedPDFAction.class );
+    action.setTitle( "Save" );
+    action.setImage( getImage( "/save.png" ) );
+    page.addActionConfiguration( action );
+    configuration.addPageConfiguration( page );
   }
 
   private void createAllBooksPage( UIConfiguration configuration ) {
