@@ -21,12 +21,16 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import com.eclipsesource.tabris.widgets.ClientDialog;
+import com.eclipsesource.tabris.widgets.ClientDialog.ButtonType;
 import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class InputControlsDemo implements EntryPoint {
@@ -180,20 +184,8 @@ public class InputControlsDemo implements EntryPoint {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append( "First Name: " + firstNameField.getText() + "\n" );
-        stringBuilder.append( "Last Name: " + lastNameField.getText() + "\n" );
-        stringBuilder.append( "Country: " + countryCombo.getText() + "\n" );
-        stringBuilder.append( "Class: " + classCombo.getText() + "\n" );
-        stringBuilder.append( "Date: " + dateField.getYear() + "/" );
-        stringBuilder.append( dateField.getMonth() + 1 + "/" );
-        stringBuilder.append( dateField.getDay() + "\n" );
-        stringBuilder.append( "Vegetarian: "
-                              + String.valueOf( vegetarianCheckbox.getSelection() )
-                              + "\n" );
-        stringBuilder.append( "-> want to flight to the Island!!!" );
-        System.out.println( stringBuilder.toString() );
-        updateFlightLabel();
+        ClientDialog dialog = createReservationDialog();
+        dialog.open();
       }
     } );
   }
@@ -219,5 +211,33 @@ public class InputControlsDemo implements EntryPoint {
     flightLabel.setForeground( parent.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, true );
     flightLabel.setLayoutData( layoutData );
+  }
+
+  public ClientDialog createReservationDialog() {
+    ClientDialog dialog = new ClientDialog();
+    dialog.setTitle( "Reservation" );
+    dialog.setMessage( "Do you really want to place\na reservation?" );
+    dialog.setButton( ButtonType.CANCEL, "No" );
+    dialog.setButton( ButtonType.OK, "Yes", new Listener() {
+      
+      @Override
+      public void handleEvent( Event event ) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append( "First Name: " + firstNameField.getText() + "\n" );
+        stringBuilder.append( "Last Name: " + lastNameField.getText() + "\n" );
+        stringBuilder.append( "Country: " + countryCombo.getText() + "\n" );
+        stringBuilder.append( "Class: " + classCombo.getText() + "\n" );
+        stringBuilder.append( "Date: " + dateField.getYear() + "/" );
+        stringBuilder.append( dateField.getMonth() + 1 + "/" );
+        stringBuilder.append( dateField.getDay() + "\n" );
+        stringBuilder.append( "Vegetarian: "
+                              + String.valueOf( vegetarianCheckbox.getSelection() )
+                              + "\n" );
+        stringBuilder.append( "-> want to flight to the Island!!!" );
+        System.out.println( stringBuilder.toString() );
+        updateFlightLabel();
+      }
+    } );
+    return dialog;
   }
 }
