@@ -19,6 +19,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
+import com.eclipsesource.tabris.widgets.RefreshListener;
+import com.eclipsesource.tabris.widgets.enhancement.RefreshHandler;
+
 public class SimpleTreeDemo implements EntryPoint {
 
   @Override
@@ -37,19 +40,10 @@ public class SimpleTreeDemo implements EntryPoint {
     Tree tree = new Tree( shell, SWT.BORDER );
     tree.setToolTipText( "Winchester Evangelium" );
     tree.setLinesVisible( true );
+    onTree( tree ).enableMarkup( true );
     onTree( tree ).setBackButtonNavigationEnabled( true );
-    for( int i = 0; i < 4; i++ ) {
-      TreeItem iItem = new TreeItem( tree, 0 );
-      iItem.setText( getMainCharacterName( i ) );
-      for( int j = 0; j < 8; j++ ) {
-        TreeItem jItem = new TreeItem( iItem, 0 );
-        jItem.setText( getSideCharacterName( j ) );
-        for( int k = 0; k < 30; k++ ) {
-          TreeItem kItem = new TreeItem( jItem, 0 );
-          kItem.setText( "Season 5, Episode " + k );
-        }
-      }
-    }
+    setupPullToRefresh( tree );
+    addTreeItems( tree );
     tree.addListener( SWT.Expand, new Listener() {
 
       @Override
@@ -58,6 +52,46 @@ public class SimpleTreeDemo implements EntryPoint {
         System.out.println( "Item selected: " + item.getText() );
       }
     } );
+  }
+
+  public void addTreeItems( Tree tree ) {
+    for( int i = 0; i < 4; i++ ) {
+      TreeItem iItem = new TreeItem( tree, 0 );
+      iItem.setText( getMainCharacterName( i ) );
+      for( int j = 0; j < 8; j++ ) {
+        TreeItem jItem = new TreeItem( iItem, 0 );
+        jItem.setText( getSideCharacterName( j ) );
+        for( int k = 0; k < 30; k++ ) {
+          TreeItem kItem = new TreeItem( jItem, 0 );
+          kItem.setText( "Season <b>5</b>, Episode <b>" + k + "</b>" );
+        }
+      }
+    }
+  }
+
+  private void setupPullToRefresh( final Tree tree ) {
+    final RefreshHandler handler = new RefreshHandler();
+    handler.setMessage( "Refreshing..." );
+    handler.addRefreshListener( new RefreshListener() {
+      @Override
+      public void refresh() {
+        markDead( tree.getItems() );
+        tree.update();
+        handler.done();
+        handler.removeRefreshListener( this );
+      }
+    } );
+    onTree( tree ).setRefreshHandler( handler  );
+  }
+
+  private void markDead( TreeItem[] items ) {
+    for( TreeItem item : items ) {
+      markDead( item.getItems() );
+      String name = item.getText();
+      if( !survives( name ) ) {
+        item.setText( "<del>" + name + "</del>" );
+      }
+    }
   }
 
   private String getSideCharacterName( int j ) {
@@ -112,4 +146,17 @@ public class SimpleTreeDemo implements EntryPoint {
     }
     return result;
   }
+  
+  private boolean survives( String name ) {
+    boolean survivor = false;
+    if( (contains( name, "Castiel" ) || contains( name, "Sam" ) || contains( name, "Dean" )) && !contains( name, "Samuel" ) ) {
+      survivor = true;
+    }
+    return survivor;
+  }
+
+  private boolean contains( String string, String substring ) {
+    return string.indexOf( substring ) >= 0;
+  }
+
 }
