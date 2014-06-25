@@ -39,11 +39,7 @@ public class BookDetailsPage extends AbstractPage {
   public void createContent( Composite parent, PageData data ) {
     Composite container = new Composite( parent, SWT.NONE );
     container.setBackground( parent.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
-    container.setLayout( GridLayoutFactory.fillDefaults()
-      .spacing( 0, 0 )
-      .numColumns( 1 )
-      .equalWidth( false )
-      .create() );
+    GridLayoutFactory.fillDefaults().spacing( 0, 0 ).applyTo( container );
     createBookDetailsComposite( container );
     createRelatedBooks( container );
     createRelatedList( container );
@@ -89,14 +85,10 @@ public class BookDetailsPage extends AbstractPage {
     bookDetailsComposite.setLayoutData( layoutData );
     onComposite( bookDetailsComposite ).showLocalTouch( true );
     GridLayout layout = GridLayoutFactory.fillDefaults()
-      .spacing( 0, 0 )
+      .spacing( 12, 12 )
+      .margins( 12, 12 )
       .numColumns( 2 )
-      .equalWidth( false )
       .create();
-    layout.verticalSpacing = 12;
-    layout.horizontalSpacing = 12;
-    layout.marginWidth = 12;
-    layout.marginHeight = 12;
     bookDetailsComposite.setLayout( layout );
   }
 
@@ -112,19 +104,13 @@ public class BookDetailsPage extends AbstractPage {
     titleLabel = new Label( bookDetailsComposite, SWT.WRAP );
     titleLabel.setForeground( bookDetailsComposite.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     titleLabel.setFont( getFontRegistry().get( TITLE_FONT ) );
-    titleLabel.setLayoutData( GridDataFactory.fillDefaults()
-      .align( SWT.FILL, SWT.TOP )
-      .grab( true, false )
-      .create() );
+    GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).applyTo( titleLabel );
   }
 
   private void createBookAuthor() {
     authorLabel = new Label( bookDetailsComposite, SWT.WRAP );
     authorLabel.setForeground( bookDetailsComposite.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
-    authorLabel.setLayoutData( GridDataFactory.fillDefaults()
-      .align( SWT.FILL, SWT.TOP )
-      .grab( true, false )
-      .create() );
+    GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).applyTo( authorLabel );
   }
 
   private void createRelatedBooks( Composite parent ) {
@@ -135,19 +121,12 @@ public class BookDetailsPage extends AbstractPage {
 
   private Composite createRelatedTitleComposite( Composite parent ) {
     Composite composite = new Composite( parent, SWT.NONE );
-    composite.setLayoutData( GridDataFactory.fillDefaults()
-      .align( SWT.FILL, SWT.TOP )
-      .grab( true, false )
-      .create() );
-    GridLayout layout = GridLayoutFactory.fillDefaults()
+    GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).applyTo( composite );
+    GridLayoutFactory.fillDefaults()
       .spacing( 0, 0 )
-      .numColumns( 1 )
-      .equalWidth( false )
-      .create();
-    layout.marginWidth = 6;
-    layout.marginTop = 12;
-    layout.marginBottom = 6;
-    composite.setLayout( layout );
+      .margins( 6, 0 )
+      .extendedMargins( 0, 0, 12, 6 )
+      .applyTo( composite );
     composite.setBackground( composite.getDisplay().getSystemColor( SWT.COLOR_WHITE ) );
     return composite;
   }
