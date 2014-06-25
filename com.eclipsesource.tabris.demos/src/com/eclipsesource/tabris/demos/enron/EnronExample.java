@@ -47,6 +47,7 @@ import com.eclipsesource.tabris.demos.enron.EnronDataset.Folder;
 import com.eclipsesource.tabris.demos.enron.EnronDataset.Node;
 import com.eclipsesource.tabris.device.ClientDevice;
 import com.eclipsesource.tabris.device.ClientDevice.Platform;
+import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class EnronExample {
 
@@ -101,6 +102,7 @@ public class EnronExample {
           mailShell.setBackground( mailShell.getDisplay().getSystemColor( SWT.COLOR_DARK_GRAY ) );
           mailShell.setMaximized( true );
           mailShell.setLayout( new FillLayout() );
+          Widgets.onShell( mailShell ).useAnimation();
           createContentArea( mailShell, mail );
           mailShell.open();
         } catch( IOException exception ) {
