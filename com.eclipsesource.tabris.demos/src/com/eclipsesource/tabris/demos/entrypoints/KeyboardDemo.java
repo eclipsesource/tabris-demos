@@ -25,6 +25,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
+import com.eclipsesource.tabris.widgets.ScrollingComposite;
 import com.eclipsesource.tabris.widgets.enhancement.TextDecorator;
 import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
@@ -62,7 +63,7 @@ public class KeyboardDemo implements EntryPoint {
   }
 
   private Composite createParentComposite( final Shell shell ) {
-    Composite comp = new Composite( shell, SWT.NONE );
+    ScrollingComposite comp = new ScrollingComposite( shell, SWT.VERTICAL );
     GridLayout compLayout = new GridLayout( 2, false );
     compLayout.marginWidth = 16;
     compLayout.horizontalSpacing = 16;
@@ -72,6 +73,10 @@ public class KeyboardDemo implements EntryPoint {
   }
 
   private void createTextFields( Composite comp ) {
+    createLabelText( comp, "Captialize On" ).setAutoCapitalizationEnabled( true );
+    createLabelText( comp, "Captialize Off" ).setAutoCapitalizationEnabled( false );
+    createLabelText( comp, "AutoCorrect On" ).setAutoCorrectionEnabled( true );
+    createLabelText( comp, "AutoCorrect Off" ).setAutoCorrectionEnabled( false );
     createLabelText( comp, "ASCII" ).useAsciiKeyboard();
     createLabelText( comp, "Decimal" ).useDecimalKeyboard();
     createLabelText( comp, "E-Mail" ).useEmailKeyboard();
