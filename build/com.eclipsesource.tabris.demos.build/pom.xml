@@ -39,7 +39,7 @@
 		<repository>
 			<id>eclipse-milestones</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.4</url>
+			<url>http://download.eclipse.org/eclipse/updates/4.2</url>
 		</repository>
 	</repositories>
 
