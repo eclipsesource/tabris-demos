@@ -78,7 +78,6 @@ public class SimpleTreeDemo implements EntryPoint {
         markDead( tree.getItems() );
         tree.update();
         handler.done();
-        handler.removeRefreshListener( this );
       }
     } );
     onTree( tree ).setRefreshHandler( handler  );
@@ -88,7 +87,7 @@ public class SimpleTreeDemo implements EntryPoint {
     for( TreeItem item : items ) {
       markDead( item.getItems() );
       String name = item.getText();
-      if( !survives( name ) ) {
+      if( !survives( name ) && !name.contains( "Deceased" ) ) {
         item.setText( name + " <b>[Deceased]</b>" );
       }
     }
