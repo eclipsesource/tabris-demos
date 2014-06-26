@@ -41,11 +41,6 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/eclipse/updates/4.2</url>
 		</repository>
-		<repository>
-			<id>tabris-nightly</id>
-			<layout>p2</layout>
-			<url>http://download.eclipsesource.com/technology/tabris/downloads/nightly</url>
-		</repository>
 	</repositories>
 
 	<build>
