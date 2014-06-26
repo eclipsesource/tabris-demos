@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import com.eclipsesource.tabris.widgets.ScrollingComposite;
 import com.eclipsesource.tabris.widgets.enhancement.TextDecorator;
+import com.eclipsesource.tabris.widgets.enhancement.TextReplacementData;
 import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class KeyboardDemo implements EntryPoint {
@@ -84,6 +85,7 @@ public class KeyboardDemo implements EntryPoint {
     createLabelText( comp, "Numbers &\nPunctuation" ).useNumbersAndPunctuationKeyboard();
     createLabelText( comp, "Phone" ).usePhoneKeyboard();
     createLabelText( comp, "URL" ).useUrlKeyboard();
+    createLabelTextReplacement( comp, "Replace" );
   }
 
   private TextDecorator createLabelText( Composite parent, String title ) {
@@ -92,6 +94,19 @@ public class KeyboardDemo implements EntryPoint {
     Text text = new Text( parent, SWT.BORDER );
     text.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).grab( true, false ).create() );
     return Widgets.onText( text );
+  }
+
+  private void createLabelTextReplacement( Composite parent, String title ) {
+    Label titleLabel = new Label( parent, SWT.NONE );
+    titleLabel.setText( title );
+    Text text = new Text( parent, SWT.BORDER | SWT.MULTI );
+    text.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.TOP ).hint( SWT.DEFAULT, 200 ).grab( true, false ).create() );
+    TextReplacementData data = new TextReplacementData();
+    data.put( "yolo", "You only live once" );
+    data.put( "hodor", "hodor hodor hodor hodor" );
+    data.put( "rap", "Remote Application Platform" );
+    data.put( "tabris", "Tabris Rocks!" );
+    Widgets.onText( text ).setTextReplacement( data );
   }
 
   private void createNoteLabel( Composite comp ) {

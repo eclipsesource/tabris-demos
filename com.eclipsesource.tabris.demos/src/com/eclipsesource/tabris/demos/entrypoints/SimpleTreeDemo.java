@@ -71,7 +71,7 @@ public class SimpleTreeDemo implements EntryPoint {
 
   private void setupPullToRefresh( final Tree tree ) {
     final RefreshHandler handler = new RefreshHandler();
-    handler.setMessage( "Refreshing..." );
+    handler.setMessage( "Spoiler Alert!" );
     handler.addRefreshListener( new RefreshListener() {
       @Override
       public void refresh() {
@@ -89,7 +89,7 @@ public class SimpleTreeDemo implements EntryPoint {
       markDead( item.getItems() );
       String name = item.getText();
       if( !survives( name ) ) {
-        item.setText( "<del>" + name + "</del>" );
+        item.setText( name + " <b>[Deceased]</b>" );
       }
     }
   }
