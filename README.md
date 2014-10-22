@@ -35,9 +35,9 @@ the ui will be displayed because the example needs to create some .index files. 
 Build
 -----
 There are some build projects located in the build directory. The build compiles the demo project into a war file that can be deployed
-on a servlet container. The build uses [Maven Tycho](http://eclipse.org/tycho/) and can be launched when Maven 3 is installed. Simply step to the build/com.eclipsesource.tabris.demos.build folder and run "mvn clean verify". After the build has succeeded you will find the .war file within the build/com.eclipsesource.tabris.demos.product/target folder. 
+on a servlet container. The build uses [Maven Tycho](http://eclipse.org/tycho/) and can be launched when Maven 3 is installed. Simply step to the `build/com.eclipsesource.tabris.demos.build` folder and run "`mvn clean verify`". After the build has succeeded you will find the .war file within the `build/com.eclipsesource.tabris.demos.product/target` folder. 
 
-Alternatively you can use the [Eclipse m2e Tooling](http://eclipse.org/m2e/) and run the launch configuration located in build/com.eclipsesource.tabris.demos.build.
+Alternatively you can use the [Eclipse m2e Tooling](http://eclipse.org/m2e/) and run the launch configuration located in `build/com.eclipsesource.tabris.demos.build`.
 
 License
 -------
