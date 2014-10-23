@@ -2,6 +2,7 @@ Tabris Demos
 ============
 
 This repository contains a single Eclipse project that is used within the [Tabris Screencasts](http://developer.eclipsesource.com/tabris/demos/). The steps to get this running are described [here](http://developer.eclipsesource.com/tabris/docs/gettingstarted-demos/). After running this project the following Entrypoints are available:
+Open them in browser or with [Android/iOS launchers](http://developer.eclipsesource.com/tabris/docs/1.4/#launchers)
 
 * http://SERVER:9090/input
 * http://SERVER:9090/buttons
