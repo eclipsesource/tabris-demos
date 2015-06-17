@@ -35,6 +35,9 @@ import org.eclipse.swt.widgets.ToolItem;
 import com.eclipsesource.tabris.camera.Camera;
 import com.eclipsesource.tabris.camera.CameraListener;
 import com.eclipsesource.tabris.camera.CameraOptions;
+import com.eclipsesource.tabris.camera.PhotoAlbum;
+import com.eclipsesource.tabris.camera.PhotoAlbumListener;
+import com.eclipsesource.tabris.camera.PhotoAlbumOptions;
 import com.eclipsesource.tabris.print.PrintOptions;
 import com.eclipsesource.tabris.print.Printer;
 import com.eclipsesource.tabris.widgets.enhancement.Widgets;
@@ -44,14 +47,17 @@ public class CameraDemo implements EntryPoint {
   private Label imageLabel;
   private ToolItem printAction;
 
+  @Override
   public int createUI() {
     Display display = new Display();
     final Shell shell = createShell( display );
     createToolBar( shell );
-    Composite comp = createMainComp( shell );
-    createImageLabel( comp );
-    createCameraButton( comp, imageLabel );
+    Composite mainComposite = createMainComp( shell );
+    createImageLabel( mainComposite );
+    createCameraButton( mainComposite );
+    createAlbumButton( mainComposite );
     initCamera();
+    initAlbum();
     shell.open();
     return 0;
   }
@@ -60,16 +66,31 @@ public class CameraDemo implements EntryPoint {
     Camera camera = RWT.getClient().getService( Camera.class );
     camera.addCameraListener( new CameraListener() {
 
+      @Override
       public void receivedPicture( Image image ) {
-        if( image == null ) {
-          imageLabel.setText( "Could not provide image from camera" );
-          printAction.setEnabled( false );
-        } else {
-          imageLabel.setImage( image );
-          printAction.setEnabled( true );
-        }
+        handleImage( image );
       }
     } );
+  }
+
+  private void initAlbum() {
+    PhotoAlbum album = RWT.getClient().getService( PhotoAlbum.class );
+    album.addPhotoAlbumListener( new PhotoAlbumListener() {
+
+      @Override
+      public void receivedImage( Image image ) {
+        handleImage( image );
+      }
+    } );
+  }
+  private void handleImage( Image image ) {
+    if( image == null ) {
+      imageLabel.setText( "Could not provide image from camera" );
+      printAction.setEnabled( false );
+    } else {
+      imageLabel.setImage( image );
+      printAction.setEnabled( true );
+    }
   }
 
   private Shell createShell( Display display ) {
@@ -123,13 +144,6 @@ public class CameraDemo implements EntryPoint {
     return comp;
   }
 
-  private CameraOptions createPhotoCameraOptions() {
-    CameraOptions photosOptions = new CameraOptions();
-    Rectangle bounds = imageLabel.getBounds();
-    photosOptions.setResolution( bounds.width, bounds.height );
-    return photosOptions;
-  }
-
   private void createImageLabel( Composite comp ) {
     imageLabel = new Label( comp, SWT.NONE );
     imageLabel.setLayoutData( GridDataFactory.fillDefaults()
@@ -138,8 +152,8 @@ public class CameraDemo implements EntryPoint {
       .create() );
   }
 
-  private void createCameraButton( Composite comp, final Label imageLabel ) {
-    Button cameraButton = new Button( comp, SWT.PUSH );
+  private void createCameraButton( Composite parent ) {
+    Button cameraButton = new Button( parent, SWT.PUSH );
     cameraButton.setText( "Take photo with camera" );
     cameraButton.setLayoutData( GridDataFactory.fillDefaults()
       .align( SWT.FILL, SWT.TOP )
@@ -147,11 +161,43 @@ public class CameraDemo implements EntryPoint {
       .create() );
     cameraButton.addListener( SWT.Selection, new Listener() {
 
+      @Override
       public void handleEvent( Event event ) {
         Camera photoCamera = RWT.getClient().getService( Camera.class );
-        photoCamera.takePicture( createPhotoCameraOptions() );
+        photoCamera.takePicture( createCameraOptions() );
       }
     } );
+  }
+
+  private CameraOptions createCameraOptions() {
+    CameraOptions photosOptions = new CameraOptions();
+    Rectangle bounds = imageLabel.getBounds();
+    photosOptions.setResolution( bounds.width, bounds.height );
+    return photosOptions;
+  }
+
+  private void createAlbumButton( Composite parent ) {
+    Button albumButton = new Button( parent, SWT.PUSH );
+    albumButton.setText( "Choose photo from Album" );
+    albumButton.setLayoutData( GridDataFactory.fillDefaults()
+                                .align( SWT.FILL, SWT.TOP )
+                                .grab( true, false )
+                                .create() );
+    albumButton.addListener( SWT.Selection, new Listener() {
+
+      @Override
+      public void handleEvent( Event event ) {
+        PhotoAlbum album = RWT.getClient().getService( PhotoAlbum.class );
+        album.open( createPhotoAlbumOptions() );
+      }
+    } );
+  }
+
+  private PhotoAlbumOptions createPhotoAlbumOptions() {
+    PhotoAlbumOptions photosOptions = new PhotoAlbumOptions();
+    Rectangle bounds = imageLabel.getBounds();
+    photosOptions.setResolution( bounds.width, bounds.height );
+    return photosOptions;
   }
 
   String swtImageAsPNGResourceURL( Image image ) {
