@@ -4,7 +4,7 @@
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="2.3.1.20140916-0712"/>
 <unit id="org.eclipse.rap.feature.feature.group" version="2.3.1.20140909-1638"/>
-<unit id="com.eclipsesource.tabris.feature.feature.group" version="1.4.5.20150601-1219"/>
+<unit id="com.eclipsesource.tabris.feature.feature.group" version="1.4.6.20150601-1219"/>
 <repository location="http://download.eclipsesource.com/technology/tabris/downloads/releases"/>
 </location>
 </locations>

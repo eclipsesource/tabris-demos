@@ -2,7 +2,7 @@
 <feature
       id="com.eclipsesource.tabris.demos.feature"
       label="Tabris Demos Feature"
-      version="1.4.5.qualifier"
+      version="1.4.6.qualifier"
       provider-name="EclipseSource">
 
    <description url="https://github.com/eclipsesource/tabris-demos">
