@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Tabris with RAP 2.3" sequenceNumber="45">
+<?pde version="3.8"?><target name="Tabris with RAP 2.3" sequenceNumber="47">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="2.3.1.20140916-0712"/>
 <unit id="org.eclipse.rap.feature.feature.group" version="2.3.1.20140909-1638"/>
-<unit id="com.eclipsesource.tabris.feature.feature.group" version="1.4.6.20150916-0853"/>
+<unit id="com.eclipsesource.tabris.feature.feature.group" version="1.4.7.20150925-0919"/>
 <repository location="http://download.eclipsesource.com/technology/tabris/downloads/releases"/>
 </location>
 </locations>

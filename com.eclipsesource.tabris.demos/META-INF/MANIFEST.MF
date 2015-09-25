@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tabris Demos
 Bundle-SymbolicName: com.eclipsesource.tabris.demos
-Bundle-Version: 1.4.6.qualifier
+Bundle-Version: 1.4.7.qualifier
 Bundle-Activator: com.eclipsesource.tabris.demos.Activator
 Bundle-Vendor: EclipseSource
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
