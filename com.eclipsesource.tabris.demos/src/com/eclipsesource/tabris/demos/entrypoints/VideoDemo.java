@@ -13,6 +13,7 @@ import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -53,46 +54,46 @@ public class VideoDemo implements EntryPoint {
     return 0;
   }
 
-  private void createButtons( Shell shell, final Video video ) {
-    Composite composite = new Composite( shell, SWT.NONE );
+  private void createButtons( Composite parent, final Video video ) {
+    Composite composite = new Composite( parent, SWT.NONE );
     composite.setLayout( new GridLayout( 3, true ) );
     composite.setLayoutData( new GridData( SWT.FILL, SWT.BOTTOM, true, false ) );
-    createButton( composite, "Play" ).addSelectionListener( new SelectionAdapter() {
+    createButton( composite, "Play", new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
         video.setSpeed( 1f );
       }
     } );
-    createButton( composite, "Pause" ).addSelectionListener( new SelectionAdapter() {
+    createButton( composite, "Pause", new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
         video.setSpeed( 0f );
       }
     } );
-    createButton( composite, "Controls" ).addSelectionListener( new SelectionAdapter() {
+    createButton( composite, "Controls", new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
         video.setPlayerControlsVisible( !video.hasPlayerControlsVisible() );
       }
     } );
-    createButton( composite, "Step to 3:00" ).addSelectionListener( new SelectionAdapter() {
+    createButton( composite, "Step to 3:00", new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
         video.stepToTime( 3 * 60 );
       }
     } );
-    createButton( composite, "Skip -20 sec" ).addSelectionListener( new SelectionAdapter() {
+    createButton( composite, "Skip -20 sec", new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
         video.skipFromCurrent( -20 );
       }
     } );
-    createButton( composite, "Skip + 30 sec" ).addSelectionListener( new SelectionAdapter() {
+    createButton( composite, "Skip + 30 sec", new SelectionAdapter() {
 
       @Override
       public void widgetSelected( SelectionEvent e ) {
@@ -101,10 +102,11 @@ public class VideoDemo implements EntryPoint {
     } );
   }
 
-  private Button createButton( Composite composite, String text ) {
-    Button buttonPlay = new Button( composite, SWT.PUSH );
-    buttonPlay.setText( text );
-    buttonPlay.setLayoutData( new GridData( SWT.FILL, SWT.TOP, true, false ) );
-    return buttonPlay;
+  private Button createButton( Composite composite, String text, SelectionListener listener ) {
+    Button button = new Button( composite, SWT.PUSH );
+    button.setText( text );
+    button.setLayoutData( new GridData( SWT.FILL, SWT.TOP, true, false ) );
+    button.addSelectionListener( listener );
+    return button;
   }
 }
