@@ -14,7 +14,7 @@ import static com.eclipsesource.tabris.demos.ui.BookDetailsPage.BOOK_ITEM;
 import static com.eclipsesource.tabris.demos.ui.Constants.BOOKS;
 import static com.eclipsesource.tabris.demos.ui.Constants.RELATED_BOOKS_FONT;
 import static com.eclipsesource.tabris.demos.ui.Constants.TITLE_FONT;
-import static com.eclipsesource.tabris.widgets.enhancement.Widgets.*;
+import static com.eclipsesource.tabris.widgets.enhancement.Widgets.onTree;
 
 import java.util.List;
 
@@ -115,7 +115,7 @@ public class BooksListPage extends AbstractPage {
   private static void addAuthorCell( Template template ) {
     TextCell authorCell = new TextCell( template );
     authorCell.setBindingIndex( 2 );
-    authorCell.setLeft( 52 ).setRight( 10 ).setTop( 36 ).setBottom( 0 );
+    authorCell.setLeft( 52 ).setRight( 10 ).setTop( 36 );
     authorCell.setForeground( new Color( ui.getDisplay(), new RGB( 123, 123, 123 ) ) );
     authorCell.setFont( new Font( ui.getDisplay(), new FontData( "Verdana", 14, SWT.NONE ) ) );
   }
@@ -123,7 +123,7 @@ public class BooksListPage extends AbstractPage {
   private static void addTitleCell( Template template ) {
     TextCell titleCell = new TextCell( template );
     titleCell.setBindingIndex( 1 );
-    titleCell.setLeft( 52 ).setRight( 10 ).setTop( 12 ).setBottom( 0 );
+    titleCell.setLeft( 52 ).setRight( 10 ).setTop( 12 );
     titleCell.setFont( new Font( ui.getDisplay(), new FontData( "Verdana", 18, SWT.NONE ) ) );
     titleCell.setForeground( new Color( ui.getDisplay(), new RGB( 74, 74, 74 ) ) );
   }
