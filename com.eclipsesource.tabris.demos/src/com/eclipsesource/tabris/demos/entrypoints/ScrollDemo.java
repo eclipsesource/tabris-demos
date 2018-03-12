@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others.
+ * Copyright (c) 2013, 2018 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.rap.rwt.application.EntryPoint;
-import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -66,14 +65,14 @@ public class ScrollDemo implements EntryPoint {
     MessageBox messageBox = new MessageBox( jumpTo.getShell(), SWT.ICON_ERROR );
     messageBox.setMessage( "Control does not exist." );
     messageBox.setText( "Error" );
-    DialogUtil.open( messageBox, null );
+    messageBox.open( null );
   }
 
   private void handleWrongNumber( final Text jumpTo ) {
     MessageBox messageBox = new MessageBox( jumpTo.getShell(), SWT.ICON_ERROR );
     messageBox.setMessage( "Number must be an Integer" );
     messageBox.setText( "Number Error" );
-    DialogUtil.open( messageBox, null );
+    messageBox.open( null );
   }
 
   private void createContent( Display display, final Shell shell, int scrollStyle ) {
@@ -175,7 +174,7 @@ public class ScrollDemo implements EntryPoint {
           stringBuilder.append( "visible." );
           messageBox.setMessage( stringBuilder.toString() );
           messageBox.setText( "Visibility" );
-          DialogUtil.open( messageBox, null );
+          messageBox.open( null );
         } catch( NumberFormatException nfe ) {
           handleWrongNumber( jumpTo );
         } catch( IndexOutOfBoundsException ibe ) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012 EclipseSource and others.
+ * Copyright (c) 2012, 2018 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
-import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -45,6 +44,7 @@ public class AppLauncherDemo implements EntryPoint {
 
   private Display display;
 
+  @Override
   public int createUI() {
     display = new Display();
     final Shell shell = createShell();
@@ -58,7 +58,7 @@ public class AppLauncherDemo implements EntryPoint {
       createMapsLauncher( container, appLauncher );
       createTextLauncher( container, appLauncher );
       createURLLauncher( container, appLauncher );
-      createSocialLaunchers( container, appLauncher );
+//      createSocialLaunchers( container, appLauncher );
       shell.open();
     } else {
       createWebClientContent( shell );
@@ -187,7 +187,7 @@ public class AppLauncherDemo implements EntryPoint {
     } );
   }
 
-  private void createSocialLaunchers( Composite parent, final AppLauncher appLauncher ) {
+  private void createSocialLaunchers( Composite parent, AppLauncher appLauncher ) {
     Composite composite = new Composite( parent, SWT.NONE);
     GridLayoutFactory.fillDefaults().numColumns( 2 ).equalWidth( true ).applyTo( composite );
     composite.setLayoutData( GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, true ).create() );
@@ -232,7 +232,7 @@ public class AppLauncherDemo implements EntryPoint {
     messageBox.setMessage( "This demo is availaible on mobile devices only." );
     messageBox.setText( "Tabris Demo" );
     shell.open();
-    DialogUtil.open( messageBox, null );
+    messageBox.open( null );
   }
 
   private void applyImage( String file, Button button ) {
@@ -240,4 +240,5 @@ public class AppLauncherDemo implements EntryPoint {
                                 AppLauncherDemo.class.getResourceAsStream( file ) ) );
 
   }
+
 }

@@ -1,9 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2011 EclipseSource and others. All rights reserved. This
- * program and the accompanying materials are made available under the terms of
- * the Eclipse Public License v1.0 which accompanies this distribution, and is
- * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
- * EclipseSource - initial API and implementation
+ * Copyright (c) 2019, 2018 EclipseSource and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.enron;
 
@@ -47,7 +50,6 @@ import com.eclipsesource.tabris.demos.enron.EnronDataset.Folder;
 import com.eclipsesource.tabris.demos.enron.EnronDataset.Node;
 import com.eclipsesource.tabris.device.ClientDevice;
 import com.eclipsesource.tabris.device.ClientDevice.Platform;
-import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class EnronExample {
 
@@ -102,7 +104,6 @@ public class EnronExample {
           mailShell.setBackground( mailShell.getDisplay().getSystemColor( SWT.COLOR_DARK_GRAY ) );
           mailShell.setMaximized( true );
           mailShell.setLayout( new FillLayout() );
-          Widgets.onShell( mailShell ).useAnimation();
           createContentArea( mailShell, mail );
           mailShell.open();
         } catch( IOException exception ) {

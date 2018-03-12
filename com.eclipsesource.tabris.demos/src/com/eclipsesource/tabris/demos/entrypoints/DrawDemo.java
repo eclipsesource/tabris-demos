@@ -562,7 +562,6 @@ public class DrawDemo implements EntryPoint {
         canvas.redraw();
       }
     } );
-    new ToolItem( toolBar, SWT.SEPARATOR );
     final ToolItem opacityToolItem = new ToolItem( toolBar, SWT.PUSH );
     opacityToolItem.setText( "Opaque" );
     opacityToolItem.addListener( SWT.Selection, new Listener() {
@@ -579,7 +578,6 @@ public class DrawDemo implements EntryPoint {
         canvas.redraw();
       }
     } );
-    new ToolItem( toolBar, SWT.SEPARATOR );
     ToolItem colorRedToolItem = new ToolItem( toolBar, SWT.PUSH );
     colorRedToolItem.setText( "Red" );
     colorRedToolItem.addListener( SWT.Selection, new Listener() {
@@ -610,7 +608,6 @@ public class DrawDemo implements EntryPoint {
         canvas.redraw();
       }
     } );
-    new ToolItem( toolBar, SWT.SEPARATOR );
     undoToolItem = new ToolItem( toolBar, SWT.PUSH );
     undoToolItem.setImage( new Image( parent.getDisplay(),
                                       DrawDemo.class.getResourceAsStream( "/undo.png" ) ) );
@@ -636,7 +633,6 @@ public class DrawDemo implements EntryPoint {
         redoToolItem.setEnabled( canvas.hasRedo() );
       }
     } );
-    new ToolItem( toolBar, SWT.SEPARATOR );
     clearToolItem = new ToolItem( toolBar, SWT.PUSH );
     clearToolItem.setText( "Clear" );
     clearToolItem.addListener( SWT.Selection, new Listener() {

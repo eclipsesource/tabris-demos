@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others.
+ * Copyright (c) 2013, 2018 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,6 +34,7 @@ public class KeyboardDemo implements EntryPoint {
 
   Display display;
 
+  @Override
   public int createUI() {
     display = new Display();
     final Shell shell = createShell();
@@ -74,8 +75,8 @@ public class KeyboardDemo implements EntryPoint {
   }
 
   private void createTextFields( Composite comp ) {
-    createLabelText( comp, "Captialize On" ).setAutoCapitalizationEnabled( true );
-    createLabelText( comp, "Captialize Off" ).setAutoCapitalizationEnabled( false );
+    createLabelText( comp, "Captialize On" ).setAutoCapitalization( TextDecorator.AutoCapitalization.ALL );
+    createLabelText( comp, "Captialize Off" ).setAutoCapitalization( TextDecorator.AutoCapitalization.NONE );
     createLabelText( comp, "AutoCorrect On" ).setAutoCorrectionEnabled( true );
     createLabelText( comp, "AutoCorrect Off" ).setAutoCorrectionEnabled( false );
     createLabelText( comp, "ASCII" ).useAsciiKeyboard();

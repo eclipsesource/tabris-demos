@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others.
+ * Copyright (c) 2013, 2018 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,6 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
-import org.eclipse.rap.rwt.widgets.DialogUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -75,6 +74,7 @@ public class SwipeDemo implements EntryPoint {
   private void createSwipeWidget( Composite parent ) {
     DictionarySwipeItemProvider itemProvider = new DictionarySwipeItemProvider();
     Swipe result = new Swipe( parent, itemProvider );
+    result.setCacheSize( 2 );
     GridDataFactory.fillDefaults()
       .grab( true, true )
       .align( SWT.FILL, SWT.FILL )
@@ -104,6 +104,7 @@ public class SwipeDemo implements EntryPoint {
     messageBox.setMessage( "This demo is availaible on mobile devices only." );
     messageBox.setText( "Tabris Demo" );
     shell.open();
-    DialogUtil.open( messageBox, null );
+    messageBox.open( null );
   }
+
 }

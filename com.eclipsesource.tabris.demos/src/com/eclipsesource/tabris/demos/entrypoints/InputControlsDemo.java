@@ -43,6 +43,7 @@ public class InputControlsDemo implements EntryPoint {
   private Button vegetarianCheckbox;
   private Label flightLabel;
 
+  @Override
   public int createUI() {
     Display display = new Display();
     Shell shell = new Shell( display, SWT.NO_TRIM );
@@ -58,7 +59,7 @@ public class InputControlsDemo implements EntryPoint {
     Composite content = new Composite( parent, SWT.NONE );
     GridLayoutFactory.fillDefaults().spacing( 0, 0 ).applyTo( content );
     createToolBar( content );
-    
+
     Composite container = new Composite( content, SWT.NONE );
     GridLayoutFactory.fillDefaults().numColumns( 2 ).margins( 15, 15 ).spacing( 5, 5 ).applyTo( container );
     GridDataFactory.fillDefaults().align( SWT.FILL, SWT.FILL ).grab( true, false ).applyTo( container );
@@ -207,7 +208,7 @@ public class InputControlsDemo implements EntryPoint {
     GridLayout layout
       = GridLayoutFactory.fillDefaults().margins( 1, 10 ).spacing( 0, 0 ).create();
     labelParent.setLayout( layout );
-    flightLabel = new Label( labelParent, SWT.NONE );
+    flightLabel = new Label( labelParent, SWT.WRAP );
     flightLabel.setForeground( parent.getDisplay().getSystemColor( SWT.COLOR_BLACK ) );
     GridData layoutData = new GridData( SWT.FILL, SWT.FILL, true, true );
     flightLabel.setLayoutData( layoutData );
@@ -219,7 +220,7 @@ public class InputControlsDemo implements EntryPoint {
     dialog.setMessage( "Do you really want to place\na reservation?" );
     dialog.setButton( ButtonType.CANCEL, "No" );
     dialog.setButton( ButtonType.OK, "Yes", new Listener() {
-      
+
       @Override
       public void handleEvent( Event event ) {
         StringBuilder stringBuilder = new StringBuilder();

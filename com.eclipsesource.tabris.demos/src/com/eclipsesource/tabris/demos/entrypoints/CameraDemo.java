@@ -1,9 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2013 EclipseSource and others. All rights reserved. This
- * program and the accompanying materials are made available under the terms of
- * the Eclipse Public License v1.0 which accompanies this distribution, and is
- * available at http://www.eclipse.org/legal/epl-v10.html Contributors:
- * EclipseSource - initial API and implementation
+ * Copyright (c) 2013, 2018 EclipseSource and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    EclipseSource - initial API and implementation
  ******************************************************************************/
 package com.eclipsesource.tabris.demos.entrypoints;
 
@@ -15,8 +18,6 @@ import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.service.ResourceManager;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
@@ -38,14 +39,11 @@ import com.eclipsesource.tabris.camera.CameraOptions;
 import com.eclipsesource.tabris.camera.PhotoAlbum;
 import com.eclipsesource.tabris.camera.PhotoAlbumListener;
 import com.eclipsesource.tabris.camera.PhotoAlbumOptions;
-import com.eclipsesource.tabris.print.PrintOptions;
-import com.eclipsesource.tabris.print.Printer;
 import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class CameraDemo implements EntryPoint {
 
   private Label imageLabel;
-  private ToolItem printAction;
 
   @Override
   public int createUI() {
@@ -86,10 +84,8 @@ public class CameraDemo implements EntryPoint {
   private void handleImage( Image image ) {
     if( image == null ) {
       imageLabel.setText( "Could not provide image from camera" );
-      printAction.setEnabled( false );
     } else {
       imageLabel.setImage( image );
-      printAction.setEnabled( true );
     }
   }
 
@@ -112,24 +108,6 @@ public class CameraDemo implements EntryPoint {
     ToolItem toolItem = new ToolItem( toolBar, SWT.NONE );
     toolItem.setText( "Camera Demo" );
     Widgets.onToolItem( toolItem ).useAsTitle();
-    createPrintToolItem( toolBar );
-  }
-
-  void createPrintToolItem( ToolBar toolBar ) {
-    printAction = new ToolItem( toolBar, SWT.NONE );
-    printAction.setText( "Print" );
-    printAction.setEnabled( false );
-    printAction.addSelectionListener( new SelectionAdapter() {
-      @Override
-      public void widgetSelected( SelectionEvent e ) {
-        Printer printer = RWT.getClient().getService( Printer.class );
-        if( printer != null ) {
-          Image image = imageLabel.getImage();
-          String url = swtImageAsPNGResourceURL( image );
-          printer.print( url, new PrintOptions() );
-        }
-      }
-    } );
   }
 
   private Composite createMainComp( final Shell shell ) {
@@ -210,4 +188,5 @@ public class CameraDemo implements EntryPoint {
     manager.register( name, new ByteArrayInputStream( outputStream.toByteArray() ) );
     return manager.getLocation( name );
   }
+
 }
