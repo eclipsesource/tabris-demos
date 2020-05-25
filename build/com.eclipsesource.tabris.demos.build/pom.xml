@@ -37,9 +37,9 @@
 
 	<repositories>
 		<repository>
-			<id>eclipse-milestones</id>
+			<id>tabris-repo</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/eclipse/updates/4.2</url>
+			<url>http://download.eclipsesource.com/technology/tabris/downloads/releases/3.12.0</url>
 		</repository>
 	</repositories>
 
@@ -63,35 +63,22 @@
 				</configuration>
 			</plugin>
 
-			<!-- Configure tycho to use p2 to get the target -->
-      <plugin>
-        <groupId>${tycho-groupid}</groupId>
-        <artifactId>target-platform-configuration</artifactId>
-        <version>${tycho-version}</version>
-        <configuration>
-          <resolver>p2</resolver>
-          <pomDependencies>consider</pomDependencies>
-          <ignoreTychoRepositories>true</ignoreTychoRepositories>
-          <target>
-            <artifact>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>${project.artifactId}</artifactId>
-              <version>${project.version}</version>
-              <classifier>${project.parent.relativePath}/../../com.eclipsesource.tabris.demos/tabris</classifier>
-            </artifact>
-            <dependency-resolution>
-              <optionalDependencies>ignore</optionalDependencies>
-            </dependency-resolution>
-          </target>
-          <environments>
-            <environment>
-              <os>linux</os>
-              <ws>gtk</ws>
-              <arch>x86</arch>
-            </environment>
-          </environments>
-        </configuration>
-      </plugin>
+			<!-- Restrict to environment to enable platform independent war-build -->
+		    <plugin>
+		        <groupId>org.eclipse.tycho</groupId>
+		        <artifactId>target-platform-configuration</artifactId>
+		        <version>${tycho-version}</version>
+		        <configuration>
+		            <resolver>p2</resolver>
+		            <environments>
+		                <environment>
+		                    <os>linux</os>
+		                    <ws>gtk</ws>
+		                    <arch>x86_64</arch>
+		                </environment>
+		            </environments>
+		        </configuration>
+		    </plugin>
 
 			<!-- Configure qualifier replacement -->
 			<plugin>

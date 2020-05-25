@@ -39,30 +39,39 @@
             </goals>
           </execution>
         </executions>
-	    </plugin>
+	  </plugin>
 
-	    <!-- Remove javax.servlet from the bundles.info -->
-		<plugin>
-			<groupId>com.google.code.maven-replacer-plugin</groupId>
-			<artifactId>maven-replacer-plugin</artifactId>
-			<version>${replacer-version}</version>
-			<executions>
-				<execution>
-					<phase>verify</phase>
-					<goals>
-						<goal>replace</goal>
-					</goals>
-				</execution>
-			</executions>
-			<configuration>
-				<file>target/products/${project.artifactId}/linux/gtk/x86/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info</file>
-				<token>javax\.servlet.*false|org\.hamcrest.*false|org\.junit.*false</token>
-				<regexFlags>
-					<regexFlag>CASE_INSENSITIVE</regexFlag>
-					<regexFlag>UNIX_LINES</regexFlag>
-				</regexFlags>
-			</configuration>
-		</plugin>
+	  <!-- Remove javax.servlet from the bundles.info -->
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>maven-replacer-plugin</artifactId>
+        <version>${replacer-version}</version>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <file>target/products/${project.artifactId}/linux/gtk/x86_64/configuration/config.ini</file>
+          <replacements>
+            <replacement>
+              <token>osgi.bundles=</token>
+              <value>osgi.bundles=org.eclipse.equinox.servletbridge.extensionbundle,</value>
+            </replacement>
+            <replacement>
+              <token>reference\\:file\\:javax.servlet.*?jar@4,</token>
+              <value></value>
+            </replacement>
+          </replacements>
+          <regexFlags>
+            <regexFlag>CASE_INSENSITIVE</regexFlag>
+            <regexFlag>UNIX_LINES</regexFlag>
+          </regexFlags>
+        </configuration>
+      </plugin>
 
       <!-- Configure the assembly plugin to zip the war file -->
       <plugin>

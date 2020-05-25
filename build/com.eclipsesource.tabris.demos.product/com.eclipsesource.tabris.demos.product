@@ -31,9 +31,10 @@
    <configurations>
       <plugin id="com.eclipsesource.tabris" autoStart="true" startLevel="3" />
       <plugin id="com.eclipsesource.tabris.demos" autoStart="true" startLevel="0" />
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.http.registry" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.http.servletbridge" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.osgi.services" autoStart="true" startLevel="1" />
       <plugin id="org.eclipse.rap.rwt" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.rap.rwt.osgi" autoStart="true" startLevel="0" />
