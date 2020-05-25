@@ -1,14 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde version="3.8"?><target name="Tabris for RAP 3.6" sequenceNumber="55">
-    <locations>
-	    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-		    <unit id="com.eclipsesource.tabris.feature.feature.group" version="3.6.0.20190125-1122"/>
-		    <unit id="com.eclipsesource.tabris.feature.source.feature.group" version="3.6.0.20190125-1122"/>
-		    <unit id="com.eclipsesource.tabris.passepartout.feature.feature.group" version="0.10.0.20140528-0903"/>
-		    <unit id="com.eclipsesource.tabris.passepartout.feature.source.feature.group" version="0.10.0.20140528-0903"/>
-		    <unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.6.0.20180912-0820"/>
-		    <unit id="org.eclipse.rap.feature.feature.group" version="3.6.0.20180905-0859"/>
-		    <unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.6.0.20180905-0859"/>
-		    <repository location="http://download.eclipsesource.com/technology/tabris/downloads/releases/3.6.0/"/>
-	    </location>
-    </locations>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="Tabris for RAP 3.12" sequenceNumber="55">
+	<locations>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+			<repository location="http://download.eclipsesource.com/technology/tabris/downloads/releases/3.12.0/"/>
+			<unit id="com.eclipsesource.tabris.feature.feature.group" version="3.12.0.20200525-0854"/>
+			<unit id="com.eclipsesource.tabris.feature.source.feature.group" version="3.12.0.20200525-0854"/>
+			<unit id="com.eclipsesource.tabris.passepartout.feature.feature.group" version="0.10.0.20140528-0903"/>
+			<unit id="com.eclipsesource.tabris.passepartout.feature.source.feature.group" version="0.10.0.20140528-0903"/>
+			<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.12.0.20200309-1200"/>
+			<unit id="org.eclipse.rap.feature.feature.group" version="3.12.0.20200306-0915"/>
+			<unit id="org.eclipse.rap.sdk.feature.feature.group" version="3.12.0.20200306-0915"/>
+		</location>
+	</locations>
 </target>
