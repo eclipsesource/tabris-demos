@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012, 2018 EclipseSource and others.
+ * Copyright (c) 2012, 2021 EclipseSource and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import com.eclipsesource.tabris.demos.entrypoints.GalleryDemo;
 import com.eclipsesource.tabris.demos.entrypoints.GeolocationDemo;
 import com.eclipsesource.tabris.demos.entrypoints.InputControlsDemo;
 import com.eclipsesource.tabris.demos.entrypoints.KeyboardDemo;
+import com.eclipsesource.tabris.demos.entrypoints.PdfDemo;
 import com.eclipsesource.tabris.demos.entrypoints.ScrollDemo;
 import com.eclipsesource.tabris.demos.entrypoints.SimpleTreeDemo;
 import com.eclipsesource.tabris.demos.entrypoints.SwipeDemo;
@@ -47,6 +48,7 @@ public class Configuration implements ApplicationConfiguration {
     application.addEntryPoint( "/camera", CameraDemo.class, null );
     application.addEntryPoint( "/keyboard", KeyboardDemo.class, null );
     application.addEntryPoint( "/video", VideoDemo.class, null );
+    application.addEntryPoint( "/pdf", PdfDemo.class, null );
     application.addEntryPoint( "/launcher", AppLauncherDemo.class, null );
     application.addEntryPoint( "/appevents", AppEventsDemo.class, null );
     application.addEntryPoint( "/swipe", SwipeDemo.class, null );
