@@ -227,7 +227,7 @@ public class EnronExample {
           sender = line.substring( "From:".length() ).trim();
         } else if( line.startsWith( "Subject:" ) ) {
           subject = line.substring( "Subject:".length() ).trim();
-        } else if( "".equals( line.trim() ) ) {
+        } else if( line.trim().isEmpty() ) {
           headerFinished = true;
         }
       }
