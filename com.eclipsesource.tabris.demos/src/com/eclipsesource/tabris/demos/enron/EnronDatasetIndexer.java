@@ -102,7 +102,7 @@ class EnronDatasetIndexer {
         if( indexOfSubject != -1 ) {
           subjectFound = true;
           String subjectText = line.substring( indexOfSubject + subject.length(), line.length() );
-          if( !"".equals( subjectText ) ) {
+          if( !( subjectText != null && subjectText.isEmpty() ) ) {
             result[ 0 ] = subjectText;
           }
         }
@@ -110,7 +110,7 @@ class EnronDatasetIndexer {
         if( indexOfFrom != -1 ) {
           fromFound = true;
           String fromText = line.substring( indexOfFrom + from.length(), line.length() );
-          if( !"".equals( fromText ) ) {
+          if( !( fromText != null && fromText.isEmpty() ) ) {
             result[ 1 ] = fromText;
           }
         }
